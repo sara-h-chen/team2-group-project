@@ -15,5 +15,6 @@ class Location(models.Model):
 
 def save(self, *args, **kwargs):
     options = self.locationName and {'Location Name': self.locationName} or {}
+    ycoordinate = self.ycoordinate and 'table' or False
     xcoordinate = self.xcoordinate and 'table' or False
     super(Location, self).save(*args, **kwargs)
