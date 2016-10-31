@@ -1,0 +1,31 @@
+{
+  "name": "team2-group-project",
+  "version": "0.0.0",
+  "description": "Integrating webpack-plus and Reactjs with Django",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sara-h-chen/team2-group-project.git"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "Sara Chen <sara.h.chen@durham.ac.uk>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/sara-h-chen/team2-group-project/issues"
+  },
+  "devDependencies": {
+    "babel": "~6.5.2",
+    "webpack-bundle-tracker": "0.0.93",
+    "webpack": "~1.13.3",
+    "react": "~15.3.2",
+    "babel-core": "~6.18.0",
+    "babel-loader": "~6.2.7",
+    "webpack-dev-server": "~1.16.2",
+    "react-hot-loader": "~3.0.0-beta.6"
+  }
+}

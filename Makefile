@@ -23,3 +23,15 @@ installGeospatial:
 	./configure
 	make
 	sudo make install
+
+npminstall:
+	cd website/backend/geodjango
+	npm install --save-dev react webpack webpack-bundle-tracker babel babel-loader
+	npm install --save-dev webpack-dev-server react-hot-loader
+
+djangointegration:
+	pip install django-webpack-loader
+
+buildwebpack:
+	./node_modules/.bin/webpack --config webpack.config.js
+

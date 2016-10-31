@@ -27,6 +27,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Stored so that django's collectstatic copies of our bundles to the STATIC_ROOT or syncs them to whatever storage we use.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'assets'),
+)
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+     }
+}
 
 # Application definition
 
@@ -40,6 +51,7 @@ INSTALLED_APPS = [
     #'django.contrib.gis',
     'rest_framework',
     'location.apps.LocationConfig',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -106,6 +118,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Allows SQLite to use Spatialite
 SPATIALITE_LIBRARY_PATH='/usr/local/lib/mod_spatialite.dylib'
+
+# Pagination - Sets the number of results on a page returned by the REST API
+REST_FRAMEWORK= {
+	'PAGE_SIZE': 10
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
