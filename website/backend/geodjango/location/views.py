@@ -8,13 +8,16 @@ from rest_framework.reverse import reverse
 from rest_framework import viewsets
 from django.contrib.auth.models import User
 
-class LocationViewSet(generics.ListCreateAPIView):
+class LocationViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy' 
     """
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, 
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,) 
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
@@ -23,9 +26,3 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': reverse('user-list', request=request, format=format),
-        'location': reverse('location-list', request=request, format=format)
-    })
