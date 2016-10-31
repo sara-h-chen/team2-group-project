@@ -1,49 +1,26 @@
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from location.models import Location
-from location.serializers import LocationSerializer
+from location.serializers import LocationSerializer, UserSerializer
+from location.permissions import IsOwnerOrReadOnly
+from rest_framework import generics, permissions
+from django.contrib.auth.models import User
 
-# Create your views here.
+class LocationList(generics.ListCreateAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
-@api_view(['GET', 'POST'])
-def location_list(request, format=None):
-    """
-    List all locations, or create a new location
-    """
-    if request.method == 'GET':
-        locations = Location.objects.all()
-        serializer = LocationSerializer(locations, many=True)
-        return Response(serializer.data)
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
-    elif request.method == 'POST':
-        serializer = LocationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
-@api_view(['GET','PUT','DELETE'])
-def location_detail(request, pk, format=None):
-    """
-    Retrieve, update or delete a location
-    """
-    try:
-        location = Location.objects.get(pk=pk)
-    except Location.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+class UserList(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    if request.method == 'GET':
-        serializer = LocationSerializer(location)
-        return Response(serializer.data)
-
-    elif request.method == 'PUT':
-        serializer = LocationSerializer(location, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        location.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+class UserDetail(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

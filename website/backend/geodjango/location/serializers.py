@@ -1,24 +1,16 @@
 from rest_framework import serializers
 from location.models import Location
+from django.contrib.auth.models import User
 
 class LocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Location
-        fields = ('locationName', 'xcoordinate', 'ycoordinate')
+        fields = ('locationName', 'xcoordinate', 'ycoordinate', 'owner')
+        owner = serializers.ReadOnlyField(source='owner.username')
 
-    #id = serializers.IntegerField(read_only=True)
-    #locationName = serializers.CharField(required=False, allow_blank=True, max_length=200)
+class UserSerializer(serializers.ModelSerializer):
+    location = serializers.PrimaryKeyRelatedField(many=True, queryset=Location.objects.all())
 
-    #def create(self, validated_data):
-    #    """
-    #    Create and return a new 'Location' instance, given the validated data
-    #    """
-    #    return Location.objects.create(**validated_data)
-
-    #def update(self, instance, validated_data):
-    #    """
-    #    Update and return an existing 'Location' instance, given the validated data
-    #    """
-    #    instance.locationName = validated_data.get('locationName', instance.locationName)
-    #    instance.save()
-    #    return instance
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'location')
