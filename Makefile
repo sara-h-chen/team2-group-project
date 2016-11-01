@@ -31,6 +31,7 @@ npminstall:
 
 djangointegration:
 	pip install django-webpack-loader
+	pip install coreapi
 
 buildwebpack:
 	./node_modules/.bin/webpack --config webpack.config.js

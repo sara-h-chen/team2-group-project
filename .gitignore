@@ -1,0 +1,5 @@
+website/backend/geodjango/node_modules/
+assets/bundles/
+webpack-stats.json
+.idea
+env/
