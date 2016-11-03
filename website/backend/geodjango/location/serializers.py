@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from location.models import Location
+from location.models import Location, Test
 from django.contrib.auth.models import User
 
 class LocationSerializer(serializers.ModelSerializer):
@@ -14,3 +14,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'location')
+
+class TestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Test
+        fields = ('ratings', 'name', 'location')

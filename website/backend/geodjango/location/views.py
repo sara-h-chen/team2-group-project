@@ -1,5 +1,5 @@
-from location.models import Location
-from location.serializers import LocationSerializer, UserSerializer
+from location.models import Location, Test
+from location.serializers import LocationSerializer, UserSerializer, TestSerializer
 from location.permissions import IsOwnerOrReadOnly
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view
@@ -26,3 +26,13 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+class TestViewSet(viewsets.ModelViewSet):
+    """
+    This viewset automatically provides 'list', 'create', 'retrieve', 'update' and 'destroy'
+    """
+    queryset = Test.objects.all()
+    serializer_class = TestSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
+
+    def perform_create(self, serializer):
+        serializer.save(owner = self.request.user)

@@ -9,6 +9,7 @@ schema_view = get_schema_view(title='Food Bank API')
 router = DefaultRouter()
 router.register(r'location', views.LocationViewSet)
 router.register(r'users', views.UserViewSet)
+router.register(r'test', views.TestViewSet)
 
 # The API URLs are now determined automatically by the router
 # We include the login URLs for the browsable API

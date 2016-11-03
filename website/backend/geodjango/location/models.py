@@ -18,3 +18,10 @@ def save(self, *args, **kwargs):
     ycoordinate = self.ycoordinate and 'table' or False
     xcoordinate = self.xcoordinate and 'table' or False
     super(Location, self).save(*args, **kwargs)
+
+class Test(models.Model):
+    ratings = ((1,1),(2,2),(3,3),(4,4),(5,5))
+    userNumber = models.AutoField(primary_key=True)
+    name = models.CharField('Name', max_length=200)
+    location = models.FloatField("Location")
+    rating = models.IntegerField(choices = ratings)
