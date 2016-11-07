@@ -25,3 +25,24 @@ class Test(models.Model):
     name = models.CharField('Name', max_length=200)
     location = models.FloatField("Location")
     rating = models.IntegerField(choices = ratings)
+
+class UserDB(models.Model):
+    name = models.CharField(max_length=200)
+    longditude = models.FloatField()
+    latitude = models.FloatField()
+    one = 1
+    two = 2
+    three = 3
+    four = 4
+    five=5
+    RATING_CHOICES = (
+        (one, 'One'),
+        (two, 'Two'),
+        (three, 'Three'),
+        (four, 'Four'),
+        (five, 'Five'),
+    )
+    user_rating = models.IntegerField(
+        choices=RATING_CHOICES,
+        default=three,
+    )
