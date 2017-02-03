@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'rest_framework',
+    'backend.apps.BackendConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,11 +78,16 @@ WSGI_APPLICATION = 'courgette.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sarachen$courgette',
-        'USER': 'sarachen',
-        'PASSWORD': 'courgette',
-        'HOST': 'sarachen.mysql.pythonanywhere-services.com',
-	'PORT': ''
+        'NAME': 'django_db', 
+        'USER': 'admin',
+        'PASSWORD': 'Courgette_Team_2',
+        'HOST': 'localhost',
+        'PORT': ''
+        #'NAME': 'sarachen$courgette',
+        #'USER': 'sarachen',
+        #'PASSWORD': 'courgette',
+        #'HOST': 'sarachen.mysql.pythonanywhere-services.com',
+	#'PORT': ''
     }
 }
 
