@@ -9,7 +9,6 @@ class Food(models.Model):
         unique_together = (('food_name', 'quantity'),)
     food_name = models.CharField(max_length=50)
     quantity = models.IntegerField(default=1)
-    date_listed = models.DateTimeField('Date listed')
     FOOD_TYPES = (
         ('VEGE', 'Vegetables'),
         ('SEAFOOD', 'Seafood'),

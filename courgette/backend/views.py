@@ -1,11 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse 
 from django.template import loader
-# from rest_framework import generics
+from rest_framework import generics
 
 from backend.models import User, Food
+from backend.serializers import FoodSerializer
 
-# Create your views here.
+###################################################################
+#                     VIEWS IN REGULAR DJANGO                     #
+###################################################################
 
 def index(request):
     # RETURN INDEX HTML PAGE ON COMMUNITY.DUR.AC.UK
@@ -32,7 +35,7 @@ def user_page(request, username):
     # })
     # output = template.render(variables)
     # return HttpResponse(output)
-#########################################################################
+
 # TEMPLATE PAGES ARE JUST PLAIN HTML DOCS AND SHOULD FOLLOW THIS FORMAT #
 #########################################################################
 #     < html >                                                          #
@@ -55,4 +58,10 @@ def user_page(request, username):
 #     { % endif %}                                                      #
 #     < / body >                                                        #
 #     < / html >                                                        #
+
 #########################################################################
+#                VIEWS USING CLASS-BASED DJANGO REST                    #
+#########################################################################
+class FoodList(generics.ListCreateAPIView):
+    queryset = Food.objects.all()
+    serializer_class = FoodSerializer

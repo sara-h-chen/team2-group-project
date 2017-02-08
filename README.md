@@ -19,3 +19,7 @@ The following packages are required to run the Django REST framework, and they c
 
 `make djangointegration`
 
+The user credentials that can be used to access the Admin page:
+Username: admin
+Email address: cs-seg2@durham.ac.uk
+Password: courgette
