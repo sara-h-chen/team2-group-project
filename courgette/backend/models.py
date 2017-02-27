@@ -35,6 +35,7 @@ class Food(models.Model):
         ('UNAVAILABLE', 'Unavailable')
     )
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
+    location = models.CharField(max_length=200)
     picture = models.FileField(upload_to='images/%Y/%m/%d')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -44,7 +45,6 @@ class Food(models.Model):
 class User(models.Model):
     username = models.CharField(max_length=20, primary_key=True)
     password = models.CharField(max_length=200)
-    location = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
 
     def __str__(self):
