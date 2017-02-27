@@ -36,6 +36,7 @@ class Food(models.Model):
     )
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
     picture = models.FileField(upload_to='images/%Y/%m/%d')
+    food_listed = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.food_name + " " + self.quantity
@@ -45,8 +46,7 @@ class User(models.Model):
     password = models.CharField(max_length=200)
     location = models.CharField(max_length=200)
     email = models.CharField(max_length=100)
-    food_listed = models.ForeignKey(Food, on_delete=models.CASCADE)
-    
+
     def __str__(self):
         return self.username
 
