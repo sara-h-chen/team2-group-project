@@ -36,7 +36,7 @@ class Food(models.Model):
     )
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
     picture = models.FileField(upload_to='images/%Y/%m/%d')
-    food_listed = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.food_name + " " + self.quantity
@@ -54,4 +54,4 @@ class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender")
     receiver = models.ForeignKey(User, related_name="receiver")
     msg_content = models.TextField
-    created_at = models.TimeField         
+    created_at = models.TimeField
