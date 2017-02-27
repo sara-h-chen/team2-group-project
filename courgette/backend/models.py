@@ -55,3 +55,4 @@ class Message(models.Model):
     receiver = models.ForeignKey(User, related_name="receiver")
     msg_content = models.TextField
     created_at = models.TimeField
+    read = models.BooleanField
