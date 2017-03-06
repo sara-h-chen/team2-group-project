@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.template import loader
-from rest_framework import generics
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
+from rest_framework.renderers import JSONRenderer
 
-from backend.models import User, Food
-from backend.serializers import FoodSerializer
+from serializers import FoodSerializer
+from models import User, Food
 
 ###################################################################
 #                     VIEWS IN REGULAR DJANGO                     #
@@ -24,16 +24,17 @@ def search(request):
     output='search'
     return HttpResponse(output)
 
-def search(request):
+def notification(request):
     output='notifcation'
     return HttpResponse(output)
+
 # GETS THE USERNAME FROM THE URL AS A PARAM
 def user_page(request, username):
     # GET PARTICULAR USER FROM DB BASED ON PARAM
     try:
         user = User.objects.get(username=username)
     except:
-        raise Http404('Requested user not found.')
+        raise HttpResponse('Requested user not found.')
     # food = user.product_set.all()
     # template = loader.get_template('pagehere.html')
     # variables = Context({
@@ -69,6 +70,27 @@ def user_page(request, username):
 #########################################################################
 #                VIEWS USING CLASS-BASED DJANGO REST                    #
 #########################################################################
-class FoodList(generics.ListCreateAPIView):
-    queryset = Food.objects.all()
-    serializer_class = FoodSerializer
+
+class JSONResponse(HttpResponse):
+    """
+    A HttpResponse that renders content into JSON
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
+
+@csrf_exempt
+def food_list(request):
+    if request.method == 'GET':
+        allFoods = Food.objects.all()
+        serializer = FoodSerializer(allFoods, many=True)
+        return JSONResponse(serializer.data)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = FoodSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=201)
+        return JSONResponse(serializer.errors, status=400)

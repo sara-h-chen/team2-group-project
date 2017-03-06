@@ -16,6 +16,7 @@ class Food(models.Model):
         unique_together = (('food_name', 'quantity'),)
     food_name = models.CharField(max_length=50)
     quantity = models.IntegerField(default=1)
+    date_listed = models.DateField(auto_now=True, auto_now_add=False)
     FOOD_TYPES = (
         ('VEGE', 'Vegetables'),
         ('SEAFOOD', 'Seafood'),
@@ -42,9 +43,9 @@ class Food(models.Model):
         ('UNAVAILABLE', 'Unavailable')
     )
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
-    location = models.CharField(max_length=200)
-    picture = models.FileField(upload_to='images/%Y/%m/%d')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    # location = models.CharField(max_length=200,default='Durham')
+    # picture = models.FileField(upload_to='images/%Y/%m/%d')
+    user = models.ForeignKey(User,default="root",on_delete=models.CASCADE)
 
     def __str__(self):
         return self.food_name + " " + self.quantity
