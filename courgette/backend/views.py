@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse 
+from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from rest_framework import generics
 
@@ -20,6 +20,13 @@ def food_listing(request):
     output = ', '.join([food.food_name for food in latest_food_requests])
     return HttpResponse(output)
 
+def search(request):
+    output='search'
+    return HttpResponse(output)
+
+def search(request):
+    output='notifcation'
+    return HttpResponse(output)
 # GETS THE USERNAME FROM THE URL AS A PARAM
 def user_page(request, username):
     # GET PARTICULAR USER FROM DB BASED ON PARAM
