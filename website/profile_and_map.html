@@ -10,28 +10,27 @@
 <div id="profile_menu" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
   <img id="user_profile_pic" src="profile_example.png">
-  <form id="user_item_list">
+  <div id="user_item_list">
     <select id="select_item" size="10">
 	  <option>Dummy</option>
 	  <option>Data</option>
 	  <option>Blah</option>
 	</select>
-  </form>
+  </div>
   <a href="#">Messages</a>
   <a onclick="addItem()">Add Item</a>
 </div>
 
 <div id="item_menu" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeItemMenu()">&times;</a>
-  <form id="community_item_list">
+  <div id="community_item_list">
     <select id="view_items" size="10">
 	  <option>Dummy</option>
 	  <option>Data</option>
 	  <option>Blah</option>
 	</select>
-  </form>
-  <a href="#">Search</a>
-  <a href="#">Items</a>
+  </div>
+  <button id="search_button">Search</button>
 </div>
 
 <!-- Use any element to open the sidenav -->
