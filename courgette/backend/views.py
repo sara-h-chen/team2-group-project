@@ -4,63 +4,54 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 
+from django.contrib.auth.models import User
 from serializers import FoodSerializer, MessageSerializer, UserSerializer
-from models import User, Food, Message
+from models import Food, Message
 
-###################################################################
-#                     VIEWS IN REGULAR DJANGO                     #
-###################################################################
+
+#########################################################
+#                USER-RELATED QUERIES                   #
+#########################################################
 
 
 def index(request):
-    # RETURN INDEX HTML PAGE ON COMMUNITY.DUR.AC.UK
+    # TODO: Return index page/remove this
     return HttpResponse("Placeholder simple Index page.")
 
 
-# RETURNS FOOD LISTING
-def food_listing(request):
-    latest_food_requests = Food.objects.order_by('Date listed')
-    output = ', '.join([food.food_name for food in latest_food_requests])
-    return HttpResponse(output)
+## UNUSED: RETURNS FOOD LISTING (for reference only!)
+# def food_listing(request):
+#     latest_food_requests = Food.objects.order_by('Date listed')
+#     output = ', '.join([food.food_name for food in latest_food_requests])
+#     return HttpResponse(output)
 
 
+# TODO: Implement a Search functionality?
 def search(request):
     output = 'search'
     return HttpResponse(output)
 
 
-def notification(request):
-    output = 'notifcation'
-    return HttpResponse(output)
-
-
-# GETS THE USERNAME FROM THE URL AS A PARAM
-def user_page(request, username):
-    # GET PARTICULAR USER FROM DB BASED ON PARAM
+# TODO: Return all users instead?
+# Gets the username from the URL as a param
+def findUser(request, username):
+    # Get particular user from db based on param
+    # Returns username and email
     try:
         user = User.objects.get(username=username)
         serializer = UserSerializer(user)
         return JSONResponse(serializer.data)
     except:
-        return HttpResponse(404)
+        return HttpResponse('User not found')
 
 
-#########################################################################
-#                VIEWS USING CLASS-BASED DJANGO REST                    #
-#########################################################################
+#########################################################
+#                FOOD-RELATED QUERIES                   #
+#########################################################
 
-
-class JSONResponse(HttpResponse):
-    """
-    A HttpResponse that renders content into JSON
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
 
 @csrf_exempt
-def food_list(request, location):
+def foodList(request, location):
     if request.method == 'GET':
         allFoods = Food.objects.filter(location=location)
         serializer = FoodSerializer(allFoods, many=True)
@@ -75,10 +66,42 @@ def food_list(request, location):
         return JSONResponse(serializer.errors, status=400)
 
 
+#########################################################
+#               MESSAGE-RELATED QUERIES                 #
+#########################################################
+
+
+# Returns number of unread messages
+def unreadMessages(request, username):
+    try:
+        unreadMessages = Message.objects.filter(receiver=username, read=False).count()
+        serialized = JSONRenderer().render(unreadMessages)
+        return JSONResponse(serialized)
+    except:
+        return HttpResponse('User not found')
+
+
+# Gets all the messages for current user and returns it
 def getMessages(request, username):
     try:
         messageList = Message.objects.filter(sender=username)
         serializer = MessageSerializer(messageList, many=True)
         return JSONResponse(serializer.data)
     except Message.DoesNotExist:
-        return JSONResponse(status=status.HTTP_404_NOT_FOUND)
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+
+##########################################################
+#               DJANGO REST UTILITIES                    #
+##########################################################
+
+
+class JSONResponse(HttpResponse):
+    """
+    A HttpResponse that renders content into JSON
+    """
+    def __init__(self, data, **kwargs):
+        content = JSONRenderer().render(data)
+        kwargs['content_type'] = 'application/json'
+        super(JSONResponse, self).__init__(content, **kwargs)
+

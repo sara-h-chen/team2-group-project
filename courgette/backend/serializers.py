@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from models import User, Food, Message
-
+from models import Food, Message
+from django.contrib.auth.models import User
 
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,3 +18,9 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ('sender', 'receiver', 'msg_content', 'created_at', 'read')
+
+
+class UserCreationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'password', 'email')
