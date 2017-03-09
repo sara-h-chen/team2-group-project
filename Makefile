@@ -10,6 +10,9 @@ setVirtualEnv:
 	virtualenv env
 	source env/bin/activate
 
+virenv:
+	source django/bin/activate
+
 djangointegration:
 	pip install coreapi
 
