@@ -4,8 +4,9 @@ import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^food/$', views.food_list),
+    url(r'^food/(?P<location>[a-zA-Z]+)/$', views.food_list),
     # url(r'^search/(?P<type>[0-4]{1})/$', views.search, name='search'),
     # url(r'^courgette/(?P<userID>[0-4]{5})/$', views.notifcation, name='notifcations')
-    # url(r'^(?P<username>[[a-zA-Z0-9]+)/$', views.user_page, name='user_page'),
+    url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages$', views.getMessages),
+    url(r'^user/(?P<username>[a-zA-Z0-9]+)/$', views.user_page, name='user_page'),
 ]

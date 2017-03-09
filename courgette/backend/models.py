@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 # Create your models here.
 class User(models.Model):
     username = models.CharField(max_length=20, primary_key=True)
@@ -10,6 +11,7 @@ class User(models.Model):
 
     def __str__(self):
         return self.username
+
 
 class Food(models.Model):
     class Meta:
@@ -43,18 +45,17 @@ class Food(models.Model):
         ('UNAVAILABLE', 'Unavailable')
     )
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
-    # location = models.CharField(max_length=200,default='Durham')
+    location = models.CharField(max_length=200,default='Durham')
     # picture = models.FileField(upload_to='images/%Y/%m/%d')
-    user = models.ForeignKey(User,default="root",on_delete=models.CASCADE)
+    user = models.ForeignKey(User,default="user",on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.food_name + " " + self.quantity
-
+        return self.food_name + " " + str(self.quantity)
 
 
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender")
     receiver = models.ForeignKey(User, related_name="receiver")
     msg_content = models.TextField
-    created_at = models.TimeField
-    read = models.BooleanField
+    created_at = models.TimeField(auto_now_add=True, blank=True)
+    read = models.BooleanField(default=False)

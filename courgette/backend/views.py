@@ -2,17 +2,20 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
+from rest_framework import status
 
-from serializers import FoodSerializer
-from models import User, Food
+from serializers import FoodSerializer, MessageSerializer, UserSerializer
+from models import User, Food, Message
 
 ###################################################################
 #                     VIEWS IN REGULAR DJANGO                     #
 ###################################################################
 
+
 def index(request):
     # RETURN INDEX HTML PAGE ON COMMUNITY.DUR.AC.UK
     return HttpResponse("Placeholder simple Index page.")
+
 
 # RETURNS FOOD LISTING
 def food_listing(request):
@@ -20,56 +23,32 @@ def food_listing(request):
     output = ', '.join([food.food_name for food in latest_food_requests])
     return HttpResponse(output)
 
+
 def search(request):
-    output='search'
+    output = 'search'
     return HttpResponse(output)
 
+
 def notification(request):
-    output='notifcation'
+    output = 'notifcation'
     return HttpResponse(output)
+
 
 # GETS THE USERNAME FROM THE URL AS A PARAM
 def user_page(request, username):
     # GET PARTICULAR USER FROM DB BASED ON PARAM
     try:
         user = User.objects.get(username=username)
+        serializer = UserSerializer(user)
+        return JSONResponse(serializer.data)
     except:
-        raise HttpResponse('Requested user not found.')
-    # food = user.product_set.all()
-    # template = loader.get_template('pagehere.html')
-    # variables = Context({
-    #     'username': username,
-    #     'food': food
-    # })
-    # output = template.render(variables)
-    # return HttpResponse(output)
+        return HttpResponse(404)
 
-# TEMPLATE PAGES ARE JUST PLAIN HTML DOCS AND SHOULD FOLLOW THIS FORMAT #
-#########################################################################
-#     < html >                                                          #
-#     < head >                                                          #
-#     < title > Django                                                  #
-#     product - User: {{username}} < / title >                          #
-#     < / head >                                                        #
-#     < body >                                                          #
-#     < h1 > product                                                    #
-#     for {{username}} </ h1 >                                          #
-#     { % if product %}                                                 #
-#     < ul >                                                            #
-#     { % for prod in product %}                                        #
-#     < li > < a href = "{{ product.link.url }}" >                      #
-#     {{product.title}} < / a > < / li >                                #
-#     { % endfor %}                                                     #
-#     < / ul >                                                          #
-#     { % else %}                                                       #
-#     < p > No product found. < / p >                                   #
-#     { % endif %}                                                      #
-#     < / body >                                                        #
-#     < / html >                                                        #
 
 #########################################################################
 #                VIEWS USING CLASS-BASED DJANGO REST                    #
 #########################################################################
+
 
 class JSONResponse(HttpResponse):
     """
@@ -81,9 +60,9 @@ class JSONResponse(HttpResponse):
         super(JSONResponse, self).__init__(content, **kwargs)
 
 @csrf_exempt
-def food_list(request):
+def food_list(request, location):
     if request.method == 'GET':
-        allFoods = Food.objects.all()
+        allFoods = Food.objects.filter(location=location)
         serializer = FoodSerializer(allFoods, many=True)
         return JSONResponse(serializer.data)
 
@@ -94,3 +73,12 @@ def food_list(request):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
+
+
+def getMessages(request, username):
+    try:
+        messageList = Message.objects.filter(sender=username)
+        serializer = MessageSerializer(messageList, many=True)
+        return JSONResponse(serializer.data)
+    except Message.DoesNotExist:
+        return JSONResponse(status=status.HTTP_404_NOT_FOUND)
