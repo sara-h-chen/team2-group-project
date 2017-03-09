@@ -5,7 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 
 from django.contrib.auth.models import User
-from serializers import FoodSerializer, MessageSerializer, UserSerializer
+from serializers import FoodSerializer, MessageSerializer, UserSerializer, UserCreationSerializer
 from models import Food, Message
 
 
@@ -43,6 +43,16 @@ def findUser(request, username):
         return JSONResponse(serializer.data)
     except:
         return HttpResponse('User not found')
+
+
+def createUser(request):
+    if request.method == 'POST':
+        serializer = UserCreationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 #########################################################
