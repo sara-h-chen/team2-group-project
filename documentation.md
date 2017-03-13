@@ -4,7 +4,7 @@
 
 ## Backend
 
-This project is implemented with Django, Django REST framework, and MySQL on PythonAnywhere.com.
+This project is implemented with Django, Django REST framework, and SQLite on PythonAnywhere.com.
 
 The backend is being run by the Django REST framework, which provides us with an API to access the database (Alternatively, you can access the database manually using ). The structure of the database is defined in `/`, and is created as Python classes. Django converts this into an SQLite structure automatically. After making any changes to the structure of the database, Django needs to refresh the structure that it currently has, so:
 
