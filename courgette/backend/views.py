@@ -3,6 +3,7 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
+from django.db.models import Q
 
 from django.contrib.auth.models import User
 from serializers import FoodSerializer, MessageSerializer, UserSerializer, UserCreationSerializer
@@ -94,7 +95,7 @@ def unreadMessages(request, username):
 # Gets all the messages for current user and returns it
 def getMessages(request, username):
     try:
-        messageList = Message.objects.filter(sender=username)
+        messageList = Message.objects.filter(Q(receiver__username=username) | Q(sender__username=username)) #TODO Check whether works with data in db
         serializer = MessageSerializer(messageList, many=True)
         return JSONResponse(serializer.data)
     except Message.DoesNotExist:
@@ -114,4 +115,3 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-
