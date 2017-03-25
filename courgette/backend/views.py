@@ -74,7 +74,7 @@ def findUser(request, username):
 @csrf_exempt
 def foodList(request, latitude, longitude):
     if request.method == 'GET':
-        allFoods = Food.objects.filter(latitude__range=(latitude + 10), longitude__range=(longitude + 10))
+        allFoods = Food.objects.filter(latitude__range=(float(latitude) + 10), longitude__range=(float(longitude) + 10))
         serializer = FoodSerializer(allFoods, many=True)
         return JSONResponse(serializer.data)
 
