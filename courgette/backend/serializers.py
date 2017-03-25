@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
-        fields = ('food_name', 'quantity', 'date_listed', 'food_type', 'allergens', 'status', 'location', 'user')
+        fields = ('food_name', 'quantity', 'date_listed', 'food_type', 'allergens',
+                  'status', 'latitude', 'longitude', 'user')
 
 
 class UserSerializer(serializers.ModelSerializer):
