@@ -5,6 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from django.db.models import Q
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from serializers import FoodSerializer, MessageSerializer, UserSerializer, UserCreationSerializer
@@ -36,6 +37,7 @@ def index(request):
 #         return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+# May not be required
 def authenticate(request, username=None, password=None):
     try:
         user = User.objects.get(username)
@@ -63,12 +65,12 @@ def findUser(request, username):
         return HttpResponse('User not found')
 
 
-
 #########################################################
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
 
+@login_required
 @csrf_exempt
 def foodList(request, location):
     if request.method == 'GET':
