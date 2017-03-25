@@ -5,7 +5,7 @@ import views
 
 urlpatterns = [
     # url(r'^$', views.index, name='index'),
-    url(r'^food/(?P<latitude>\d+\.\d{2})/(?P<longitude>\d+\.\d{2})/$', views.foodList),
+    url(r'^food/(?P<latitude>\d+(?:\.\d+))/(?P<longitude>\d+(?:\.\d+))/$', views.foodList),
     # url(r'^search/(?P<type>[0-4]{1})/$', views.search, name='search'),
     # url(r'^courgette/(?P<userID>[0-4]{5})/$', views.notifcation, name='notifcations')
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/$', views.getMessages),
