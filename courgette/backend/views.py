@@ -69,8 +69,8 @@ def findUser(request, username):
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
-
-@login_required(login_url='backend/accounts/login/')
+# TODO: Fix authentication
+# @login_required(login_url='backend/accounts/login/')
 @csrf_exempt
 def foodList(request, latitude, longitude):
     if request.method == 'GET':
