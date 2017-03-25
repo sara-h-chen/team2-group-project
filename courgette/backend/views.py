@@ -5,6 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from django.db.models import Q
 
+from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from serializers import FoodSerializer, MessageSerializer, UserSerializer, UserCreationSerializer
 from models import Food, Message
@@ -26,11 +27,27 @@ def index(request):
 #     output = ', '.join([food.food_name for food in latest_food_requests])
 #     return HttpResponse(output)
 
+# def createUser(request):
+#     if request.method == 'POST':
+#         serializer = UserCreationSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
+#         return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# TODO: Implement a Search functionality?
-def search(request):
-    output = 'search'
-    return HttpResponse(output)
+
+def authenticate(request, username=None, password=None):
+    try:
+        user = User.objects.get(username)
+        loginValid = check_password(password, user.password)
+        if loginValid:
+            serializer = UserSerializer(user)
+            return JSONResponse(serializer.data)
+    except User.DoesNotExist:
+        user = User(username=username, password=password)
+        user.save()
+        serializer = UserSerializer(user)
+        return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
 
 
 # TODO: Return all users instead?
@@ -44,15 +61,6 @@ def findUser(request, username):
         return JSONResponse(serializer.data)
     except:
         return HttpResponse('User not found')
-
-
-def createUser(request):
-    if request.method == 'POST':
-        serializer = UserCreationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 
@@ -75,6 +83,14 @@ def foodList(request, location):
             serializer.save()
             return JSONResponse(serializer.data, status=201)
         return JSONResponse(serializer.errors, status=400)
+
+
+# Searches based on keyword, food_type, and location
+def search(request, query):
+    searchItems = Food.objects.get(Q(food_name__icontains=query) | Q(food_type__exact=query) |
+                                   Q(location__icontains=query))
+    serializer = FoodSerializer(searchItems, many=True)
+    return JSONResponse(serializer.data)
 
 
 #########################################################

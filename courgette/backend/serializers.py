@@ -2,6 +2,7 @@ from rest_framework import serializers
 from models import Food, Message
 from django.contrib.auth.models import User
 
+
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
