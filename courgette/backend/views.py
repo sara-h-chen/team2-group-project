@@ -76,7 +76,7 @@ def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
     if request.method == 'GET':
-        allFoods = Food.objects.filter(latitude__range=(latitude + 10), longitude__range=(longitude + 10))
+        allFoods = Food.objects.filter(latitude__range=(latitude + 10, longitude + 10))
         serializer = FoodSerializer(allFoods, many=True)
         return JSONResponse(serializer.data)
 
