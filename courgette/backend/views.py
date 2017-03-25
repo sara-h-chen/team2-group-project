@@ -70,7 +70,7 @@ def findUser(request, username):
 #########################################################
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='backend/accounts/login/')
 @csrf_exempt
 def foodList(request, latitude, longitude):
     if request.method == 'GET':
