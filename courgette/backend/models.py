@@ -49,12 +49,12 @@ class Food(models.Model):
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender")
     receiver = models.ForeignKey(User, related_name="receiver")
-    msg_content = models.TextField(default='')
-    created_at = models.TimeField
+    msg_content = models.CharField(max_length=500)
+    created_at = models.CharField(max_length=50, default=str(datetime.now()))
     read = models.BooleanField(default=False)
 
     @classmethod
     def create(cls, sender, receiver, msg_content):
         message = cls(sender=sender, receiver=receiver, msg_content=msg_content)
-        message.created_at = datetime.now()
+        message.created_at = str(datetime.now())
         return message
