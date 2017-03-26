@@ -55,5 +55,6 @@ class Message(models.Model):
 
     @classmethod
     def create(cls, sender, receiver, msg_content):
-        message = cls(sender=sender, receiver=receiver, msg_content=msg_content, created_at=datetime.now(), read=False)
+        message = cls(sender=sender, receiver=receiver, msg_content=msg_content)
+        message.created_at = datetime.now()
         return message
