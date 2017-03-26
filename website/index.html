@@ -35,7 +35,7 @@
 		</form>
 	</div>
 	<div class="popup_footer">
-		<button id="submit">Submit</button>
+		<button id="submit" onclick="goToProfile()">Submit</button>
 	</div>
 </div>
 
@@ -111,6 +111,10 @@
 		if (event.target == modal) {
 			modal.style.display = "none";
 		}
+	}
+	
+	function goToProfile() {
+		window.location.href = "profile_and_map.html";
 	}
 </script>
 

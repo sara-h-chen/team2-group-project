@@ -5,6 +5,18 @@
 	width: 50%
 }
 
+#user_item_list {
+	color: #aaaaaa;
+}
+
+#message_list {
+	color: #aaaaaa;
+}
+
+#community_item_list {
+	color: #aaaaaa;
+}
+
 #view_items {
 	width: 100%;
 }
@@ -83,10 +95,15 @@
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-@media screen and (max-height: 450px) {
+/*@media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+@media screen and (max-height: 450px) {
+	#profile_menu {width: 100%;}
+	#item_menu {width: 100%;}
+} THIS JUST MAKES WIDTH: 100% AT START, NO OTHER TIMES */
 
 /* The Modal (background) */
 .popup {
