@@ -48,7 +48,6 @@ class Food(models.Model):
 class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender")
     receiver = models.ForeignKey(User, related_name="receiver")
-    msg_content = models.TextField
+    msg_content = models.TextField(default='')
     created_at = models.TimeField
     read = models.BooleanField(default=False)
-
