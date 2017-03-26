@@ -1,4 +1,5 @@
 from __future__ import unicode_literals
+from datetime import datetime
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -51,3 +52,8 @@ class Message(models.Model):
     msg_content = models.TextField(default='')
     created_at = models.TimeField
     read = models.BooleanField(default=False)
+
+    @classmethod
+    def create(cls, sender, receiver, msg_content):
+        message = cls(sender=sender, receiver=receiver, msg_content=msg_content, created_at=datetime.now(), read=False)
+        return message
