@@ -115,11 +115,33 @@ def unreadMessages(request, username):
 # Gets all the messages for current user and returns it
 def getMessages(request, username):
     try:
-        messageList = Message.objects.filter(Q(receiver__username=username) | Q(sender__username=username)) #TODO Check whether works with data in db
+        user=User.objects.filter(username=username)
+        uID=user[0].id
+        messageList = Message.objects.filter(Q(receiver_id=0) | Q(sender_id=0))
         serializer = MessageSerializer(messageList, many=True)
         return JSONResponse(serializer.data)
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+def getContacts(request, username):
+    try:
+        user=User.objects.filter(username=username)
+        uID=user[0].id
+        messageList = Message.objects.filter(Q(receiver_id=0) | Q(sender_id=0))
+        contacts=[]
+        for x in messageList:
+            if x.receiver_id==uID:
+                if not x.sender_id in contacts:
+                    contacts.append(x.sender_id)
+            elif x.sender_id==uID:
+                if not x.receiver_id in contacts:
+                    contacts.append(x.receiver_id)
+        print contacts
+        serializer = MessageSerializer(messageList, many=True)
+        return JSONResponse(serializer.data)
+    except Message.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
 
 
 ##########################################################

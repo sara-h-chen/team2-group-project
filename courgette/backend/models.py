@@ -49,5 +49,5 @@ class Message(models.Model):
     sender = models.ForeignKey(User, related_name="sender")
     receiver = models.ForeignKey(User, related_name="receiver")
     msg_content = models.TextField(default='')
-    created_at = models.TimeField
+    created_at = models.DateTimeField(auto_now=True)
     read = models.BooleanField(default=False)
