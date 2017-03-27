@@ -1,8 +1,18 @@
+html, body { height: 100%; width: 100%; margin: -1px; }
+
+#item_tab {
+	background-color:#9aaa57;
+	color:white;
+	width:3%;
+	height:100%;
+	font-size: 38px;
+}
 #user_profile_pic {
 	top: 50px;
 	right: 0;
 	border-radius: 50%;
-	width: 50%
+	width: 50%;
+	z-index: 1
 }
 
 #user_item_list {
@@ -29,12 +39,32 @@
 	position: fixed;
 	right: 0;
 	top: 0;
+	z-index: 1;
+}
+
+#profile_hover {
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 2;
 }
 
 #item_menu_icon {
 	position: fixed;
 	left: 0;
 	top: 0;
+}
+
+#message_button {
+	width: 35%;
+}
+
+#items_button {
+	width: 35%;
+}
+
+#add_button {
+	width: 35%;
 }
 
 /* The side navigation menu */
