@@ -1,10 +1,13 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
-from rest_framework.renderers import JSONRenderer
-from rest_framework import status
 from django.db.models import Q
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.parsers import JSONParser
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.renderers import JSONRenderer
+from rest_framework import status, permissions
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -32,8 +35,10 @@ def index(request):
     return HttpResponse("Placeholder simple Index page.")
 
 
+@csrf_exempt
 # Create user through POST request
 def createUser(request):
+    # if request.method == 'POST':
     form = UserForm(request.POST or None)
     if form.is_valid():
         new_user = User.objects.create_user(
@@ -69,7 +74,7 @@ def findUser(request, username):
         response = JSONResponse(serializer.data)
         _acao_response(response)
         return response
-    except:
+    except User.DoesNotExist:
         return HttpResponse('User not found')
 
 
@@ -77,8 +82,9 @@ def findUser(request, username):
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
-@login_required(login_url='/login/')
 @csrf_exempt
+@api_view(['GET', 'POST'])
+@permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
