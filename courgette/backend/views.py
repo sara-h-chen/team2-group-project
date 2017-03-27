@@ -65,6 +65,18 @@ def findUser(request, username):
     except:
         return HttpResponse('User not found')
 
+def indentify(request, user_id):
+    try:
+        print user_id
+        user=User.objects.get(id=user_id)
+        serializer = UserSerializer(user)
+        print 'work2'
+        response = JSONResponse(serializer.data)
+        response['Access-Control-Allow-Origin']='*'
+        return response
+    except:
+        return HttpResponse('User not found')
+
 
 #########################################################
 #                FOOD-RELATED QUERIES                   #
@@ -129,28 +141,32 @@ def getContacts(request, username):
         user=User.objects.filter(username=username)
         uID=user[0].id
         messageList = Message.objects.filter(Q(receiver_id=0) | Q(sender_id=0))
-        contacts=[]
+        contacts={}
+        counter=0
         for x in messageList:
             if x.receiver_id==uID:
                 if not x.sender_id in contacts:
-                    contacts.append(x.sender_id)
+                    contacts[counter] = (x.sender_id)
+                    counter=counter+1
             elif x.sender_id==uID:
                 if not x.receiver_id in contacts:
-                    contacts.append(x.receiver_id)
-        print contacts
-        serializer = MessageSerializer(messageList, many=True)
-        return JSONResponse(serializer.data)
+                    contacts[counter] = (x.receiver_id)
+                    counter=counter+1
+        response = JsonResponse(contacts)
+        response['Access-Control-Allow-Origin']='*'
+        return response
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
 @csrf_exempt
 def addMessage(request, username):
     try:
-        if request.method == "POST":
+        if request.method == "POST":#TODO make robust i.e. deal with post request that don't contain thr right data
             data =request.POST
             sender_id=data['sender_id']
             receiver_id = data['receiver_id']
             msg_content=data['msg_content']
+            print msg_content
             # user=User.objects.filter(username=sender_username)
             # sender_id=user[0].id
             # user=User.objects.filter(username=receiver_username)

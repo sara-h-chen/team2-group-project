@@ -8,6 +8,8 @@ urlpatterns = [
     url(r'^food/(?P<latitude>\d+(?:\.\d+))/(?P<longitude>\d+(?:\.\d+))/$', views.foodList),
     # url(r'^search/(?P<type>[0-4]{1})/$', views.search, name='search'),
     # url(r'^courgette/(?P<userID>[0-4]{5})/$', views.notifcation, name='notifcations')
+    url(r'^user/(?P<username>[a-zA-Z0-9]+)/$', views.findUser),
+    url(r'^function/(?P<user_id>[0-9]+)/$', views.indentify),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/$', views.getMessages),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/contacts/$', views.getContacts),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/add/$', views.addMessage),
