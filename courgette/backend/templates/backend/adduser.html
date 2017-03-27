@@ -1,3 +1,10 @@
+{% if form.errors %}
+    <p>NOT VALID</p>
+    {% for errors in form.errors %}
+        {{ errors }}
+    {% endfor %}
+{% endif %}
+
 <form method="post" action="">
     {% csrf_token %}
     {{ form }}

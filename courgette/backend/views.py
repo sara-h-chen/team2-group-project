@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
@@ -34,17 +34,19 @@ def index(request):
 
 # Create user through POST request
 def createUser(request):
-    if request.method == "POST":
-        form = UserForm()
-        if form.is_valid():
-            new_user = User.objects.create_user(**form.cleaned_data)
-            login(request, new_user)
-            # TODO: FIX THIS
-            response = HttpResponse('/index.html')
-            _acao_response(response)
-            return response
-    else:
-        form = UserForm()
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        new_user = User.objects.create_user(
+            username=form.cleaned_data['username'],
+            password=form.cleaned_data['password'],
+            email=form.cleaned_data['email'],
+            first_name=form.cleaned_data['first_name'],
+            last_name=form.cleaned_data['last_name']
+        )
+        login(request, new_user)
+        response = HttpResponseRedirect('/')
+        _acao_response(response)
+        return response
 
     return render(request, 'backend/adduser.html', {'form': form})
 
@@ -81,7 +83,7 @@ def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
     if request.method == 'GET':
-        allFoods = Food.objects.filter(Q(latitude__range=(latitude - 10, latitude + 10)) |
+        allFoods = Food.objects.filter(Q(latitude__range=(latitude - 10, latitude + 10)),
                                        Q(longitude__range=(longitude - 10, longitude + 10)))
         serializer = FoodSerializer(allFoods, many=True)
         response = JSONResponse(serializer.data)

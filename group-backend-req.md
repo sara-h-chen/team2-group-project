@@ -14,3 +14,8 @@ search users [done]
 get all notifications [counts notifications]
 
 ### To-Do List on Backend
+
+
+SHA-256 database; no password is stored in plaintext
+Integration with OAuth authentication systems
+Password validators
