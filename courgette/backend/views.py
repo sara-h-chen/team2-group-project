@@ -81,26 +81,12 @@ def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
     if request.method == 'GET':
-        allFoods = Food.objects.filter(latitude__range=(latitude + 10, longitude + 10))
+        allFoods = Food.objects.filter(Q(latitude__range=(latitude - 10, latitude + 10)) |
+                                       Q(longitude__range=(longitude - 10, longitude + 10)))
         serializer = FoodSerializer(allFoods, many=True)
         response = JSONResponse(serializer.data)
         _acao_response(response)
         return response
-
-    # def createUser(request):
-    #     if request.method == "POST":
-    #         form = UserForm()
-    #         if form.is_valid():
-    #             new_user = User.objects.create_user(**form.cleaned_data)
-    #             login(request, new_user)
-    #             # TODO: FIX THIS
-    #             response = HttpResponse('/index.html')
-    #             _acao_response(response)
-    #             return response
-    #     else:
-    #         form = UserForm()
-    #
-    #     return render(request, 'backend/adduser.html', {'form': form})
 
     elif request.method == 'POST':
         username = request.user.username
