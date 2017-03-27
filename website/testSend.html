@@ -1,0 +1,25 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+  <h1>From John to Eve</h1>
+  <form id='msg'>
+    <a>Msg:</a>
+    <input type="text" name=msgContent id=msg_content>
+    <input type="submit" id='submit'>
+  </form>
+  <script>
+    $("#msg").submit(function(element){
+      msg = document.getElementById('msg_content').value
+      $.post('http://127.0.0.1:8000/backend/user/John/messages/add/',{
+        'sender_id':0,
+        'receiver_id':0,
+        'msg_content': msg
+      } )
+      return false
+    })
+  </script>
+</body>
+
+</html>

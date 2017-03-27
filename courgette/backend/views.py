@@ -4,6 +4,7 @@ from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from django.db.models import Q
+import json
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import check_password
@@ -142,7 +143,23 @@ def getContacts(request, username):
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
-
+@csrf_exempt
+def addMessage(request, username):
+    try:
+        if request.method == "POST":
+            data =request.POST
+            sender_id=data['sender_id']
+            receiver_id = data['receiver_id']
+            msg_content=data['msg_content']
+            # user=User.objects.filter(username=sender_username)
+            # sender_id=user[0].id
+            # user=User.objects.filter(username=receiver_username)
+            # receiver_id=user[0].id
+            message= Message(sender_id=sender_id,receiver_id=receiver_id,msg_content=msg_content)
+            return JSONResponse("{'done:done'}")
+        # message.save()
+    except Message.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
 ##########################################################
 #               DJANGO REST UTILITIES                    #

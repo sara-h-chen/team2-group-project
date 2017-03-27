@@ -10,6 +10,7 @@ urlpatterns = [
     # url(r'^courgette/(?P<userID>[0-4]{5})/$', views.notifcation, name='notifcations')
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/$', views.getMessages),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/contacts/$', views.getContacts),
+    url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/add/$', views.addMessage),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/$', views.findUser, name='findUser'),
     # TODO: Fix this
     url(r'^accounts/login/(?P<username>[a-zA-Z0-9]+)/(?P<password>[a-zA-Z0-9]+)/$', views.authenticate),
