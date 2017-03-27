@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.settings import api_settings
+
 from models import Food, Message
 from django.contrib.auth.models import User
 
@@ -17,6 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    created_at = serializers.DateField(format=None, input_formats=None)
+
     class Meta:
         model = Message
         fields = ('sender', 'receiver', 'msg_content', 'created_at', 'read')

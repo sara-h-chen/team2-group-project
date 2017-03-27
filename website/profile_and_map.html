@@ -2,40 +2,48 @@
 <head>
 	<link type="text/css" rel="stylesheet" href="courgette_base_stylesheet.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Roboto" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<title>COURGETTE</title>
 </head>
 
+<div id="item_tab" onclick="openItemMenu()"><br><br><br><br><br><br><br>&nbsp;></div>
+
 <div id="profile_menu" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
-  <img id="user_profile_pic" src="profile_example.png">
+  <input type="image" id="user_profile_pic" src="profile_example.png">
+  <input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
   <div id="user_item_list">
-    <select id="select_item" size="10">
-	  <option>Dummy</option>
-	  <option>Data</option>
-	  <option>Blah</option>
-	</select>
+    <!--<select id="select_item" size="10">!-->
+	<div>Dummy</div>
+	<div>Data</div>
+	<div>Blah</div>
+	<!--</select>!-->
   </div>
-  <a href="#">Messages</a>
-  <a onclick="addItem()">Add Item</a>
+  <div id="message_list">
+	<div>Message</div>
+	<div>Messageeeee</div>
+  </div>
+  <img src="messages.png" id="message_button"/>
+  <img src="my_items.png" id="items_button"/>
+  <img src="add_item.png" onclick="addItem()"/>
 </div>
 
 <div id="item_menu" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeItemMenu()">&times;</a>
   <div id="community_item_list">
-    <select id="view_items" size="10">
-	  <option>Dummy</option>
-	  <option>Data</option>
-	  <option>Blah</option>
-	</select>
+    <!--<select id="view_items" size="10">!-->
+	<div>Dummy</div>
+	<div>Data</div>
+	<div>Blah</div>
+	<!--</select>!-->
   </div>
   <button id="search_button">Search</button>
 </div>
 
 <!-- Use any element to open the sidenav -->
 <span id="profile_menu_icon" onclick="openProfileMenu()">*open profile menu icon*</span>
-<span id="item_menu_icon" onclick="openItemMenu()">*open item menu icon*</span>
 
 <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page
 <div id="user_items_list">
@@ -43,19 +51,50 @@
 </div>!-->
 
 <script>
+
+$("input[type='image']").click(function() {
+    $("input[id='new_pic']").click();
+});
+
+$(document).ready(function(){
+
+  // Hide div 2 by default
+  $('#message_list').hide();
+
+  $('#message_button').click(function(){ 
+      $('#user_item_list').hide();
+      $('#message_list').show();
+  });
+
+  $('#items_button').click(function(){ 
+      $('#message_list').hide();
+      $('#user_item_list').show();
+  }); 
+});
+</script>
+<script>
+var mq = window.matchMedia("(min-width: 500px)");
 /* Set the width of the side navigation to 300px */
 function openProfileMenu() {
-    document.getElementById("profile_menu").style.width = "300px";
+	if (mq.matches) {
+		document.getElementById("profile_menu").style.width = "300px";
+	} else {
+		document.getElementById("profile_menu").style.width = "100%";
+	}
 }
 
 /* Set the width of the side navigation to 0 */
 function closeProfileMenu() {
-    document.getElementById("profile_menu").style.width = "0";
+	document.getElementById("profile_menu").style.width = "0";
 }
 
 /* Set the width of the side navigation to 300px */
 function openItemMenu() {
-    document.getElementById("item_menu").style.width = "300px";
+	if (mq.matches) {
+		document.getElementById("item_menu").style.width = "300px";
+	} else {
+		document.getElementById("item_menu").style.width = "100%";
+	}
 }
 
 /* Set the width of the side navigation to 0 */
