@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from rest_framework.settings import api_settings
+from rest_framework.relations import PrimaryKeyRelatedField
 
 from models import Food, Message
 from django.contrib.auth.models import User
@@ -18,8 +18,10 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email')
 
 
+# TODO: Fix the relations
 class MessageSerializer(serializers.ModelSerializer):
     created_at = serializers.DateField(format=None, input_formats=None)
+    sender = PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Message

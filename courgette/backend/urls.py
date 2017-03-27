@@ -13,5 +13,5 @@ urlpatterns = [
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/add/$', views.addMessage),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/$', views.findUser, name='findUser'),
     # TODO: Fix this
-    url(r'^accounts/login/(?P<username>[a-zA-Z0-9]+)/(?P<password>[a-zA-Z0-9]+)/$', views.authenticate),
+    # url(r'^accounts/login/(?P<username>[a-zA-Z0-9]+)/(?P<password>[a-zA-Z0-9]+)/$', views.authenticate),
 ]

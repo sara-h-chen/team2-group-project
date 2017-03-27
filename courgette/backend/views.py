@@ -71,7 +71,7 @@ def findUser(request, username):
 #########################################################
 
 # TODO: Fix authentication
-# @login_required(login_url='backend/accounts/login/')
+@login_required(login_url='/login/')
 @csrf_exempt
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
@@ -116,32 +116,34 @@ def unreadMessages(request, username):
 # Gets all the messages for current user and returns it
 def getMessages(request, username):
     try:
-        user=User.objects.filter(username=username)
-        uID=user[0].id
+        user = User.objects.filter(username=username)
+        uID = user[0].id
         messageList = Message.objects.filter(Q(receiver_id=0) | Q(sender_id=0))
         serializer = MessageSerializer(messageList, many=True)
         return JSONResponse(serializer.data)
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
+
 def getContacts(request, username):
     try:
-        user=User.objects.filter(username=username)
-        uID=user[0].id
+        user = User.objects.filter(username=username)
+        uID = user[0].id
         messageList = Message.objects.filter(Q(receiver_id=0) | Q(sender_id=0))
-        contacts=[]
+        contacts = []
         for x in messageList:
-            if x.receiver_id==uID:
-                if not x.sender_id in contacts:
+            if x.receiver_id == uID:
+                if x.sender_id not in contacts:
                     contacts.append(x.sender_id)
-            elif x.sender_id==uID:
-                if not x.receiver_id in contacts:
+            elif x.sender_id == uID:
+                if x.receiver_id not in contacts:
                     contacts.append(x.receiver_id)
         print contacts
         serializer = MessageSerializer(messageList, many=True)
         return JSONResponse(serializer.data)
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
 
 @csrf_exempt
 def addMessage(request, username):

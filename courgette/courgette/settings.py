@@ -102,6 +102,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# TODO: Change this to the main page, i.e. the main view
+LOGIN_REDIRECT_URL = 'backend/user/John/'
+
+
+# For prototyping only
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
