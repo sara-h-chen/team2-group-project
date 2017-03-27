@@ -12,3 +12,5 @@ search by location [done]
 search all messages, read flag; based on current user_id
 search users [done]
 get all notifications [counts notifications]
+
+### To-Do List on Backend

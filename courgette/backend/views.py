@@ -12,6 +12,15 @@ from django.contrib.auth import login
 from serializers import FoodSerializer, MessageSerializer, UserSerializer, UserCreationSerializer
 from models import Food, Message, UserForm
 
+##########################################################
+#                      HEADER CONTROL                    #
+##########################################################
+
+
+def _acao_response(response):
+    response['Access-Control-Allow-Origin'] = '*'
+    response['Access-Control-Allow-Methods'] = 'GET'
+
 
 #########################################################
 #                USER-RELATED QUERIES                   #
@@ -30,7 +39,9 @@ def createUser(request):
         if form.is_valid():
             new_user = User.objects.create_user(**form.cleaned_data)
             login(request, new_user)
-            return HttpResponse('../website/index.html')
+            response = HttpResponse('../website/index.html')
+            _acao_response(response)
+            return response
     else:
         form = UserForm()
 
@@ -52,7 +63,9 @@ def findUser(request, username):
     try:
         user = User.objects.get(username=username)
         serializer = UserSerializer(user)
-        return JSONResponse(serializer.data)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
     except:
         return HttpResponse('User not found')
 
@@ -69,15 +82,21 @@ def foodList(request, latitude, longitude):
     if request.method == 'GET':
         allFoods = Food.objects.filter(latitude__range=(latitude + 10, longitude + 10))
         serializer = FoodSerializer(allFoods, many=True)
-        return JSONResponse(serializer.data)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
 
     elif request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = FoodSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
-            return JSONResponse(serializer.data, status=201)
-        return JSONResponse(serializer.errors, status=400)
+            response = JSONResponse(serializer.data, status=201)
+            _acao_response(response)
+            return response
+        response = JSONResponse(serializer.errors, status=400)
+        _acao_response(response)
+        return response
 
 
 # Searches based on keyword, food_type, and location
@@ -85,7 +104,12 @@ def search(request, query):
     searchItems = Food.objects.get(Q(food_name__icontains=query) | Q(food_type__exact=query) |
                                    Q(location__icontains=query))
     serializer = FoodSerializer(searchItems, many=True)
-    return JSONResponse(serializer.data)
+    response = JSONResponse(serializer.data)
+    _acao_response(response)
+    return response
+
+
+# def update(request, )
 
 
 #########################################################
@@ -98,7 +122,9 @@ def unreadMessages(request, username):
     try:
         unreadMessages = Message.objects.filter(receiver=username, read=False).count()
         serialized = JSONRenderer().render(unreadMessages)
-        return JSONResponse(serialized)
+        response = JSONResponse(serialized)
+        _acao_response(response)
+        return response
     except:
         return HttpResponse('User not found')
 
@@ -110,7 +136,9 @@ def getMessages(request, username):
         uID = user[0].id
         messageList = Message.objects.filter(Q(receiver_id=0) | Q(sender_id=0))
         serializer = MessageSerializer(messageList, many=True)
-        return JSONResponse(serializer.data)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
@@ -130,7 +158,9 @@ def getContacts(request, username):
                     contacts.append(x.receiver_id)
         print contacts
         serializer = MessageSerializer(messageList, many=True)
-        return JSONResponse(serializer.data)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
@@ -148,7 +178,9 @@ def addMessage(request, username):
             # user=User.objects.filter(username=receiver_username)
             # receiver_id=user[0].id
             message= Message(sender_id=sender_id,receiver_id=receiver_id,msg_content=msg_content)
-            return JSONResponse("{'done:done'}")
+            response = JSONResponse("{'done:done'}")
+            _acao_response(response)
+            return response
         # message.save()
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
