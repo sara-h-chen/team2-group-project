@@ -1,16 +1,16 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from rest_framework.renderers import JSONRenderer
 from rest_framework import status
 from django.db.models import Q
-import json
 
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
+from django.contrib.auth import login
 from serializers import FoodSerializer, MessageSerializer, UserSerializer, UserCreationSerializer
-from models import Food, Message
+from models import Food, Message, UserForm
 
 
 #########################################################
@@ -23,34 +23,25 @@ def index(request):
     return HttpResponse("Placeholder simple Index page.")
 
 
-## UNUSED: RETURNS FOOD LISTING (for reference only!)
+# Create user through POST request
+def createUser(request):
+    if request.method == "POST":
+        form = UserForm()
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return HttpResponse('../website/index.html')
+    else:
+        form = UserForm()
+
+    return render(request, 'backend/adduser.html', {'form': form})
+
+
+# UNUSED: RETURNS FOOD LISTING (for reference only!)
 # def food_listing(request):
 #     latest_food_requests = Food.objects.order_by('Date listed')
 #     output = ', '.join([food.food_name for food in latest_food_requests])
 #     return HttpResponse(output)
-
-# def createUser(request):
-#     if request.method == 'POST':
-#         serializer = UserCreationSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
-#         return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# May not be required
-def authenticate(request, username=None, password=None):
-    try:
-        user = User.objects.get(username)
-        loginValid = check_password(password, user.password)
-        if loginValid:
-            serializer = UserSerializer(user)
-            return JSONResponse(serializer.data)
-    except User.DoesNotExist:
-        user = User(username=username, password=password)
-        user.save()
-        serializer = UserSerializer(user)
-        return JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
 
 
 # TODO: Return all users instead?
@@ -70,7 +61,6 @@ def findUser(request, username):
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
-# TODO: Fix authentication
 @login_required(login_url='/login/')
 @csrf_exempt
 def foodList(request, latitude, longitude):

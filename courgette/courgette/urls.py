@@ -23,7 +23,10 @@ urlpatterns = [
     url(r'^backend/', include('backend.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^login/$', auth_views.login, name='login'),
+    # TODO: Check if the others are going to have a custom page for this
     # url(r'^logout/$', auth_views.logout, {'next_page': 'website/index.html'}, name='logout'),
     # url(r'^logout/$', auth_views.logout, name='logout'),
     url('^', include(inbuilt_urls)),
+    # TODO: Link password reset URL to a HTML page
+    # url(r'^password_reset/$', auth_views.password_reset, name='password_reset'),
 ]
