@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 
 
 class FoodSerializer(serializers.ModelSerializer):
+    # user = PrimaryKeyRelatedField(many=True, queryset=User.objects.all())
+    user = serializers.CharField(read_only=True)
+
     class Meta:
         model = Food
         fields = ('food_name', 'quantity', 'date_listed', 'food_type', 'allergens',

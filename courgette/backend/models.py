@@ -36,8 +36,9 @@ class Food(models.Model):
         ('NON_VEGAN', 'Non-Vegan'),
         ('SEAFOOD', 'Seafood'),
         ('EGGS', 'Eggs'),
+        ('NONE', 'None'),
     )
-    allergens = models.CharField(choices=ALLERGENS,default=None,max_length=50)
+    allergens = models.CharField(choices=ALLERGENS,default='NONE',max_length=50)
     STATUS = (
         ('AVAILABLE', 'Available'),
         ('RESERVED', 'Reserved'),
@@ -47,7 +48,7 @@ class Food(models.Model):
     latitude = models.DecimalField(max_digits=3, decimal_places=2)
     longitude = models.DecimalField(max_digits=3, decimal_places=2)
     # picture = models.FileField(upload_to='images/%Y/%m/%d')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='food')
 
     def __str__(self):
         return self.food_name + " " + str(self.quantity)
