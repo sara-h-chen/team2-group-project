@@ -105,7 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # TODO: Change this to the main page, i.e. the main view
-LOGIN_REDIRECT_URL = 'backend/user/John/'
+LOGIN_REDIRECT_URL = '../backend/food/0.0/0.0/'
 
 
 # For prototyping only

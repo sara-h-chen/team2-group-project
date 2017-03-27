@@ -39,7 +39,8 @@ def createUser(request):
         if form.is_valid():
             new_user = User.objects.create_user(**form.cleaned_data)
             login(request, new_user)
-            response = HttpResponse('../website/index.html')
+            # TODO: FIX THIS
+            response = HttpResponse('/index.html')
             _acao_response(response)
             return response
     else:
@@ -74,7 +75,7 @@ def findUser(request, username):
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
-# @login_required(login_url='/login/')
+@login_required(login_url='/login/')
 @csrf_exempt
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
@@ -86,11 +87,28 @@ def foodList(request, latitude, longitude):
         _acao_response(response)
         return response
 
+    # def createUser(request):
+    #     if request.method == "POST":
+    #         form = UserForm()
+    #         if form.is_valid():
+    #             new_user = User.objects.create_user(**form.cleaned_data)
+    #             login(request, new_user)
+    #             # TODO: FIX THIS
+    #             response = HttpResponse('/index.html')
+    #             _acao_response(response)
+    #             return response
+    #     else:
+    #         form = UserForm()
+    #
+    #     return render(request, 'backend/adduser.html', {'form': form})
+
     elif request.method == 'POST':
+        username = request.user.username
+        currentUser = User.objects.get(username=username)
         data = JSONParser().parse(request)
         serializer = FoodSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(user=currentUser)
             response = JSONResponse(serializer.data, status=201)
             _acao_response(response)
             return response
