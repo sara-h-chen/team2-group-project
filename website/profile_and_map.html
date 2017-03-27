@@ -25,9 +25,10 @@
 	<div>Message</div>
 	<div>Messageeeee</div>
   </div>
+  <img src="add_item.png" id="add_button" onclick="addItem()"/>
   <img src="messages.png" id="message_button"/>
   <img src="my_items.png" id="items_button"/>
-  <img src="add_item.png" onclick="addItem()"/>
+  <img src="log_out.png" id="exit_button" onclick="logOut()"/>
 </div>
 
 <div id="item_menu" class="sidenav">
@@ -104,6 +105,10 @@ function closeItemMenu() {
 
 function addItem() {
     /* Maybe go to pop-up? */
+}
+
+function logOut() {
+	window.location.href = "index.html";
 }
 </script>
 

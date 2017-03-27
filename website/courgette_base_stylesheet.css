@@ -56,15 +56,31 @@ html, body { height: 100%; width: 100%; margin: -1px; }
 }
 
 #message_button {
-	width: 35%;
+	position: relative;
+	width: 25%;
+	top: 52%;
+	left: 5.5%;
 }
 
 #items_button {
-	width: 35%;
+	position: relative;
+	width: 20%;
+	top: 52%;
+	left: 7%;
 }
 
 #add_button {
-	width: 35%;
+	position: relative;
+	width: 20%;
+	top: 52%;
+	left: 3%;
+}
+
+#exit_button {
+	position: relative;
+	width:20%;
+	top: 52%;
+	left: 9%;
 }
 
 /* The side navigation menu */
