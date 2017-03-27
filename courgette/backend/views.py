@@ -74,7 +74,7 @@ def findUser(request, username):
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
-@login_required(login_url='/login/')
+# @login_required(login_url='/login/')
 @csrf_exempt
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
