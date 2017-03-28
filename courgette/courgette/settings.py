@@ -104,6 +104,9 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    'http://community.dur.ac.uk'
+]
 
 # TODO: Change this to the main page, i.e. the main view
 LOGIN_REDIRECT_URL = 'http://community.dur.ac.uk/thomas.preston/TESTFORM.html'

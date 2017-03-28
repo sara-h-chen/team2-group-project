@@ -31,22 +31,18 @@ def _acao_response(response):
 
 
 @csrf_exempt
-@api_view(['GET', 'POST', 'OPTIONS'])
+@api_view(['GET', 'POST'])
 # Create user through POST request
 def createUser(request):
     if request.method == 'OPTIONS':
-        serializer = UserCreationSerializer(data=request.data)
-        if serializer.is_valid():
-            # serializer.save()
-            response = HttpResponse(status=status.HTTP_201_CREATED)
-            response['Access-Control-Allow-Origin'] = '*'
-            response['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-            response['Access-Control-Max-Age'] = 1000
-            # note that '*' is not valid for Access-Control-Allow-Headers
-            response['Access-Control-Allow-Headers'] = 'origin, x-csrftoken, content-type, accept'
-            # response = HttpResponse(status=status.HTTP_201_CREATED)
-            # _acao_response(response)
-            return response
+        response = HttpResponse()
+        response['Access-Control-Allow-Origin'] = '*'
+        response['Access-Control-Allow-Methods'] = 'GET, PUT, POST, DELETE, OPTIONS'
+        response['Access-Control-Max-Age'] = 1000
+        # note that '*' is not valid for Access-Control-Allow-Headers
+        response['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, ' \
+                                                   'X-Requested-With, origin, x-csrftoken, content-type, accept'
+        return response
     if request.method == 'POST':
         serializer = UserCreationSerializer(data=request.data)
         if serializer.is_valid():
