@@ -5,9 +5,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+	<script>
+		userID=1;
+
+	</script>
 	<title>COURGETTE</title>
 </head>
+<div id='messages'>
 
+</div>
 <div id="item_tab" onclick="openItemMenu()"><br><br><br><br><br><br><br>&nbsp;></div>
 
 <div id="profile_menu" class="sidenav">
@@ -22,7 +28,8 @@
 	<!--</select>!-->
   </div>
   <div id="message_list">
-	<div>Message</div>
+	<div id='contacts'>
+	</div>
 	<div>Messageeeee</div>
   </div>
   <img src="messages.png" id="message_button"/>
@@ -57,19 +64,27 @@ $("input[type='image']").click(function() {
 });
 
 $(document).ready(function(){
-
+	url = 'http://localhost:8000/backend/function/'+userID+'/'
+	$.get(url, function(data){
+		username = data.username
+		url = 'http://localhost:8000/backend/user/'+username+'/contacts/'
+		$.get(url,function(contacts){
+			
+		})
+	})
   // Hide div 2 by default
   $('#message_list').hide();
+	$('#messages').hide();
 
-  $('#message_button').click(function(){ 
+  $('#message_button').click(function(){
       $('#user_item_list').hide();
       $('#message_list').show();
   });
 
-  $('#items_button').click(function(){ 
+  $('#items_button').click(function(){
       $('#message_list').hide();
       $('#user_item_list').show();
-  }); 
+  });
 });
 </script>
 <script>
