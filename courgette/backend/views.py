@@ -74,7 +74,7 @@ def findUser(request, username):
         return HttpResponse('User not found')
 
 
-def indentify(request, user_id):
+def identify(request, user_id):
     try:
         user=User.objects.get(id=user_id)
         serializer = UserSerializer(user)
@@ -93,6 +93,8 @@ class ObtainAuthToken(auth_views.ObtainAuthToken):
     serializer_class = AuthTokenSerializer
 
     def post(self, request, *args, **kwargs):
+        if request.method == 'OPTIONS':
+            return _options_allow_access()
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
