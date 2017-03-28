@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'backend.apps.BackendConfig',
-    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +43,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -80,12 +78,6 @@ WSGI_APPLICATION = 'courgette.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-CORS_ORIGIN_WHITELIST = (
-    'community.dur.ac.uk',
-    'localhost:8000'
-)
-
-CORS_ALLOW_CREDENTIALS = True
 
 DATABASES = {
     'default': {
@@ -113,9 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://community.dur.ac.uk'
-]
 
 # TODO: Change this to the main page, i.e. the main view
 LOGIN_REDIRECT_URL = 'http://community.dur.ac.uk/thomas.preston/TESTFORM.html'

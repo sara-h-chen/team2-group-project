@@ -58,6 +58,7 @@ def createUser(request):
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
     return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
+
 # TODO: Return all users instead?
 # Gets the username from the URL as a param
 def findUser(request, username):
