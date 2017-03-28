@@ -7,12 +7,16 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<script>
 		userID=1;
-		function getMessages(username){
+		function getMessages(ID){
 			$("#messages").empty()
-				url = 'http://localhost:8000/backend/user/'+username+'/messages/'
-				$.get(url,function(messages){
+				url = 'http://localhost:8000/backend/function/messagesBetween/'
+				$.post(url,{
+					'userA':userID,
+					'userB':ID
+				},function(messages){
 					$(messages).each(function(message){
-						console.log(messages[message])
+						$("#messages").append("<div id='"+messages[message]['id']+"'>"+messages[message]['msg_content']+"</div>");
+						console.log(messages[message]['msg_content'])
 					})
 				});
 		}
@@ -128,7 +132,7 @@ $(document).ready(function(){
 					url = 'http://localhost:8000/backend/function/'+contacts[item]+'/'
 					$.get(url, function(data){
 						name= data.username
-						$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages('"+name+"')>"+name+"</div>")
+						$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+")>"+name+"</div>")
 					})
 
 				})
@@ -136,7 +140,6 @@ $(document).ready(function(){
 	})
   // Hide div 2 by default
   $('#message_list').hide();
-	$('#messages').hide();
 
   $('#message_button').click(function(){
       $('#user_item_list').hide();

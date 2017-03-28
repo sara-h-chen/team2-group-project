@@ -79,7 +79,6 @@ def findUser(request, username):
 
 def indentify(request, user_id):
     try:
-        print user_id
         user=User.objects.get(id=user_id)
         serializer = UserSerializer(user)
         response = JSONResponse(serializer.data)
@@ -165,6 +164,24 @@ def getMessages(request, username):
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
+@csrf_exempt
+def getMessagesBetween(request):
+    try:
+        if request.method == "POST":
+            data= request.POST
+            userA=data['userA']
+            userB = data['userB']
+            print userA,userB
+            messageList = Message.objects.filter((Q(receiver_id=userA) & Q(sender_id=userB)) | (Q(receiver_id=userB) & Q(sender_id=userA)))
+            serializer = MessageSerializer(messageList, many=True)
+            response = JSONResponse(serializer.data)
+            response['Access-Control-Allow-Origin'] = '*'
+            return response
+        else:
+            return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+    except Message.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
 
 def getContacts(request, username):
     try:
@@ -200,7 +217,6 @@ def addMessage(request, username):
             sender_id=data['sender_id']
             receiver_id = data['receiver_id']
             msg_content=data['msg_content']
-            print msg_content
             # user=User.objects.filter(username=sender_username)
             # sender_id=user[0].id
             # user=User.objects.filter(username=receiver_username)
