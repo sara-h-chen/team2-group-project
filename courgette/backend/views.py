@@ -57,6 +57,7 @@ def findUser(request, username):
     except User.DoesNotExist:
         return HttpResponse('User not found')
 
+
 def indentify(request, user_id):
     try:
         user=User.objects.get(id=user_id)
