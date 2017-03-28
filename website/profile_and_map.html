@@ -15,8 +15,12 @@
 					'userB':ID
 				},function(messages){
 					$(messages).each(function(message){
-						$("#messages").append("<div id='"+messages[message]['id']+"'>"+messages[message]['msg_content']+"</div>");
-						console.log(messages[message]['msg_content'])
+						if (messages[message]['sender']==userID){
+							$("#messages").append("<div id='"+messages[message]['id']+"' class=sentMessage>"+messages[message]['msg_content']+"</div>");
+						}
+						else{
+							$("#messages").append("<div id='"+messages[message]['id']+"' class=receivedMessage>"+messages[message]['msg_content']+"</div>");
+						}
 					})
 				});
 		}

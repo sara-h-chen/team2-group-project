@@ -108,7 +108,7 @@ html, body { height: 100%; width: 100%; margin: -1px; }
     background-color: #111;
     overflow-x: hidden;
     padding-top: 60px;
-    transition: 0.5s; 
+    transition: 0.5s;
 }
 
 .community_item {
@@ -187,13 +187,13 @@ html, body { height: 100%; width: 100%; margin: -1px; }
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content/Box 
+/* Modal Content/Box
 .popup_content {
     background-color: #fefefe;
-    margin: 15% auto;  15% from the top and centered 
+    margin: 15% auto;  15% from the top and centered
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;  Could be more or less, depending on screen size 
+    width: 80%;  Could be more or less, depending on screen size
 }*/
 
 /* The Close Button */
@@ -223,7 +223,7 @@ html, body { height: 100%; width: 100%; margin: -1px; }
 	margin: auto;
     border: 1px solid #888;
     width: 80%;
-	
+
 }
 
 /* Modal Footer */
@@ -251,9 +251,18 @@ html, body { height: 100%; width: 100%; margin: -1px; }
 
 }
 
+.sentMessage {
+	text-align:right;
+	padding:0px 5px 0px 5px;
+}
+
+.receivedMessage {
+	padding:0px 5px 0px 5px;
+}
+
 /* Add Animation */
 @-webkit-keyframes animatetop {
-    from {top: -300px; opacity: 0} 
+    from {top: -300px; opacity: 0}
     to {top: 0; opacity: 1}
 }
 
