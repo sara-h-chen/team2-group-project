@@ -56,7 +56,9 @@ ROOT_URLCONF = 'courgette.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            '/backend/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -100,6 +102,14 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+# TODO: Change this to the main page, i.e. the main view
+LOGIN_REDIRECT_URL = 'http://community.dur.ac.uk/thomas.preston/TESTFORM.html'
+
+
+# For prototyping only
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Internationalization
