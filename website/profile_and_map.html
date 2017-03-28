@@ -62,7 +62,7 @@
 		<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 		<h3>Tomato</h3>
 		<p>0.3 miles</p>
-		
+
 		<!-- maybe some coloured circle indicating type of produce (fish,veg,etc) !-->
 	</div>
 	<br>
@@ -113,11 +113,18 @@ $("input[type='image']").click(function() {
 
 $(document).ready(function(){
 	url = 'http://localhost:8000/backend/function/'+userID+'/'
-	$.get(url, function(data){
-		username = data.username
+	$.get(url, function(user){
+		username = user.username
 		url = 'http://localhost:8000/backend/user/'+username+'/contacts/'
 		$.get(url,function(contacts){
-			
+				$(contacts).each(function(item){
+					url = 'http://localhost:8000/backend/function/'+contacts[item]+'/'
+					$.get(url, function(data){
+						name= data.username
+						$('#contacts').append("<div id='"+contacts[item]+"'>"+name+"</div>")
+					})
+
+				})
 		})
 	})
   // Hide div 2 by default
@@ -182,7 +189,7 @@ function logOut() {
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
 
-	// When the user clicks on the button, open the modal 
+	// When the user clicks on the button, open the modal
 	btn.onclick = function() {
 		popup.style.display = "block";
 	}
@@ -193,9 +200,10 @@ function logOut() {
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
+	//TODO I changed some of the things to remove an error. No idea what functionality was wanted
 	window.onclick = function(event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
+		if (event.target != popup) {
+			popup.style.display = "none";
 		}
 	}
 </script>

@@ -185,7 +185,7 @@ def getContacts(request, username):
                     contactList.append(x.receiver_id)
                     contacts[counter] = (x.receiver_id)
                     counter=counter+1
-        response = JsonResponse(contacts)
+        response = JSONResponse(contacts)
         response['Access-Control-Allow-Origin']='*'
         return response
     except Message.DoesNotExist:
