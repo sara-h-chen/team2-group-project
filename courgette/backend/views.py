@@ -31,7 +31,7 @@ def _acao_response(response):
 
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'OPTIONS'])
 # Create user through POST request
 def createUser(request):
     if request.method == 'OPTIONS':
