@@ -58,7 +58,6 @@ def createUser(request):
         return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
     return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
-
 # TODO: Return all users instead?
 # Gets the username from the URL as a param
 def findUser(request, username):
@@ -92,9 +91,10 @@ class ObtainAuthToken(auth_views.ObtainAuthToken):
     renderer_classes = (renderers.JSONRenderer,)
     serializer_class = AuthTokenSerializer
 
+    def options(self, request, *args, **kwargs):
+        return _options_allow_access()
+
     def post(self, request, *args, **kwargs):
-        if request.method == 'OPTIONS':
-            return _options_allow_access()
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data['user']
@@ -103,6 +103,7 @@ class ObtainAuthToken(auth_views.ObtainAuthToken):
         _acao_response(response)
         response.set_cookie('auth-token', token.key)
         return response
+
 obtain_auth_token = ObtainAuthToken.as_view()
 
 
