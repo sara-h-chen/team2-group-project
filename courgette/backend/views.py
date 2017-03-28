@@ -25,6 +25,18 @@ def _acao_response(response):
     response['Access-Control-Allow-Methods'] = 'GET'
 
 
+def _options_allow_access():
+    response = HttpResponse()
+    response['Access-Control-Allow-Origin'] = '*'
+    response['Access-Control-Allow-Methods'] = 'GET, PUT, POST, DELETE, OPTIONS'
+    response['Access-Control-Max-Age'] = 1000
+    # note that '*' is not valid for Access-Control-Allow-Headers
+    response['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, ' \
+                                               'X-Requested-With, origin, x-csrftoken, ' \
+                                               'content-type, accept'
+    return response
+
+
 #########################################################
 #                USER-RELATED QUERIES                   #
 #########################################################
@@ -35,14 +47,7 @@ def _acao_response(response):
 # Create user through POST request
 def createUser(request):
     if request.method == 'OPTIONS':
-        response = HttpResponse()
-        response['Access-Control-Allow-Origin'] = '*'
-        response['Access-Control-Allow-Methods'] = 'GET, PUT, POST, DELETE, OPTIONS'
-        response['Access-Control-Max-Age'] = 1000
-        # note that '*' is not valid for Access-Control-Allow-Headers
-        response['Access-Control-Allow-Headers'] = 'Content-Type, Authorization, ' \
-                                                   'X-Requested-With, origin, x-csrftoken, content-type, accept'
-        return response
+        return _options_allow_access()
     if request.method == 'POST':
         serializer = UserCreationSerializer(data=request.data)
         if serializer.is_valid():
@@ -50,6 +55,8 @@ def createUser(request):
             response = HttpResponse(status=status.HTTP_201_CREATED)
             _acao_response(response)
             return response
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse(status=status.HTTP_204_NO_CONTENT)
 
 
 # TODO: Return all users instead?
@@ -108,12 +115,15 @@ obtain_auth_token = ObtainAuthToken.as_view()
 #     return HttpResponse(output)
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'OPTIONS'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
+    if request.method == 'OPTIONS':
+        return _options_allow_access()
+
     if request.method == 'GET':
         allFoods = Food.objects.filter(Q(latitude__range=(latitude - 10, latitude + 10)),
                                        Q(longitude__range=(longitude - 10, longitude + 10)))
