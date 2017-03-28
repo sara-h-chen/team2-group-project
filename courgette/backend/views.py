@@ -1,19 +1,19 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.parsers import JSONParser
+from rest_framework import status, renderers
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
-from rest_framework import status, permissions
+from rest_framework.authtoken import views as auth_views
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.models import Token
 
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib.auth import login
-from serializers import FoodSerializer, MessageSerializer, UserSerializer, UserCreationSerializer
-from models import Food, Message, UserForm
+from serializers import *
+from models import Food, Message
 
 ##########################################################
 #                      HEADER CONTROL                    #
@@ -30,37 +30,17 @@ def _acao_response(response):
 #########################################################
 
 
-def index(request):
-    # TODO: Return index page/remove this
-    return HttpResponse("Placeholder simple Index page.")
-
-
 @csrf_exempt
+@api_view(['GET', 'POST'])
 # Create user through POST request
 def createUser(request):
-    # if request.method == 'POST':
-    form = UserForm(request.POST or None)
-    if form.is_valid():
-        new_user = User.objects.create_user(
-            username=form.cleaned_data['username'],
-            password=form.cleaned_data['password'],
-            email=form.cleaned_data['email'],
-            first_name=form.cleaned_data['first_name'],
-            last_name=form.cleaned_data['last_name']
-        )
-        login(request, new_user)
-        response = HttpResponseRedirect('/')
-        _acao_response(response)
-        return response
-
-    return render(request, 'backend/adduser.html', {'form': form})
-
-
-# UNUSED: RETURNS FOOD LISTING (for reference only!)
-# def food_listing(request):
-#     latest_food_requests = Food.objects.order_by('Date listed')
-#     output = ', '.join([food.food_name for food in latest_food_requests])
-#     return HttpResponse(output)
+    if request.method == 'POST':
+        serializer = UserCreationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response = HttpResponse(status=status.HTTP_201_CREATED)
+            _acao_response(response)
+            return response
 
 
 # TODO: Return all users instead?
@@ -88,12 +68,38 @@ def indentify(request, user_id):
         return HttpResponse('User not found')
 
 
+# Takes the place of the login mechanism
+# Extends parent class to produce token cookies
+class ObtainAuthToken(auth_views.ObtainAuthToken):
+    parser_classes = (FormParser, MultiPartParser, JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+    serializer_class = AuthTokenSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        response = JSONResponse({'token': token.key})
+        _acao_response(response)
+        response.set_cookie('auth-token', token.key)
+        return response
+obtain_auth_token = ObtainAuthToken.as_view()
+
+
 #########################################################
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
+# UNUSED: RETURNS FOOD LISTING (for reference only!)
+# def food_listing(request):
+#     latest_food_requests = Food.objects.order_by('Date listed')
+#     output = ', '.join([food.food_name for food in latest_food_requests])
+#     return HttpResponse(output)
+
 @csrf_exempt
 @api_view(['GET', 'POST'])
+@authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
@@ -107,6 +113,7 @@ def foodList(request, latitude, longitude):
         return response
 
     elif request.method == 'POST':
+        # TODO: Get this value from cookie/header
         username = request.user.username
         currentUser = User.objects.get(username=username)
         data = JSONParser().parse(request)

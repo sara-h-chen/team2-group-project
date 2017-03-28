@@ -17,12 +17,11 @@ import django.contrib.auth.urls as inbuilt_urls
 
 from django.conf.urls import *
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     url(r'^backend/', include('backend.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^login/$', auth_views.login, name='login'),
     # TODO: Check if the others are going to have a custom page for this
     # url(r'^logout/$', auth_views.logout, {'next_page': 'website/index.html'}, name='logout'),
     # url(r'^logout/$', auth_views.logout, name='logout'),
