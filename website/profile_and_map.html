@@ -7,13 +7,18 @@
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<script>
 		userID=1;
-
+		function getMessages(username){
+			$("#messages").empty()
+				url = 'http://localhost:8000/backend/user/'+username+'/messages/'
+				$.get(url,function(messages){
+					$(messages).each(function(message){
+						console.log(messages[message])
+					})
+				});
+		}
 	</script>
 	<title>COURGETTE</title>
 </head>
-<div id='messages'>
-
-</div>
 <div id="item_tab" onclick="openItemMenu()"><br><br><br><br><br><br><br>&nbsp;></div>
 
 <div id="community_popup" class="popup">
@@ -31,7 +36,6 @@
 		<button id="submit">Get Item</button>
 	</div>
 </div>
-
 <div id="profile_menu" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
   <input type="image" id="user_profile_pic" src="profile_example.png">
@@ -44,9 +48,12 @@
 	<!--</select>!-->
   </div>
   <div id="message_list">
-	<div id='contacts'>
-	</div>
-	<div>Messageeeee</div>
+		<div id='contacts'>
+
+		</div>
+		<div id='messages'>
+
+		</div>
   </div>
   <img src="add_item.png" id="add_button" onclick="addItem()"/>
   <img src="messages.png" id="message_button"/>
@@ -121,7 +128,7 @@ $(document).ready(function(){
 					url = 'http://localhost:8000/backend/function/'+contacts[item]+'/'
 					$.get(url, function(data){
 						name= data.username
-						$('#contacts').append("<div id='"+contacts[item]+"'>"+name+"</div>")
+						$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages('"+name+"')>"+name+"</div>")
 					})
 
 				})
@@ -206,6 +213,8 @@ function logOut() {
 			popup.style.display = "none";
 		}
 	}
+
+
 </script>
 
 </footer>

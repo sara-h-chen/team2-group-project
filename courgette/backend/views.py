@@ -157,7 +157,7 @@ def getMessages(request, username):
     try:
         user = User.objects.filter(username=username)
         uID = user[0].id
-        messageList = Message.objects.filter(Q(receiver_id=0) | Q(sender_id=0))
+        messageList = Message.objects.filter(Q(receiver_id=uID) | Q(sender_id=uID))
         serializer = MessageSerializer(messageList, many=True)
         response = JSONResponse(serializer.data)
         _acao_response(response)
@@ -186,7 +186,7 @@ def getContacts(request, username):
                     contacts[counter] = (x.receiver_id)
                     counter=counter+1
         response = JSONResponse(contacts)
-        response['Access-Control-Allow-Origin']='*'
+        _acao_response(response)
         return response
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)

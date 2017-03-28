@@ -25,7 +25,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('sender', 'receiver', 'msg_content', 'created_at', 'read')
+        fields = ('sender', 'receiver', 'msg_content', 'created_at', 'read', 'id')
 
 
 class UserCreationSerializer(serializers.ModelSerializer):
