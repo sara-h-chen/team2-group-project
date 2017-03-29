@@ -22,6 +22,10 @@ var mq = window.matchMedia("(min-width: 500px)");
 function openItemMenu() {
 	if (mq.matches) {
 		document.getElementById("item_menu").style.width = "300px";
+    document.getElementById("middle").style.left="300px";
+		width = $("#middle").width();
+		percent= screen.width*0.03;
+		document.getElementById("middle").style.width =String(width-300+percent/2)+'px';
 	} else {
 		document.getElementById("item_menu").style.width = "100%";
 	}
@@ -51,6 +55,10 @@ function closeProfileMenu() {
 /* Set the width of the side navigation to 0 */
 function closeItemMenu() {
     document.getElementById("item_menu").style.width = "0";
+		document.getElementById("middle").style.left="3%";
+		width = $("#middle").width();
+		percent= screen.width*0.03;
+		document.getElementById("middle").style.width =String(width+300-percent/2)+'px';
 }
 
 function addItem() {

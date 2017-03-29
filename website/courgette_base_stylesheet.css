@@ -1,4 +1,11 @@
-html, body { height: 100%; width: 100%; margin: -1px; }
+html, body { height: 100%; width: 100%; margin: 0px; }
+
+#middle {
+	height:100%;
+	width: 94%;
+	position: absolute;
+	left: 3%;
+}
 
 #item_tab {
 	background-color:#9aaa57;
