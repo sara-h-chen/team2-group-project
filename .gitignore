@@ -4,3 +4,4 @@
 courgette/backend/*.pyc
 courgette/courgette/*.pyc
 django/
+courgette/backend/migrations/*.pyc
