@@ -3,27 +3,11 @@
 	<link type="text/css" rel="stylesheet" href="courgette_base_stylesheet.css"/>
 	<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Roboto" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="profile_and_map.js"></script>
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<script>
 		userID=1;
-		function getMessages(ID){
-			$("#messages").empty()
-				url = 'http://localhost:8000/backend/function/messagesBetween/'
-				$.post(url,{
-					'userA':userID,
-					'userB':ID
-				},function(messages){
-					$(messages).each(function(message){
-						if (messages[message]['sender']==userID){
-							$("#messages").append("<div id='"+messages[message]['id']+"' class=sentMessage>"+messages[message]['msg_content']+"</div>");
-						}
-						else{
-							$("#messages").append("<div id='"+messages[message]['id']+"' class=receivedMessage>"+messages[message]['msg_content']+"</div>");
-						}
-					})
-				});
-		}
 	</script>
 	<title>COURGETTE</title>
 </head>
@@ -127,21 +111,7 @@ $("input[type='image']").click(function() {
 });
 
 $(document).ready(function(){
-	url = 'http://localhost:8000/backend/function/'+userID+'/'
-	$.get(url, function(user){
-		username = user.username
-		url = 'http://localhost:8000/backend/user/'+username+'/contacts/'
-		$.get(url,function(contacts){
-				$(contacts).each(function(item){
-					url = 'http://localhost:8000/backend/function/'+contacts[item]+'/'
-					$.get(url, function(data){
-						name= data.username
-						$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+")>"+name+"</div>")
-					})
-
-				})
-		})
-	})
+	getContacts(userID)
   // Hide div 2 by default
   $('#message_list').hide();
 
@@ -157,42 +127,8 @@ $(document).ready(function(){
 });
 </script>
 <script>
-var mq = window.matchMedia("(min-width: 500px)");
-/* Set the width of the side navigation to 300px */
-function openProfileMenu() {
-	if (mq.matches) {
-		document.getElementById("profile_menu").style.width = "300px";
-	} else {
-		document.getElementById("profile_menu").style.width = "100%";
-	}
-}
 
-/* Set the width of the side navigation to 0 */
-function closeProfileMenu() {
-	document.getElementById("profile_menu").style.width = "0";
-}
 
-/* Set the width of the side navigation to 300px */
-function openItemMenu() {
-	if (mq.matches) {
-		document.getElementById("item_menu").style.width = "300px";
-	} else {
-		document.getElementById("item_menu").style.width = "100%";
-	}
-}
-
-/* Set the width of the side navigation to 0 */
-function closeItemMenu() {
-    document.getElementById("item_menu").style.width = "0";
-}
-
-function addItem() {
-    /* Maybe go to pop-up? */
-}
-
-function logOut() {
-	window.location.href = "index.html";
-}
 //POPUP CODE WHEN CLICKING ON ITEM IMAGE IN COMMUNITY SIDE BAR
 // Get the modal
 	var popup = document.getElementById('community_popup');
