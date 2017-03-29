@@ -39,54 +39,8 @@ def _options_allow_access():
 
 
 #########################################################
-#                USER-RELATED QUERIES                   #
+#               AUTHENTICATION METHOD                   #
 #########################################################
-
-
-@csrf_exempt
-@api_view(['GET', 'POST', 'OPTIONS'])
-# Create user through POST request
-def createUser(request):
-    if request.method == 'OPTIONS':
-        return _options_allow_access()
-    if request.method == 'POST':
-        serializer = UserCreationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            response = HttpResponse(status=status.HTTP_201_CREATED)
-            _acao_response(response)
-            return response
-        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
-    return HttpResponse(status=status.HTTP_204_NO_CONTENT)
-
-
-# TODO: Return all users instead?
-# Gets the username from the URL as a param
-def findUser(request, username):
-    # Get particular user from db based on param
-    # Returns username and email
-    try:
-        user = User.objects.get(username=username)
-        serializer = UserSerializer(user)
-        response = JSONResponse(serializer.data)
-        _acao_response(response)
-        return response
-    except User.DoesNotExist:
-        return HttpResponse('User not found')
-
-
-def identify(request, user_id):
-    try:
-        user=User.objects.get(id=user_id)
-        serializer = UserSerializer(user)
-        response = JSONResponse(serializer.data)
-        _acao_response(response)
-        return response
-    except:
-        response = HttpResponse('User not found')
-        _acao_response(response)
-        return response
-
 
 # Takes the place of the login mechanism
 # Extends parent class to produce token cookies
@@ -112,6 +66,56 @@ obtain_auth_token = ObtainAuthToken.as_view()
 
 
 #########################################################
+#                USER-RELATED QUERIES                   #
+#########################################################
+
+
+@csrf_exempt
+@api_view(['GET', 'POST', 'OPTIONS'])
+# Create user through POST request
+def createUser(request):
+    if request.method == 'OPTIONS':
+        return _options_allow_access()
+    if request.method == 'POST':
+        serializer = UserCreationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response = HttpResponse(status=status.HTTP_201_CREATED)
+            _acao_response(response)
+            return response
+        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
+    return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+# TODO: Return all users instead?
+# Gets the username from the URL as a param
+def findUser(request, username):
+    # Get particular user from db based on param
+    # Returns username and email
+    try:
+        user = User.objects.get(username=username)
+        serializer = UserSerializer(user)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
+    except User.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+
+def identify(request, user_id):
+    try:
+        user=User.objects.get(id=user_id)
+        serializer = UserSerializer(user)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
+    except:
+        response = HttpResponse('User not found')
+        _acao_response(response)
+        return response
+
+
+#########################################################
 #                FOOD-RELATED QUERIES                   #
 #########################################################
 
@@ -121,8 +125,19 @@ obtain_auth_token = ObtainAuthToken.as_view()
 #     output = ', '.join([food.food_name for food in latest_food_requests])
 #     return HttpResponse(output)
 
-@csrf_exempt
 @api_view(['GET', 'POST', 'OPTIONS'])
+def foodListHandler(request, latitude, longitude):
+    """
+    Deals with incoming OPTIONS for FOODLIST functions
+    """
+    if request.method == 'OPTIONS':
+        return _options_allow_access()
+    else:
+        foodList(request, latitude, longitude)
+
+
+@csrf_exempt
+@api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
@@ -140,17 +155,16 @@ def foodList(request, latitude, longitude):
         return response
 
     elif request.method == 'POST':
-        # TODO: Get this value from cookie/header
         username = request.user.username
         currentUser = User.objects.get(username=username)
         data = JSONParser().parse(request)
         serializer = FoodSerializer(data=data)
         if serializer.is_valid():
             serializer.save(user=currentUser)
-            response = JSONResponse(serializer.data, status=201)
+            response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
             _acao_response(response)
             return response
-        response = JSONResponse(serializer.errors, status=400)
+        response = JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         _acao_response(response)
         return response
 
@@ -165,9 +179,37 @@ def search(request, query):
     return response
 
 
-@api_view(['GET', 'PUT', 'DELETE', 'OPTIONS'])
-@authentication_classes((TokenAuthentication, IsOwnerOrReadOnly,))
-# def update(request, ):
+@api_view(['PUT', 'DELETE', 'OPTIONS'])
+def updateHandler(request, id):
+    """
+    Deals with incoming OPTIONS for UPDATE functions
+    """
+    if request.method == 'OPTIONS':
+        return _options_allow_access()
+    else:
+        update(request, id)
+
+
+@csrf_exempt
+@api_view(['PUT', 'DELETE'])
+@authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated, IsOwnerOrReadOnly,))
+def update(request, id):
+    try:
+        foodItem = Food.objects.get(id=id)
+    except Food.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'PUT':
+        serializer = FoodSerializer(foodItem, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return _acao_response(HttpResponse(status=status.HTTP_200_OK))
+        return _acao_response(JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST))
+
+    elif request.method == 'DELETE':
+        foodItem.delete()
+        return _acao_response(HttpResponse(status=status.HTTP_204_NO_CONTENT))
 
 
 
@@ -275,10 +317,10 @@ def addMessage(request, username):
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
+
 ##########################################################
 #               DJANGO REST UTILITIES                    #
 ##########################################################
-
 
 class JSONResponse(HttpResponse):
     """
