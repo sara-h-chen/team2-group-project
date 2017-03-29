@@ -25,7 +25,7 @@ function openItemMenu() {
     document.getElementById("middle").style.left="300px";
 		width = $("#middle").width();
 		percent= screen.width*0.03;
-		document.getElementById("middle").style.width =String(width-300+percent/2)+'px';
+		document.getElementById("middle").style.width =String(width-300+percent)+'px';
 	} else {
 		document.getElementById("item_menu").style.width = "100%";
 	}
@@ -36,6 +36,9 @@ function openItemMenu() {
 function openProfileMenu() {
 	if (mq.matches) {
 		document.getElementById("profile_menu").style.width = "300px";
+		width = $("#middle").width();
+		percent= screen.width*0.03;
+		document.getElementById("middle").style.width =String(width-300+percent)+'px';
 	} else {
 		document.getElementById("profile_menu").style.width = "100%";
 	}
@@ -48,6 +51,9 @@ function logOut() {
 /* Set the width of the side navigation to 0 */
 function closeProfileMenu() {
 	document.getElementById("profile_menu").style.width = "0";
+	width = $("#middle").width();
+	percent= screen.width*0.03;
+	document.getElementById("middle").style.width =String(width+300-percent)+'px';
 }
 
 
@@ -58,7 +64,7 @@ function closeItemMenu() {
 		document.getElementById("middle").style.left="3%";
 		width = $("#middle").width();
 		percent= screen.width*0.03;
-		document.getElementById("middle").style.width =String(width+300-percent/2)+'px';
+		document.getElementById("middle").style.width =String(width+300-percent)+'px';
 }
 
 function addItem() {
