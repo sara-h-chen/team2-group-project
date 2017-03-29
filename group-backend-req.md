@@ -16,6 +16,8 @@ get all notifications [counts notifications]
 ### To-Do List on Backend
 
 
-SHA-256 database; no password is stored in plaintext
-Integration with OAuth authentication systems
-Password validators
+
+##### Security Checklist
+- PBKDF2 algorithm with a SHA256 hash; no password is stored in plaintext
+- Password validators
+- Authentication Tokens are hashed, so no user data is transmitted
