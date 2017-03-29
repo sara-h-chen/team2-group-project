@@ -14,6 +14,7 @@ from rest_framework.authtoken.models import Token
 
 from serializers import *
 from models import Food, Message
+from permissions import IsOwnerOrReadOnly
 
 ##########################################################
 #                      HEADER CONTROL                    #
@@ -164,7 +165,10 @@ def search(request, query):
     return response
 
 
-# def update(request, )
+@api_view(['GET', 'PUT', 'DELETE', 'OPTIONS'])
+@authentication_classes((TokenAuthentication, IsOwnerOrReadOnly,))
+# def update(request, ):
+
 
 
 #########################################################

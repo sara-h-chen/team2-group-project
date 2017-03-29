@@ -14,7 +14,6 @@ urlpatterns = [
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/$', views.getMessages),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/contacts/$', views.getContacts),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/add/$', views.addMessage),
-    url(r'^user/(?P<username>[a-zA-Z0-9]+)/$', views.findUser, name='findUser'),
     url(r'^newuser/$', views.createUser),
     url(r'^login/$', views.obtain_auth_token),
 
