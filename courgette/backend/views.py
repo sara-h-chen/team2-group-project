@@ -197,11 +197,9 @@ def update(request, id):
         return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
 
     if request.method == 'PUT':
-        serializer = FoodSerializer(foodItem, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return _acao_response(HttpResponse(status=status.HTTP_200_OK))
-        return _acao_response(JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST))
+        serializer = FoodSerializer(foodItem, data=request.data, partial=True)
+        serializer.save()
+        return _acao_response(JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED))
 
     elif request.method == 'DELETE':
         foodItem.delete()

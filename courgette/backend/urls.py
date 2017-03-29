@@ -4,7 +4,6 @@ from django.contrib.auth import views as auth_views
 import views
 
 urlpatterns = [
-    # url(r'^$', views.index, name='index'),
     url(r'^food/(?P<latitude>\d+(?:\.\d+))/(?P<longitude>\d+(?:\.\d+))/$', views.foodListHandler),
     # url(r'^search/(?P<type>[0-4]{1})/$', views.search, name='search'),
     # url(r'^courgette/(?P<userID>[0-4]{5})/$', views.notifcation, name='notifcations')
@@ -16,5 +15,5 @@ urlpatterns = [
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/add/$', views.addMessage),
     url(r'^newuser/$', views.createUser),
     url(r'^login/$', views.obtain_auth_token),
-
+    url(r'^update/(?P<id>[0-9]+)/$', views.updateHandler),
 ]
