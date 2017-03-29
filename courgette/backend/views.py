@@ -71,20 +71,19 @@ obtain_auth_token = ObtainAuthToken.as_view()
 
 
 @csrf_exempt
-@api_view(['GET', 'POST', 'OPTIONS'])
 # Create user through POST request
 def createUser(request):
     if request.method == 'OPTIONS':
         return _options_allow_access()
-    if request.method == 'POST':
+    elif request.method == 'POST':
         serializer = UserCreationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             response = HttpResponse(status=status.HTTP_201_CREATED)
             _acao_response(response)
             return response
-        return HttpResponse(status=status.HTTP_400_BAD_REQUEST)
-    return HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
+    return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
 
 
 # TODO: Return all users instead?
@@ -99,8 +98,7 @@ def findUser(request, username):
         _acao_response(response)
         return response
     except User.DoesNotExist:
-        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
-
+        return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
 
 def identify(request, user_id):
     try:
@@ -125,7 +123,7 @@ def identify(request, user_id):
 #     output = ', '.join([food.food_name for food in latest_food_requests])
 #     return HttpResponse(output)
 
-@api_view(['GET', 'POST', 'OPTIONS'])
+
 def foodListHandler(request, latitude, longitude):
     """
     Deals with incoming OPTIONS for FOODLIST functions
@@ -137,14 +135,11 @@ def foodListHandler(request, latitude, longitude):
 
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
-    if request.method == 'OPTIONS':
-        return _options_allow_access()
 
     if request.method == 'GET':
         allFoods = Food.objects.filter(Q(latitude__range=(latitude - 10, latitude + 10)),
@@ -168,6 +163,9 @@ def foodList(request, latitude, longitude):
         _acao_response(response)
         return response
 
+    else:
+        return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
+
 
 # Searches based on keyword, food_type, and location
 def search(request, query):
@@ -179,7 +177,6 @@ def search(request, query):
     return response
 
 
-@api_view(['PUT', 'DELETE', 'OPTIONS'])
 def updateHandler(request, id):
     """
     Deals with incoming OPTIONS for UPDATE functions
@@ -191,14 +188,13 @@ def updateHandler(request, id):
 
 
 @csrf_exempt
-@api_view(['PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated, IsOwnerOrReadOnly,))
 def update(request, id):
     try:
         foodItem = Food.objects.get(id=id)
     except Food.DoesNotExist:
-        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+        return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
 
     if request.method == 'PUT':
         serializer = FoodSerializer(foodItem, data=request.data)
@@ -210,6 +206,9 @@ def update(request, id):
     elif request.method == 'DELETE':
         foodItem.delete()
         return _acao_response(HttpResponse(status=status.HTTP_204_NO_CONTENT))
+
+    else:
+        return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
 
 
 #########################################################
