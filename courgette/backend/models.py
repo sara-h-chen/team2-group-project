@@ -43,7 +43,7 @@ class Food(models.Model):
     food_type = models.CharField(choices=FOOD_TYPES,default='OTHER',max_length=50)
     ALLERGENS = (
         ('NUTS', 'Nuts'),
-        ('GLUTEN','Gluten'),
+        ('GLUTEN', 'Gluten'),
         ('NON_VEGAN', 'Non-Vegan'),
         ('SEAFOOD', 'Seafood'),
         ('EGGS', 'Eggs'),

@@ -86,7 +86,7 @@ def createUser(request):
     return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
 
 
-# TODO: Return all users instead?
+# TODO: Allow POST request that gives users the opportunity to upload pictures
 # Gets the username from the URL as a param
 def findUser(request, username):
     # Get particular user from db based on param
@@ -99,6 +99,7 @@ def findUser(request, username):
         return response
     except User.DoesNotExist:
         return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
+
 
 def identify(request, user_id):
     try:
@@ -167,14 +168,24 @@ def foodList(request, latitude, longitude):
         return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
 
 
+# UNUSED FUNCTION: Searching is handled in the front-end
 # Searches based on keyword, food_type, and location
-def search(request, query):
-    searchItems = Food.objects.get(Q(food_name__icontains=query) | Q(food_type__exact=query) |
-                                   Q(location__icontains=query))
-    serializer = FoodSerializer(searchItems, many=True)
-    response = JSONResponse(serializer.data)
-    _acao_response(response)
-    return response
+def search(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        try:
+            searchItems = Food.objects.filter(Q(food_name__icontains=data['keyword']) |
+                                              Q(food_type__exact=data['food_type']) |
+                                              (Q(latitude__range=(data['latitude'] - 10, data['latitude'] + 10)),
+                                               Q(longitude__range=(data['longitude'] - 10, data['longitude'] + 10))))
+            serializer = FoodSerializer(searchItems, many=True)
+            response = JSONResponse(serializer.data)
+            _acao_response(response)
+            return response
+        except Food.DoesNotExist:
+            return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
+    else:
+        return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
 
 
 def updateHandler(request, id):
