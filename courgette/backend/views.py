@@ -133,7 +133,7 @@ def foodListHandler(request, latitude, longitude):
     if request.method == 'OPTIONS':
         return _options_allow_access()
     else:
-        foodList(request, latitude, longitude)
+        return foodList(request, latitude, longitude)
 
 
 @csrf_exempt
@@ -187,7 +187,7 @@ def updateHandler(request, id):
     if request.method == 'OPTIONS':
         return _options_allow_access()
     else:
-        update(request, id)
+        return update(request, id)
 
 
 @csrf_exempt
@@ -210,7 +210,6 @@ def update(request, id):
     elif request.method == 'DELETE':
         foodItem.delete()
         return _acao_response(HttpResponse(status=status.HTTP_204_NO_CONTENT))
-
 
 
 #########################################################
