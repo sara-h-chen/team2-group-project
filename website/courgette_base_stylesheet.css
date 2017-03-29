@@ -6,7 +6,22 @@ html, body { height: 100%; width: 100%; margin: -1px; }
 	width:3%;
 	height:100%;
 	font-size: 38px;
+	position: absolute;
+	left: 0%;
+	top:0%;
 }
+
+#profile_tab {
+	background-color:#9aaa57;
+	color:white;
+	width:3%;
+	height:100%;
+	font-size: 38px;
+	position: absolute;
+	left: 97%;
+	top:0%;
+}
+
 #user_profile_pic {
 	top: 50px;
 	right: 0;
@@ -258,6 +273,12 @@ html, body { height: 100%; width: 100%; margin: -1px; }
 
 .receivedMessage {
 	padding:0px 5px 0px 5px;
+}
+
+.tabSign {
+	position: relative;
+	top: 47%;
+	left: 20%;
 }
 
 /* Add Animation */

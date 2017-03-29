@@ -11,154 +11,158 @@
 	</script>
 	<title>COURGETTE</title>
 </head>
-<div id="item_tab" onclick="openItemMenu()"><br><br><br><br><br><br><br>&nbsp;></div>
+<body>
+	<div id="profile_tab" onclick="openProfileMenu()"><div class='tabSign'>&#60;</div></div>
+	<div id="item_tab" onclick="openItemMenu()"><div class = 'tabSign'>&#62;</div></div>
 
-<div id="community_popup" class="popup">
-	<div class="popup_header">
-		<span class="close">&times;</span>
-		<h2>Item Details</h2>
-	</div>
-	<div class="popup_content">
-		<h3>Item Name - Distance</h3>
-		<p>Item description here djsklkadj sdfjkidslkj hdsijodjkuj</p>
-		<p>Also include same image used in side menu or maybe slideshow</p>
-		<p>Of other images uploaded by the community member.</p>
-	</div>
-	<div class="popup_footer">
-		<button id="submit">Get Item</button>
-	</div>
-</div>
-<div id="profile_menu" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
-  <input type="image" id="user_profile_pic" src="profile_example.png">
-  <input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
-  <div id="user_item_list">
-    <!--<select id="select_item" size="10">!-->
-	<div>Dummy</div>
-	<div>Data</div>
-	<div>Blah</div>
-	<!--</select>!-->
-  </div>
-  <div id="message_list">
-		<div id='contacts'>
-
+	<div id="community_popup" class="popup">
+		<div class="popup_header">
+			<span class="close">&times;</span>
+			<h2>Item Details</h2>
 		</div>
-		<div id='messages'>
-
+		<div class="popup_content">
+			<h3>Item Name - Distance</h3>
+			<p>Item description here djsklkadj sdfjkidslkj hdsijodjkuj</p>
+			<p>Also include same image used in side menu or maybe slideshow</p>
+			<p>Of other images uploaded by the community member.</p>
 		</div>
-  </div>
-  <img src="add_item.png" id="add_button" onclick="addItem()"/>
-  <img src="messages.png" id="message_button"/>
-  <img src="my_items.png" id="items_button"/>
-  <img src="log_out.png" id="exit_button" onclick="logOut()"/>
-</div>
-
-<div id="item_menu" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeItemMenu()">&times;</a>
-  <div id="community_item_list" style="overflow-y:scroll;">
-	<div class="community_item">
-		<img id="example1" class="item_img" src="example_tomato.jpg" onclick="viewInfo()"><!-- goes into popup window !-->
-		<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-		<h3>Tomato</h3>
-		<p>0.3 miles</p>
-
-		<!-- maybe some coloured circle indicating type of produce (fish,veg,etc) !-->
+		<div class="popup_footer">
+			<button id="submit">Get Item</button>
+		</div>
 	</div>
-	<br>
-	<div class="community_item">
-		<img id="example2" class="item_img" src="example_cheese.jpg" onclick="viewInfo()">
-		<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-		<h3>Cheese</h3>
-		<p>0.5 miles</p>
+	<div id="profile_menu" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
+	  <input type="image" id="user_profile_pic" src="profile_example.png">
+	  <input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
+		<div>
+			<div id="user_item_list">
+		    <!--<select id="select_item" size="10">!-->
+			<div>Dummy</div>
+			<div>Data</div>
+			<div>Blah</div>
+			<!--</select>!-->
+		  </div>
+		</div>
+	  <img src="add_item.png" id="add_button" onclick="addItem()"/>
+	  <img src="messages.png" id="message_button"/>
+	  <img src="my_items.png" id="items_button"/>
+	  <img src="log_out.png" id="exit_button" onclick="logOut()"/>
+		<div id="message_list">
+			<div id='contacts'>
+
+			</div>
+			<div id='messages'>
+
+			</div>
+	  </div>
 	</div>
-	<br>
-	<div class="community_item">
-		<img id="example2" class="item_img" src="example_broccoli.jpg" onclick="viewInfo()">
-		<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-		<h3>Broccoli</h3>
-		<p>0.2 miles</p>
+
+	<div id="item_menu" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeItemMenu()">&times;</a>
+	  <div id="community_item_list" style="overflow-y:scroll;">
+		<div class="community_item">
+			<img id="example1" class="item_img" src="example_tomato.jpg" onclick="viewInfo()"><!-- goes into popup window !-->
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<h3>Tomato</h3>
+			<p>0.3 miles</p>
+
+			<!-- maybe some coloured circle indicating type of produce (fish,veg,etc) !-->
+		</div>
+		<br>
+		<div class="community_item">
+			<img id="example2" class="item_img" src="example_cheese.jpg" onclick="viewInfo()">
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<h3>Cheese</h3>
+			<p>0.5 miles</p>
+		</div>
+		<br>
+		<div class="community_item">
+			<img id="example2" class="item_img" src="example_broccoli.jpg" onclick="viewInfo()">
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<h3>Broccoli</h3>
+			<p>0.2 miles</p>
+		</div>
+		<br>
+		<div class="community_item">
+			<img id="example2" class="item_img" src="example_bleach.jpg" onclick="viewInfo()">
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<h3>Bleach</h3>
+			<p>0.7 miles</p>
+		</div>
+		<br>
+		<div class="community_item">
+			<img id="example2" class="item_img" src="example_bread.jpg" onclick="viewInfo()">
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<h3>Bread</h3>
+			<p>0.1 miles</p>
+		</div>
+	  </div>
+	  <button id="search_button">Search</button>
 	</div>
-	<br>
-	<div class="community_item">
-		<img id="example2" class="item_img" src="example_bleach.jpg" onclick="viewInfo()">
-		<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-		<h3>Bleach</h3>
-		<p>0.7 miles</p>
-	</div>
-	<br>
-	<div class="community_item">
-		<img id="example2" class="item_img" src="example_bread.jpg" onclick="viewInfo()">
-		<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-		<h3>Bread</h3>
-		<p>0.1 miles</p>
-	</div>
-  </div>
-  <button id="search_button">Search</button>
-</div>
-
-<!-- Use any element to open the sidenav -->
-<span id="profile_menu_icon" onclick="openProfileMenu()">*open profile menu icon*</span>
-
-<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page
-<div id="user_items_list">
-  ...
-</div>!-->
-
-<script>
-
-$("input[type='image']").click(function() {
-    $("input[id='new_pic']").click();
-});
-
-$(document).ready(function(){
-	getContacts(userID)
-  // Hide div 2 by default
-  $('#message_list').hide();
-
-  $('#message_button').click(function(){
-      $('#user_item_list').hide();
-      $('#message_list').show();
-  });
-
-  $('#items_button').click(function(){
-      $('#message_list').hide();
-      $('#user_item_list').show();
-  });
-});
-</script>
-<script>
 
 
-//POPUP CODE WHEN CLICKING ON ITEM IMAGE IN COMMUNITY SIDE BAR
-// Get the modal
-	var popup = document.getElementById('community_popup');
+	<!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page
+	<div id="user_items_list">
+	  ...
+	</div>!-->
 
-	// Get the button that opens the modal
-	var btn = document.getElementsByClassName("item_img");
+	<script>
 
-	// Get the <span> element that closes the modal
-	var span = document.getElementsByClassName("close")[0];
+	$("input[type='image']").click(function() {
+	    $("input[id='new_pic']").click();
+	});
 
-	// When the user clicks on the button, open the modal
-	btn.onclick = function() {
-		popup.style.display = "block";
-	}
+	$(document).ready(function(){
+		getContacts(userID)
+	  // Hide div 2 by default
+	  $('#message_list').hide();
 
-	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-		popup.style.display = "none";
-	}
+	  $('#message_button').click(function(){
+	      $('#user_item_list').hide();
+	      $('#message_list').show();
+	  });
 
-	// When the user clicks anywhere outside of the modal, close it
-	//TODO I changed some of the things to remove an error. No idea what functionality was wanted
-	window.onclick = function(event) {
-		if (event.target != popup) {
+	  $('#items_button').click(function(){
+	      $('#message_list').hide();
+	      $('#user_item_list').show();
+	  });
+	});
+	</script>
+	<script>
+
+
+	//POPUP CODE WHEN CLICKING ON ITEM IMAGE IN COMMUNITY SIDE BAR
+	// Get the modal
+		var popup = document.getElementById('community_popup');
+
+		// Get the button that opens the modal
+		var btn = document.getElementsByClassName("item_img");
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("close")[0];
+
+		// When the user clicks on the button, open the modal
+		btn.onclick = function() {
+			popup.style.display = "block";
+		}
+
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
 			popup.style.display = "none";
 		}
-	}
+
+		// When the user clicks anywhere outside of the modal, close it
+		//TODO I changed some of the things to remove an error. No idea what functionality was wanted
+		window.onclick = function(event) {
+			if (event.target != popup) {
+				popup.style.display = "none";
+			}
+		}
 
 
-</script>
+	</script>
+</body>
+
 
 </footer>
 <footer>
