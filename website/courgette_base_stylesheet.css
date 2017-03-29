@@ -1,4 +1,81 @@
-html, body { height: 100%; width: 100%; margin: 0px; background-color: #aaaaaa;}
+html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5;}
+
+/*form and generic rules*/
+body {
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+	color: #596b34;
+}
+
+h2 {
+	padding-left: 5%;
+	font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+	padding-left: 5%;
+	font-family: 'Roboto', sans-serif;
+}
+
+p {
+	padding-left: 5%;
+	font-family: 'Roboto', sans-serif;
+}
+
+.headline {
+    font-family: 'Fredoka One', cursive;
+    line-height: 1.5em;
+    color: black;
+    font-size: 40px;
+	padding-left: 5%;
+	color: #9aaa57;
+}
+
+h1:after {
+    content:' ';
+    display:block;
+    border:2px solid #d0d0d0;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+    -webkit-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+    -moz-box-shadow:inset 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+input[type=text], select {
+    width: 90%;
+    padding: 12px 20px;
+    margin: 8px 5%;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+span {
+	padding-left: 5%;
+	font-family: 'Roboto', sans-serif;
+}
+
+input[type=submit] {
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+    width: 20%;
+    background-color: #9aaa57;
+    color: white;
+    padding: 14px;
+    margin: 0 0 0 75%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    background-color: #596b34;
+}
+
+/*end of form and generic*/
 
 #middle {
 	height:100%;
