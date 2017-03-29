@@ -79,10 +79,12 @@ def identify(request, user_id):
         user=User.objects.get(id=user_id)
         serializer = UserSerializer(user)
         response = JSONResponse(serializer.data)
-        response['Access-Control-Allow-Origin']='*'
+        _acao_response(response)
         return response
     except:
-        return HttpResponse('User not found')
+        response = HttpResponse('User not found')
+        _acao_response(response)
+        return response
 
 
 # Takes the place of the login mechanism
@@ -194,6 +196,10 @@ def getMessages(request, username):
         return response
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+    except IndexError:
+        response = HttpResponse('User not found')
+        _acao_response(response)
+        return response
 
 @csrf_exempt
 def getMessagesBetween(request):
@@ -237,8 +243,13 @@ def getContacts(request, username):
         _acao_response(response)
         return response
     except Message.DoesNotExist:
-        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
-
+        response = HttpResponse(status=status.HTTP_404_NOT_FOUND)
+        _acao_response(response)
+        return response
+    except IndexError:
+        response = HttpResponse('User not found')
+        _acao_response(response)
+        return response
 
 @csrf_exempt
 def addMessage(request, username):
