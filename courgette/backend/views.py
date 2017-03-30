@@ -79,11 +79,15 @@ def createUser(request):
         serializer = UserCreationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            response = HttpResponse(status=status.HTTP_201_CREATED)
+            response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
             _acao_response(response)
             return response
-        return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
-    return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
+        response = JSONResponse({'error': 'information given invalid'}, status=status.HTTP_400_BAD_REQUEST)
+        _acao_response(response)
+        return response
+    response = HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    _acao_response(response)
+    return response
 
 
 # TODO: Allow POST request that gives users the opportunity to upload pictures
@@ -98,7 +102,9 @@ def findUser(request, username):
         _acao_response(response)
         return response
     except User.DoesNotExist:
-        return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
+        response = JSONResponse({'error': 'user does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        _acao_response(response)
+        return response
 
 
 @csrf_exempt
@@ -177,7 +183,9 @@ def foodList(request, latitude, longitude):
         return response
 
     else:
-        return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
+        response = HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        _acao_response(response)
+        return response
 
 
 # UNUSED FUNCTION: Searching is handled in the front-end
@@ -195,9 +203,13 @@ def search(request):
             _acao_response(response)
             return response
         except Food.DoesNotExist:
-            return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
+            response = JSONResponse({'error': 'food not found'}, status=status.HTTP_400_BAD_REQUEST)
+            _acao_response(response)
+            return response
     else:
-        return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
+        response = HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        _acao_response(response)
+        return response
 
 
 def updateHandler(request, id):
@@ -217,19 +229,27 @@ def update(request, id):
     try:
         foodItem = Food.objects.get(id=id)
     except Food.DoesNotExist:
-        return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
+        response = JSONResponse({'error': 'food does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+        _acao_response(response)
+        return response
 
     if request.method == 'PUT':
         serializer = FoodSerializer(foodItem, data=request.data, partial=True)
         serializer.save()
-        return _acao_response(JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED))
+        response = JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
+        _acao_response(response)
+        return response
 
     elif request.method == 'DELETE':
         foodItem.delete()
-        return _acao_response(HttpResponse(status=status.HTTP_204_NO_CONTENT))
+        response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
+        _acao_response(response)
+        return response
 
     else:
-        return _acao_response(HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED))
+        response = HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        _acao_response(response)
+        return response
 
 
 #########################################################
