@@ -71,6 +71,7 @@ obtain_auth_token = ObtainAuthToken.as_view()
 
 
 @csrf_exempt
+@api_view(['GET', 'OPTIONS', 'POST'])
 # Create user through POST request
 def createUser(request):
     if request.method == 'OPTIONS':
@@ -143,6 +144,7 @@ def identify(request, user_id):
 #     return HttpResponse(output)
 
 
+@api_view(['GET', 'POST', 'OPTIONS'])
 def foodListHandler(request, latitude, longitude):
     """
     Deals with incoming OPTIONS for FOODLIST functions
@@ -154,6 +156,7 @@ def foodListHandler(request, latitude, longitude):
 
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
@@ -212,6 +215,7 @@ def search(request):
         return response
 
 
+@api_view(['PUT', 'DELETE', 'OPTIONS'])
 def updateHandler(request, id):
     """
     Deals with incoming OPTIONS for UPDATE functions
@@ -223,6 +227,7 @@ def updateHandler(request, id):
 
 
 @csrf_exempt
+@api_view(['PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated, IsOwnerOrReadOnly,))
 def update(request, id):
