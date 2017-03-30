@@ -157,6 +157,7 @@ def foodListHandler(request, latitude, longitude):
 
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
@@ -227,6 +228,7 @@ def updateHandler(request, id):
 
 
 @csrf_exempt
+@api_view(['PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated, IsOwnerOrReadOnly,))
 def update(request, id):
@@ -289,6 +291,7 @@ def getMessages(request, username):
         response = HttpResponse('User not found')
         _acao_response(response)
         return response
+
 
 @csrf_exempt
 def getMessagesBetween(request):
