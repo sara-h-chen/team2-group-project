@@ -6,7 +6,6 @@ from rest_framework import status, renderers
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
-from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.authtoken import views as auth_views
 from rest_framework.authtoken.serializers import AuthTokenSerializer
@@ -149,10 +148,11 @@ def foodListHandler(request, latitude, longitude):
     """
     Deals with incoming OPTIONS for FOODLIST functions
     """
+    full_request = request
     if request.method == 'OPTIONS':
         return _options_allow_access()
     else:
-        return foodList(request, latitude, longitude)
+        return foodList(full_request, latitude, longitude)
 
 
 @csrf_exempt
@@ -219,10 +219,11 @@ def updateHandler(request, id):
     """
     Deals with incoming OPTIONS for UPDATE functions
     """
+    full_request = request
     if request.method == 'OPTIONS':
         return _options_allow_access()
     else:
-        return update(request, id)
+        return update(full_request, id)
 
 
 @csrf_exempt
