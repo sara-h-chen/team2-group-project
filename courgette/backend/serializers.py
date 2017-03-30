@@ -34,11 +34,16 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'email', 'first_name', 'last_name')
 
 
-class FoodSerializer(serializers.ModelSerializer):
+class FoodListSerializer(serializers.ModelSerializer):
+    user = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='username'
+    )
+
     class Meta:
         model = Food
         fields = ('id', 'food_name', 'quantity', 'date_listed', 'food_type', 'allergens',
-                  'status', 'latitude', 'longitude')
+                  'status', 'latitude', 'longitude', 'user')
 
 
 # TODO: Fix the relations

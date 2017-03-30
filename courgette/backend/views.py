@@ -114,7 +114,7 @@ def findUser(request, username):
 def getHistory(request):
     user = request.user
     foodHistory = Food.objects.filter(user=user.id)
-    serializer = FoodSerializer(foodHistory, many=True)
+    serializer = FoodListSerializer(foodHistory, many=True)
     response = JSONResponse(serializer.data)
     _acao_response(response)
     return response
@@ -144,7 +144,7 @@ def identify(request, user_id):
 #     return HttpResponse(output)
 
 
-@api_view(['GET', 'POST', 'OPTIONS'])
+@csrf_exempt
 def foodListHandler(request, latitude, longitude):
     """
     Deals with incoming OPTIONS for FOODLIST functions
@@ -165,7 +165,7 @@ def foodList(request, latitude, longitude):
     if request.method == 'GET':
         allFoods = Food.objects.filter(Q(latitude__range=(latitude - 10, latitude + 10)),
                                        Q(longitude__range=(longitude - 10, longitude + 10)))
-        serializer = FoodSerializer(allFoods, many=True)
+        serializer = FoodListSerializer(allFoods, many=True)
         response = JSONResponse(serializer.data)
         _acao_response(response)
         return response
@@ -174,7 +174,7 @@ def foodList(request, latitude, longitude):
         username = request.user.username
         currentUser = User.objects.get(username=username)
         data = JSONParser().parse(request)
-        serializer = FoodSerializer(data=data, partial=True)
+        serializer = FoodListSerializer(data=data, partial=True)
         if serializer.is_valid():
             serializer.save(user=currentUser)
             response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
@@ -200,7 +200,7 @@ def search(request):
                                               Q(food_type__exact=data['food_type']) |
                                               (Q(latitude__range=(data['latitude'] - 10, data['latitude'] + 10)),
                                                Q(longitude__range=(data['longitude'] - 10, data['longitude'] + 10))))
-            serializer = FoodSerializer(searchItems, many=True)
+            serializer = FoodListSerializer(searchItems, many=True)
             response = JSONResponse(serializer.data)
             _acao_response(response)
             return response
@@ -214,7 +214,7 @@ def search(request):
         return response
 
 
-@api_view(['PUT', 'DELETE', 'OPTIONS'])
+@csrf_exempt
 def updateHandler(request, id):
     """
     Deals with incoming OPTIONS for UPDATE functions
@@ -238,7 +238,7 @@ def update(request, id):
         return response
 
     if request.method == 'PUT':
-        serializer = FoodSerializer(foodItem, data=request.data, partial=True)
+        serializer = FoodListSerializer(foodItem, data=request.data, partial=True)
         serializer.save()
         response = JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
         _acao_response(response)
