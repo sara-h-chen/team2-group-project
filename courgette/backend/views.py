@@ -111,7 +111,6 @@ def findUser(request, username):
 
 @csrf_exempt
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def getHistory(request):
     user = request.user
     foodHistory = Food.objects.filter(user=user.id)
@@ -159,7 +158,6 @@ def foodListHandler(request, latitude, longitude):
 @csrf_exempt
 @api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
@@ -230,7 +228,7 @@ def updateHandler(request, id):
 @csrf_exempt
 @api_view(['PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated, IsOwnerOrReadOnly,))
+@permission_classes((IsOwnerOrReadOnly,))
 def update(request, id):
     try:
         foodItem = Food.objects.get(id=id)
