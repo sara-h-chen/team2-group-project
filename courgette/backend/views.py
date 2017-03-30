@@ -80,7 +80,8 @@ def createUser(request):
         serializer = UserCreationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
+            response = JSONResponse({'username': serializer.data['username'], 'email': serializer.data['email']},
+                                    status=status.HTTP_201_CREATED)
             _acao_response(response)
             return response
         response = JSONResponse({'error': 'information given invalid'}, status=status.HTTP_400_BAD_REQUEST)
@@ -156,7 +157,6 @@ def foodListHandler(request, latitude, longitude):
 
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
@@ -227,7 +227,6 @@ def updateHandler(request, id):
 
 
 @csrf_exempt
-@api_view(['PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated, IsOwnerOrReadOnly,))
 def update(request, id):
