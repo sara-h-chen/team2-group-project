@@ -16,9 +16,8 @@ search all messages, read flag; based on current user_id
 ### To-Do List on Backend
 Search for food based on keywords or location? [MIGRATED TO FRONT END]
 Edit/remove items [done; waiting on testing]
-Return food items belonging to user - send back an empty JSON if none?
+Return all food items belonging to user [done; waiting on testing]
 Add authentication to all layers
-Write test cases
 Allow user to change their profile information
 --> allow display pictures?
 

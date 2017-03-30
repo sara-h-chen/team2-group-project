@@ -101,6 +101,18 @@ def findUser(request, username):
         return _acao_response(HttpResponse(status=status.HTTP_400_BAD_REQUEST))
 
 
+@csrf_exempt
+@authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
+def getHistory(request):
+    user = request.user
+    foodHistory = Food.objects.filter(user=user.id)
+    serializer = FoodSerializer(foodHistory, many=True)
+    response = JSONResponse(serializer.data)
+    _acao_response(response)
+    return response
+
+
 def identify(request, user_id):
     try:
         user=User.objects.get(id=user_id)
@@ -154,7 +166,7 @@ def foodList(request, latitude, longitude):
         username = request.user.username
         currentUser = User.objects.get(username=username)
         data = JSONParser().parse(request)
-        serializer = FoodSerializer(data=data)
+        serializer = FoodSerializer(data=data, partial=True)
         if serializer.is_valid():
             serializer.save(user=currentUser)
             response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
