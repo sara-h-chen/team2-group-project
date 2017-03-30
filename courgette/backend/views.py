@@ -246,8 +246,12 @@ def update(request, id):
     if request.method == 'PUT':
         if request.user.is_authenticated():
             serializer = FoodListSerializer(foodItem, data=request.data, partial=True)
-            serializer.save()
-            response = JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
+            if serializer.is_valid():
+                serializer.save()
+                response = JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
+                _acao_response(response)
+                return response
+            response = JSONResponse({'error': 'invalid information provided'}, status=status.HTTP_400_BAD_REQUEST)
             _acao_response(response)
             return response
 
