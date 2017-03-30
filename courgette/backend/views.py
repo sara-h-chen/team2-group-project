@@ -150,11 +150,10 @@ def foodListHandler(request, latitude, longitude):
     """
     Deals with incoming OPTIONS for FOODLIST functions
     """
-    full_request = request
     if request.method == 'OPTIONS':
         return _options_allow_access()
     else:
-        return foodList(full_request, latitude, longitude)
+        return foodList(request, latitude, longitude)
 
 
 @csrf_exempt
@@ -222,11 +221,10 @@ def updateHandler(request, id):
     """
     Deals with incoming OPTIONS for UPDATE functions
     """
-    full_request = request
     if request.method == 'OPTIONS':
         return _options_allow_access()
     else:
-        return update(full_request, id)
+        return update(request, id)
 
 
 @csrf_exempt
