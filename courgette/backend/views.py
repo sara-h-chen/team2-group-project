@@ -234,10 +234,16 @@ def updateHandler(request, id):
 @csrf_exempt
 @api_view(['PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsOwnerOrReadOnly, IsAuthenticated,))
+@permission_classes((IsAuthenticated,))
 def update(request, id):
     try:
         foodItem = Food.objects.get(id=id)
+        authorized = IsOwnerOrReadOnly().has_object_permission(request, foodItem)
+        if not authorized:
+            response = JSONResponse({'error': 'not authorized'}, status=status.HTTP_401_UNAUTHORIZED)
+            _acao_response(response)
+            return response
+
     except Food.DoesNotExist:
         response = JSONResponse({'error': 'food does not exist'}, status=status.HTTP_400_BAD_REQUEST)
         _acao_response(response)
