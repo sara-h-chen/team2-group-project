@@ -173,16 +173,20 @@ def foodList(request, latitude, longitude):
         return response
 
     elif request.method == 'POST':
-        username = request.user.username
-        currentUser = User.objects.get(username=username)
-        data = JSONParser().parse(request)
-        serializer = FoodListSerializer(data=data, partial=True)
-        if serializer.is_valid():
-            serializer.save(user=currentUser)
-            response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
+        if request.user.is_authenticated():
+            username = request.user.username
+            currentUser = User.objects.get(username=username)
+            data = JSONParser().parse(request)
+            serializer = FoodListSerializer(data=data, partial=True)
+            if serializer.is_valid():
+                serializer.save(user=currentUser)
+                response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
+                _acao_response(response)
+                return response
+            response = JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             _acao_response(response)
             return response
-        response = JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        response = JSONResponse({'error': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
         _acao_response(response)
         return response
 
@@ -240,17 +244,19 @@ def update(request, id):
         return response
 
     if request.method == 'PUT':
-        serializer = FoodListSerializer(foodItem, data=request.data, partial=True)
-        serializer.save()
-        response = JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
-        _acao_response(response)
-        return response
+        if request.user.is_authenticated():
+            serializer = FoodListSerializer(foodItem, data=request.data, partial=True)
+            serializer.save()
+            response = JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
+            _acao_response(response)
+            return response
 
     elif request.method == 'DELETE':
-        foodItem.delete()
-        response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
-        _acao_response(response)
-        return response
+        if request.user.is_authenticated():
+            foodItem.delete()
+            response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
+            _acao_response(response)
+            return response
 
     else:
         response = HttpResponse(status=status.HTTP_405_METHOD_NOT_ALLOWED)
