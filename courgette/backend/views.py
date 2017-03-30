@@ -6,6 +6,7 @@ from rest_framework import status, renderers
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.parsers import JSONParser, MultiPartParser, FormParser
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.renderers import JSONRenderer
 from rest_framework.authtoken import views as auth_views
 from rest_framework.authtoken.serializers import AuthTokenSerializer
@@ -110,6 +111,7 @@ def findUser(request, username):
 
 @csrf_exempt
 @authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
 def getHistory(request):
     user = request.user
     foodHistory = Food.objects.filter(user=user.id)
@@ -158,6 +160,7 @@ def foodListHandler(request, latitude, longitude):
 @csrf_exempt
 @api_view(['GET', 'POST'])
 @authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
 def foodList(request, latitude, longitude):
     latitude = float(latitude)
     longitude = float(longitude)
@@ -229,7 +232,7 @@ def updateHandler(request, id):
 @csrf_exempt
 @api_view(['PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsOwnerOrReadOnly,))
+@permission_classes((IsOwnerOrReadOnly, IsAuthenticated,))
 def update(request, id):
     try:
         foodItem = Food.objects.get(id=id)
