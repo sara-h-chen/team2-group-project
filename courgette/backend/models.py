@@ -17,6 +17,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 
+# Ignore this; this form is just for testing purposes
 class UserForm(ModelForm):
     class Meta:
         model = User
@@ -58,11 +59,30 @@ class Food(models.Model):
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
     latitude = models.DecimalField(max_digits=3, decimal_places=2)
     longitude = models.DecimalField(max_digits=3, decimal_places=2)
-    # picture = models.FileField(upload_to='images/%Y/%m/%d')
+    # picture = models.CharField(default='https://s-media-cache-ak0.pinimg.com/236x/c8/ee/96/c8ee96eda85ae29a5cdaa809cefe779a.jpg',
+    #                            max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
 
     def __str__(self):
         return self.food_name + " " + str(self.quantity)
+
+
+class Preference(models.Model):
+    class Meta:
+        unique_together = (('user', 'preference'),)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    FOOD_TYPES = (
+        ('VEGE', 'Vegetables'),
+        ('SEAFOOD', 'Seafood'),
+        ('MEAT', 'Meat'),
+        ('COOKED', 'Cooked'),
+        ('FRUIT', 'Fruit'),
+        ('BAKERY', 'Bakery Items'),
+        ('PASTA_RICE', 'Pasta & Rice'),
+        ('DRIED', 'Dried food'),
+        ('OTHER', 'Other')
+    )
+    preference = models.CharField(choices=FOOD_TYPES, default='OTHER', max_length=20)
 
 
 class Message(models.Model):

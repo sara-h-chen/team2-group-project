@@ -13,7 +13,7 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.models import Token
 
 from serializers import *
-from models import Food, Message
+from models import Food, Message, Preference
 from permissions import IsOwnerOrReadOnly
 
 ##########################################################
@@ -161,6 +161,54 @@ def updateProfile(request):
         response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
         _acao_response(response)
         return response
+
+
+@csrf_exempt
+def preferenceHandler(request):
+    if request.method == 'OPTIONS':
+        return _options_allow_access()
+    else:
+        return getPreferences(request)
+
+
+@csrf_exempt
+@api_view(['GET', 'POST', 'DELETE'])
+@authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
+def getPreferences(request):
+    user = request.user
+    if not user.is_authenticated():
+        response = JSONResponse({'error': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+        _acao_response(response)
+        return response
+
+    if request.method == 'GET':
+        preferences = Preference.objects.filter(user=user.id)
+        serializer = PreferenceSerializer(preferences, many=True)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
+
+    elif request.method == 'POST':
+        serializer = PreferenceSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
+            _acao_response(response)
+            return response
+
+    elif request.method == 'DELETE':
+        data = JSONParser().parse(request)
+        try:
+            preference = Preference.objects.get(user=user, preference=data['preference'])
+            preference.delete()
+            response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
+            _acao_response(response)
+            return response
+        except Preference.DoesNotExist:
+            response = HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+            _acao_response(response)
+            return response
 
 
 def identify(request, user_id):

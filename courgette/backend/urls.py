@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'^login/$', views.obtain_auth_token, name='login'),
     url(r'^user/[a-zA-Z0-9]+/history/$', views.getHistory),
     url(r'^user/[a-zA-Z0-9]+/update/$', views.profileHandler),
+    url(r'^user/[a-zA-Z0-9]+/preferences/$', views.preferenceHandler),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/$', views.findUser),
     url(r'^food/(?P<latitude>\d+(?:\.\d+))/(?P<longitude>\d+(?:\.\d+))/$', views.foodListHandler),
     url(r'^food/update/(?P<id>[0-9]+)/$', views.updateHandler),
