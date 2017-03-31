@@ -110,13 +110,18 @@ def findUser(request, username):
 
 
 @csrf_exempt
+@api_view(['GET'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
 def getHistory(request):
     user = request.user
-    foodHistory = Food.objects.filter(user=user.id)
-    serializer = FoodListSerializer(foodHistory, many=True)
-    response = JSONResponse(serializer.data)
+    if user.is_authenticated():
+        foodHistory = Food.objects.filter(user=user.id)
+        serializer = FoodListSerializer(foodHistory, many=True)
+        response = JSONResponse(serializer.data)
+        _acao_response(response)
+        return response
+    response = JSONResponse({'error': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
     _acao_response(response)
     return response
 

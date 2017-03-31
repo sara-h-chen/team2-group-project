@@ -7,7 +7,7 @@ urlpatterns = [
     url(r'^newuser/$', views.createUser, name='create_user'),
     url(r'^login/$', views.obtain_auth_token, name='login'),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/$', views.findUser),
-    url(r'^user/([a-zA-Z0-9]+)/history/$', views.getHistory),
+    url(r'^user/[a-zA-Z0-9]+/history/$', views.getHistory),
     url(r'^food/(?P<latitude>\d+(?:\.\d+))/(?P<longitude>\d+(?:\.\d+))/$', views.foodListHandler),
     url(r'^update/(?P<id>[0-9]+)/$', views.updateHandler),
     # url(r'^search/(?P<type>[0-4]{1})/$', views.search, name='search'),
