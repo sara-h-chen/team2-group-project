@@ -126,6 +126,43 @@ def getHistory(request):
     return response
 
 
+@csrf_exempt
+def profileHandler(request):
+    if request.method == 'OPTIONS':
+        return _options_allow_access()
+    else:
+        return updateProfile(request)
+
+
+@csrf_exempt
+@api_view(['PUT', 'DELETE'])
+@authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
+def updateProfile(request):
+    user = request.user
+    if not user.is_authenticated():
+        response = JSONResponse({'error': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+        _acao_response(response)
+        return response
+
+    if request.method == 'PUT':
+        serializer = UserSerializer(user, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            response = JSONResponse(serializer.data, status=status.HTTP_202_ACCEPTED)
+            _acao_response(response)
+            return response
+        response = JSONResponse({'error': 'invalid information provided'}, status=status.HTTP_400_BAD_REQUEST)
+        _acao_response(response)
+        return response
+
+    elif request.method == 'DELETE':
+        user.delete()
+        response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
+        _acao_response(response)
+        return response
+
+
 def identify(request, user_id):
     try:
         user=User.objects.get(id=user_id)
@@ -142,12 +179,6 @@ def identify(request, user_id):
 #########################################################
 #                FOOD-RELATED QUERIES                   #
 #########################################################
-
-# UNUSED: RETURNS FOOD LISTING (for reference only!)
-# def food_listing(request):
-#     latest_food_requests = Food.objects.order_by('Date listed')
-#     output = ', '.join([food.food_name for food in latest_food_requests])
-#     return HttpResponse(output)
 
 
 @csrf_exempt

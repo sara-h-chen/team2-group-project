@@ -16,7 +16,6 @@ get all notifications; counts notifications
 search all messages, read flag; based on current user_id
 
 ### To-Do List on Backend
-Search for food based on keywords or location? [MIGRATED TO FRONT END]
 Add authentication to all layers
 Allow user to change their profile information
 --> allow display pictures?
