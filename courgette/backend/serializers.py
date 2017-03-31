@@ -35,14 +35,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class PreferenceSerializer(serializers.ModelSerializer):
-    user = serializers.SlugRelatedField(
+    preference_user = serializers.SlugRelatedField(
         read_only=True,
         slug_field='username'
     )
 
     class Meta:
         model = Preference
-        fields = ('user', 'preference')
+        fields = ('preference_user', 'preference')
 
 
 class FoodListSerializer(serializers.ModelSerializer):

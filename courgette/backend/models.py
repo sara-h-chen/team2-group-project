@@ -69,8 +69,7 @@ class Food(models.Model):
 
 class Preference(models.Model):
     class Meta:
-        unique_together = (('user', 'preference'),)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+        unique_together = (('preference', 'preference_user'),)
     FOOD_TYPES = (
         ('VEGE', 'Vegetables'),
         ('SEAFOOD', 'Seafood'),
@@ -83,6 +82,7 @@ class Preference(models.Model):
         ('OTHER', 'Other')
     )
     preference = models.CharField(choices=FOOD_TYPES, default='OTHER', max_length=20)
+    preference_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='preference_user')
 
 
 class Message(models.Model):
