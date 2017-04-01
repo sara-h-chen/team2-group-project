@@ -109,6 +109,14 @@ def findUser(request, username):
 
 
 @csrf_exempt
+def historyHandler(request):
+    if request.method == 'OPTIONS':
+        return _options_allow_access()
+    else:
+        return getHistory(request)
+
+
+@csrf_exempt
 @api_view(['GET'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))

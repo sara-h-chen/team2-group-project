@@ -6,7 +6,7 @@ import views
 urlpatterns = [
     url(r'^newuser/$', views.createUser, name='create_user'),
     url(r'^login/$', views.obtain_auth_token, name='login'),
-    url(r'^user/history/$', views.getHistory),
+    url(r'^user/history/$', views.historyHandler),
     url(r'^user/profile/$', views.profileHandler),
     url(r'^user/preferences/$', views.preferenceHandler),
     url(r'^user/search/(?P<username>[a-zA-Z0-9]+)/$', views.findUser),
