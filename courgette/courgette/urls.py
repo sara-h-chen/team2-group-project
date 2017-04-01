@@ -18,15 +18,15 @@ from views import ResetPasswordRequestView, PasswordResetConfirmView
 
 from django.conf.urls import *
 from django.contrib import admin
+from django.views.generic import TemplateView
 
 urlpatterns = [
     url(r'^backend/', include('backend.urls')),
     url(r'^admin/', admin.site.urls),
-    # TODO: Check if the others are going to have a custom page for this
-    # url(r'^logout/$', auth_views.logout, {'next_page': 'website/index.html'}, name='logout'),
-    # url(r'^logout/$', auth_views.logout, name='logout'),
     # url('^', include(inbuilt_urls)),
     # TODO: Link password reset URL to a HTML page
     url(r'^password_reset/$', ResetPasswordRequestView.as_view(), name='password_reset'),
+    url(r'^password_reset_done/', TemplateView.as_view(template_name='registration/password_reset_done.html')),
     url(r'^password_reset_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    url(r'^password_reset_complete/', TemplateView.as_view(template_name='registration/password_reset_complete.html')),
 ]

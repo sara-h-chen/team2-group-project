@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.template import loader
-from django.utils.http import urlsafe_base64_encode
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.views.generic.edit import FormView
 
@@ -86,21 +86,27 @@ class SetPasswordForm(forms.Form):
 
 
 class PasswordResetConfirmView(FormView):
-    template_name = "registration/password_reset_form.html"
-    success_url = '/password_reset_confirm/'
+    template_name = "registration/password_reset_confirm.html"
+    success_url = '/password_reset_complete/'
     form_class = SetPasswordForm
 
     def post(self, request, uidb64=None, token=None, *args, **kwargs):
+        print "POST IS HERE"
         UserModel = get_user_model()
         form = self.form_class(request.POST)
         assert uidb64 is not None and token is not None
         try:
-            uid = urlsafe_base64_encode(uidb64)
+            uid = urlsafe_base64_decode(uidb64)
+            print('==============', uid)
             user = UserModel._default_manager.get(pk=uid)
+            print('------------------------->', user)
         except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
             user = None
 
-        if user is not None and default_token_generator.check_token(user, token):
+        # if user is not None and default_token_generator.check_token(user, token):
+        if user is not None:
+            print(user)
+            print(token)
             if form.is_valid():
                 new_password = form.cleaned_data['new_password2']
                 user.set_password(new_password)
