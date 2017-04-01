@@ -92,7 +92,6 @@ def createUser(request):
     return response
 
 
-# TODO: Allow POST request that gives users the opportunity to upload pictures
 # Gets the username from the URL as a param
 def findUser(request, username):
     # Get particular user from db based on param
@@ -131,17 +130,23 @@ def profileHandler(request):
     if request.method == 'OPTIONS':
         return _options_allow_access()
     else:
-        return updateProfile(request)
+        return getProfile(request)
 
 
 @csrf_exempt
-@api_view(['PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
-def updateProfile(request):
+def getProfile(request):
     user = request.user
     if not user.is_authenticated():
         response = JSONResponse({'error': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
+        _acao_response(response)
+        return response
+
+    if request.method == 'GET':
+        serializer = UserSerializer(user)
+        response = JSONResponse(serializer.data)
         _acao_response(response)
         return response
 
