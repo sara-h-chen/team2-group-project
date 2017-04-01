@@ -183,30 +183,33 @@ def getPreferences(request):
         return response
 
     if request.method == 'GET':
-        preferences = Preference.objects.filter(user=user.id)
+        preferences = Preference.objects.filter(preference_user=user.id)
         serializer = PreferenceSerializer(preferences, many=True)
         response = JSONResponse(serializer.data)
         _acao_response(response)
         return response
 
     elif request.method == 'POST':
-        serializer = PreferenceSerializer(user, data=request.data)
+        serializer = PreferenceSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(preference_user=user)
             response = JSONResponse(serializer.data, status=status.HTTP_201_CREATED)
             _acao_response(response)
             return response
+        response = JSONResponse(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+        _acao_response(response)
+        return response
 
     elif request.method == 'DELETE':
         data = JSONParser().parse(request)
         try:
-            preference = Preference.objects.get(user=user, preference=data['preference'])
+            preference = Preference.objects.get(preference_user=user, preference=data['preference'])
             preference.delete()
             response = HttpResponse(status=status.HTTP_204_NO_CONTENT)
             _acao_response(response)
             return response
         except Preference.DoesNotExist:
-            response = HttpResponse(status=status.HTTP_401_UNAUTHORIZED)
+            response = HttpResponse(status=status.HTTP_400_BAD_REQUEST)
             _acao_response(response)
             return response
 
