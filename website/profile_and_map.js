@@ -13,10 +13,10 @@ function getMessages(ID){
   },function(messages){
     $(messages).each(function(message){
       if (messages[message]['sender']==userID){
-        $("#messages").append("<div id='"+messages[message]['id']+"' class=sentMessage>"+messages[message]['msg_content']+"</div>");
+        $("#messages").append("<div id='"+messages[message]['id']+"' class=sentMessage><p class='sentText'>"+messages[message]['msg_content']+"</p></div>");
       }
       else{
-        $("#messages").append("<div id='"+messages[message]['id']+"' class=receivedMessage>"+messages[message]['msg_content']+"</div>");
+        $("#messages").append("<div id='"+messages[message]['id']+"' class=receivedMessage><p class='receivedText'>"+messages[message]['msg_content']+"</p></div>");
       }
     });
   });
@@ -137,9 +137,7 @@ function resize(){
 }
 
 
-
+// TODO make woork with smaller screen ie when windows overlap
 window.onresize = function(event) {
-	// console.log('Screen Width',screen.width);
-	// console.log("middle width",screen.width*0.94);
 	resize();
 };
