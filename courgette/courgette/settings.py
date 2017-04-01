@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,7 +53,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
 ROOT_URLCONF = 'courgette.urls'
+
 
 TEMPLATES = [
     {
@@ -86,6 +89,17 @@ WSGI_APPLICATION = 'courgette.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+EMAIL_HOST = '127.0.0.1'
+EMAIL_PORT = 8000
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# For prototyping only
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 DATABASES = {
     'default': {
@@ -113,14 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-
 # TODO: Change this to the main page, i.e. the main view
 LOGIN_REDIRECT_URL = 'http://community.dur.ac.uk/thomas.preston/TESTFORM.html'
-
-
-# For prototyping only
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
