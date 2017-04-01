@@ -44,9 +44,9 @@ h1:after {
 }
 
 input[type=text], select {
-    width: 90%;
-    padding: 12px 20px;
-    margin: 8px 5%;
+    width: 200px;
+    padding: 10px 10px;
+    margin: 8px;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;

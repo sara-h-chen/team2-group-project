@@ -90,7 +90,7 @@ WSGI_APPLICATION = 'courgette.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 EMAIL_HOST = '127.0.0.1'
-EMAIL_PORT = 8000
+EMAIL_PORT = 1250
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
