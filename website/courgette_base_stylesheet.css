@@ -131,16 +131,17 @@ input[type=submit]:hover {
 	z-index: 1
 }
 
-#user_item_list {
-	color: #aaaaaa;
-}
-
 #message_list {
 	color: #aaaaaa;
 }
 
 #community_item_list {
 	height: 80%;
+	color: #aaaaaa;
+}
+
+#user_item_list {
+	height: 58%;
 	color: #aaaaaa;
 }
 
@@ -175,29 +176,29 @@ input[type=submit]:hover {
 #message_button {
 	position: relative;
 	width: 25%;
-	top: 52%;
 	left: 5.5%;
+	top: 3%;
 }
 
 #items_button {
 	position: relative;
 	width: 20%;
-	top: 52%;
 	left: 7%;
+	top: 3%;
 }
 
 #add_button {
 	position: relative;
 	width: 20%;
-	top: 52%;
 	left: 3%;
+	top: 3%;
 }
 
 #exit_button {
 	position: relative;
 	width:20%;
-	top: 52%;
 	left: 9%;
+	top: 3%;
 }
 
 /* The side navigation menu */
@@ -227,6 +228,7 @@ input[type=submit]:hover {
     transition: 0.5s;
 }
 
+/*formatting of individual community items*/
 .community_item {
 	background-color: #222222;
 	height: 20%;
@@ -246,6 +248,36 @@ input[type=submit]:hover {
 	float: right;
 	width: 15%;
 	padding-top: 3%;
+}
+
+/*formatting of individual user items*/
+.user_item {
+	background-color: #222222;
+}
+
+.item_name {
+	padding: 3%;
+}
+
+.type_img {
+	float: right;
+	width: 9%;
+	padding: 1%;
+	padding-top: 2.5%;
+}
+
+.edit_img {
+	float: right;
+	width: 9%;
+	padding: 1%;
+	padding-top: 2.5%;
+}
+
+.del_img {
+	float: right;
+	width: 9%;
+	padding: 1%;
+	padding-top: 2.5%;
 }
 
 /* The navigation menu links */

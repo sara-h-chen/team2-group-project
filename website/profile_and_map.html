@@ -40,13 +40,24 @@
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
 	  <input type="image" id="user_profile_pic" src="profile_example.png">
 	  <input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
-		<div>
-			<div id="user_item_list">
-		    <!--<select id="select_item" size="10">!-->
-			<div>Dummy</div>
-			<div>Data</div>
-			<div>Blah</div>
-			<!--</select>!-->
+		<div id="user_item_list" style="overflow-y:scroll;">
+		  <div class="user_item">
+			<img id="del1" class="del_img" src="delete_icon.png" onclick="deleteItem()">
+			<img id="edit1" class="edit_img" src="edit_icon.png" onclick="editItem()">
+			<img id="type1" class="type_img" src="veg_icon.png">
+			<h3 class="item_name">Chocolate</h3>
+		  </div>
+		  <div class="user_item">
+			<img id="del2" class="del_img" src="delete_icon.png" onclick="deleteItem()">
+			<img id="edit2" class="edit_img" src="edit_icon.png" onclick="editItem()">
+			<img id="type2" class="type_img" src="veg_icon.png">
+			<h3 class="item_name">Carrot</h3>
+		  </div>
+		  <div class="user_item">
+			<img id="del3" class="del_img" src="delete_icon.png" onclick="deleteItem()">
+			<img id="edit3" class="edit_img" src="edit_icon.png" onclick="editItem()">
+			<img id="type3" class="type_img" src="veg_icon.png">
+			<h3 class="item_name">Onion</h3>
 		  </div>
 		</div>
 	  <img src="add_item.png" id="add_button" onclick="addItem()"/>
