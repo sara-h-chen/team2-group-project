@@ -141,3 +141,35 @@ function resize(){
 window.onresize = function(event) {
 	resize();
 };
+
+
+
+/* ----- MAP ----- */
+
+function myMap() {
+	navigator.geolocation.getCurrentPosition(mapWithCoords, mapWithoutCoords);
+}
+
+function mapWithCoords(pos) {
+	var mapProp= {
+		center:new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+		zoom:17,
+	};
+	var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	setMarkers(map);
+}
+
+function mapWithoutCoords(err) {
+	var mapProp= {
+		center:new google.maps.LatLng(54.7753,-1.5849),
+		zoom:13,
+	};
+	var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+}
+
+function setMarkers(map) {
+	var markerIcon = "marker_icon.png";
+	var markerPosition = new google.maps.LatLng(53.4780916,-2.2445852);
+	var marker = new google.maps.Marker({position:markerPosition, icon:markerIcon});
+	marker.setMap(map);
+}
