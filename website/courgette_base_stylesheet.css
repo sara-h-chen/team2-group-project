@@ -374,6 +374,18 @@ input[type=submit]:hover {
 
 }
 
+.skinny_popup_header {
+	top: 20%;
+    padding: 2px 16px;
+	position: relative;
+    background-color: #9aaa57;
+    color: white;
+	margin: auto;
+    border: 1px solid #888;
+    width: 50%;
+
+}
+
 /* Modal Footer */
 .popup_footer {
 	top: 20%;
@@ -387,6 +399,18 @@ input[type=submit]:hover {
 
 }
 
+.skinny_popup_footer {
+	top: 20%;
+    padding: 2px 16px;
+	position: relative;
+    background-color: #9aaa57;
+    color: white;
+	margin: auto;
+    border: 1px solid #888;
+    width: 50%;
+
+}
+
 /* Modal Content */
 .popup_content {
 	top: 20%;
@@ -396,6 +420,17 @@ input[type=submit]:hover {
     margin: auto;
     border: 1px solid #888;
     width: 80%;
+
+}
+
+.skinny_popup_content {
+	top: 20%;
+	padding: 2px 16px;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 50%;
 
 }
 

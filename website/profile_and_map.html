@@ -22,17 +22,17 @@
 		<div id='messages'></div>
 	</div>
 	<div id="community_popup" class="popup">
-		<div class="popup_header">
+		<div class="skinny_popup_header">
 			<span class="close">&times;</span>
 			<h2>Item Details</h2>
 		</div>
-		<div class="popup_content">
+		<div class="skinny_popup_content">
 			<h3>Item Name - Distance</h3>
 			<p>Item description here djsklkadj sdfjkidslkj hdsijodjkuj</p>
 			<p>Also include same image used in side menu or maybe slideshow</p>
 			<p>Of other images uploaded by the community member.</p>
 		</div>
-		<div class="popup_footer">
+		<div class="skinny_popup_footer">
 			<button id="submit">Get Item</button>
 		</div>
 	</div>
@@ -85,28 +85,28 @@
 		<br>
 		<div class="community_item">
 			<img id="example2" class="item_img" src="example_cheese.jpg" onclick="viewInfo()">
-			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<img id="message2" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 			<h3>Cheese</h3>
 			<p>0.5 miles</p>
 		</div>
 		<br>
 		<div class="community_item">
-			<img id="example2" class="item_img" src="example_broccoli.jpg" onclick="viewInfo()">
-			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<img id="example3" class="item_img" src="example_broccoli.jpg" onclick="viewInfo()">
+			<img id="message3" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 			<h3>Broccoli</h3>
 			<p>0.2 miles</p>
 		</div>
 		<br>
 		<div class="community_item">
-			<img id="example2" class="item_img" src="example_bleach.jpg" onclick="viewInfo()">
-			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<img id="example4" class="item_img" src="example_bleach.jpg" onclick="viewInfo()">
+			<img id="message4" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 			<h3>Bleach</h3>
 			<p>0.7 miles</p>
 		</div>
 		<br>
 		<div class="community_item">
-			<img id="example2" class="item_img" src="example_bread.jpg" onclick="viewInfo()">
-			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+			<img id="example5" class="item_img" src="example_bread.jpg" onclick="viewInfo()">
+			<img id="message5" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 			<h3>Bread</h3>
 			<p>0.1 miles</p>
 		</div>
@@ -146,34 +146,31 @@
 
 
 	//POPUP CODE WHEN CLICKING ON ITEM IMAGE IN COMMUNITY SIDE BAR
-	// Get the modal
-		var popup = document.getElementById('community_popup');
+	var popup = document.getElementById('community_popup');
 
-		// Get the button that opens the modal
-		var btn = document.getElementsByClassName("item_img");
+	// Get the button that opens the modal
+	var btn = document.getElementById("example1");
 
-		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("close")[0];
+	// Get the <span> element that closes the modal
+	var span = document.getElementsByClassName("close")[0];
 
-		// When the user clicks on the button, open the modal
-		btn.onclick = function() {
-			popup.style.display = "block";
+	// When the user clicks on the button, open the modal 
+	btn.onclick = function() {
+		popup.style.display = "block";
+	}
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		popup.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
 		}
-
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() {
-			popup.style.display = "none";
-		}
-
-		// When the user clicks anywhere outside of the modal, close it
-		//TODO I changed some of the things to remove an error. No idea what functionality was wanted
-		window.onclick = function(event) {
-			if (event.target != popup) {
-				popup.style.display = "none";
-			}
-		}
-
-
+	}
+	
 	</script>
 </body>
 
