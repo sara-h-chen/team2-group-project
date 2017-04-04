@@ -101,6 +101,14 @@ input[type=submit]:hover {
     width:100%;
 }
 
+#message_view {
+    position: absolute;
+    background: white;
+    top: 0px;
+    height:100%;
+    width: 100%;
+}
+
 #item_tab {
 	background-color:#9aaa57;
 	color:white;
@@ -446,7 +454,7 @@ input[type=submit]:hover {
 }
 
 .receivedMessage {
-	color:white;
+	color:black;
 	padding:0px 5px 0px 5px;
 }
 

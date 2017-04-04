@@ -1,6 +1,7 @@
 function getMessages(ID){
   $("#messages").empty();
 	$("#message_header").empty();
+  $("#message_view").toggle();
 	url = 'http://localhost:8000/backend/function/'+ID+'/';
 	$.get(url, function(data){
 		username=data.username;

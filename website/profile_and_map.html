@@ -16,10 +16,12 @@
 	<div id="profile_tab" onclick="openProfileMenu()"><div class='tabSign'>&#60;</div></div>
 	<div id="item_tab" onclick="openItemMenu()"><div class = 'tabSign'>&#62;</div></div>
 	<div id="middle">
-		<div id="googleMap" style="position: fixed; height:100%;"></div>
+		<div id="googleMap" style="position: relative; height:100%;"></div>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKCyGx-fEDia97mNH929xTKG2Ysgc7HtU&callback=myMap"></script>
-		<div id='message_header'></div>
-		<div id='messages'></div>
+		<div id='message_view'>
+			<div id='message_header'></div>
+			<div id='messages'></div>
+		</div>
 	</div>
 	<div id="community_popup" class="popup">
 		<div class="skinny_popup_header">
@@ -131,6 +133,7 @@
 		getContacts(userID)
 	  // Hide div 2 by default
 	  $('#message_list').hide();
+		$("#message_view").hide();
 
 	  $('#message_button').click(function(){
 	      $('#user_item_list').hide();
