@@ -147,9 +147,15 @@ $("#message_form").submit(function(data){
 	console.log(data['msg_content']);
 	return false;
 });
-/* ----- MAP ----- */
 
-function myMap() {
+/* ----- MAP ----- */
+var testMarkers = [{"id":1, "lat":54.7753, "long":-1.5849, "highlight":true}, {"id":2, "lat":54.7754, "long":-1.586, "highlight":false}]
+
+var map;
+var currentMarkers = [];
+var chosenLocation = {"lat": 0, "long": 0};
+
+function createMap() {
 	navigator.geolocation.getCurrentPosition(mapWithCoords, mapWithoutCoords);
 }
 
@@ -158,21 +164,41 @@ function mapWithCoords(pos) {
 		center:new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
 		zoom:17,
 	};
-	var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-	setMarkers(map);
+	chosenLocation = {"lat": pos.coords.latitude, "long": pos.coords.longitude};
+	map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	setMarkers(testMarkers);
 }
 
 function mapWithoutCoords(err) {
 	var mapProp= {
 		center:new google.maps.LatLng(54.7753,-1.5849),
-		zoom:13,
+		zoom:17,
 	};
-	var map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
+	setMarkers(testMarkers);
 }
 
-function setMarkers(map) {
+function setMarkers(markers) {
+	clearMarkers();
 	var markerIcon = "marker_icon.png";
-	var markerPosition = new google.maps.LatLng(53.4780916,-2.2445852);
-	var marker = new google.maps.Marker({position:markerPosition, icon:markerIcon});
-	marker.setMap(map);
+	var highlightedMarkerIcon = "highlighted_marker_icon.png";
+	for (var i = 0; i < markers.length; i++) {
+		console.log(markers[i]);
+		var markerPosition = new google.maps.LatLng(markers[i].lat, markers[i].long);
+		if (markers[i].highlight) {
+			var marker = new google.maps.Marker({position:markerPosition, icon:highlightedMarkerIcon, id:markers[i].id});
+		}
+		else {
+			var marker = new google.maps.Marker({position:markerPosition, icon:markerIcon, id:markers[i].id});
+		}
+		currentMarkers.push(marker);
+        marker.setMap(map);
+    }
+}
+
+function clearMarkers() {
+	for (var i = 0; i < currentMarkers.length; i++ ) {
+		currentMarkers[i].setMap(null);
+	}
+	currentMarkers.length = 0;
 }
