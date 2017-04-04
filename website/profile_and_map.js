@@ -152,8 +152,9 @@ $("#message_form").submit(function(data){
 var testMarkers = [{"id":1, "lat":54.7753, "long":-1.5849, "highlight":true}, {"id":2, "lat":54.7754, "long":-1.586, "highlight":false}]
 
 var map;
+var currentLocationMarker;
 var currentMarkers = [];
-var chosenLocation = {"lat": 0, "long": 0};
+var chosenLocation = {"lat": 54.7753, "long": -1.5849};
 
 function createMap() {
 	navigator.geolocation.getCurrentPosition(mapWithCoords, mapWithoutCoords);
@@ -166,7 +167,8 @@ function mapWithCoords(pos) {
 	};
 	chosenLocation = {"lat": pos.coords.latitude, "long": pos.coords.longitude};
 	map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-	setMarkers(testMarkers);
+	setCurrentLocationMarker();
+	addListeners();
 }
 
 function mapWithoutCoords(err) {
@@ -175,7 +177,28 @@ function mapWithoutCoords(err) {
 		zoom:17,
 	};
 	map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
-	setMarkers(testMarkers);
+	setCurrentLocationMarker();
+	addListeners();
+}
+
+function addListeners() {
+	google.maps.event.addListener(map, 'click', function(event) {
+		chosenLocation = {"lat": event.latLng.lat(), "long": event.latLng.lng()};
+		removeMarker(); 
+		setCurrentLocationMarker();
+		loadCommunityFood();
+	});
+}
+
+function setCurrentLocationMarker() {
+	var markerIcon = "current_location_marker_icon.png";
+	var markerPosition = new google.maps.LatLng(chosenLocation.lat, chosenLocation.long);
+	currentLocationMarker = new google.maps.Marker({position:markerPosition, icon:markerIcon});
+	currentLocationMarker.setMap(map);
+}
+
+function removeMarker() {
+	currentLocationMarker.setMap(null);
 }
 
 function setMarkers(markers) {
@@ -192,6 +215,9 @@ function setMarkers(markers) {
 			var marker = new google.maps.Marker({position:markerPosition, icon:markerIcon, id:markers[i].id});
 		}
 		currentMarkers.push(marker);
+		google.maps.event.addListener(marker, 'click', function() {
+			selectItem(this.id);
+		}); 
         marker.setMap(map);
     }
 }
