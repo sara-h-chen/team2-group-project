@@ -143,8 +143,10 @@ window.onresize = function(event) {
 	resize();
 };
 
-
-
+$("#message_form").submit(function(data){
+	console.log(data['msg_content']);
+	return false;
+});
 /* ----- MAP ----- */
 
 function myMap() {
