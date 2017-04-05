@@ -1,5 +1,24 @@
 html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5;}
 
+/*new food form css*/
+#new_food_form {
+	padding: 3%;
+}
+
+button {
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+    width: 40%;
+    background-color: #9aaa57;
+    color: white;
+    padding: 14px;
+    margin: 0 0 0 55%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+/*end of new food form css*/
+
 /*form and generic rules*/
 body {
 	font-family: 'Roboto', sans-serif;
