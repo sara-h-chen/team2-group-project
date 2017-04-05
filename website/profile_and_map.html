@@ -4,6 +4,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Roboto" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="profile_and_map.js"></script>
+	<script src="MemberArea.js"></script>
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<script>
@@ -47,30 +48,18 @@
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
 	  <input type="image" id="user_profile_pic" src="profile_example.png">
 	  <input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
-		<div id="user_item_list" style="overflow-y:scroll;">
-		  <div class="user_item">
-			<img id="del1" class="del_img" src="delete_icon.png" onclick="deleteItem()">
-			<img id="edit1" class="edit_img" src="edit_icon.png" onclick="editItem()">
-			<img id="type1" class="type_img" src="veg_icon.png">
-			<h3 class="item_name">Chocolate</h3>
-		  </div>
-		  <div class="user_item">
-			<img id="del2" class="del_img" src="delete_icon.png" onclick="deleteItem()">
-			<img id="edit2" class="edit_img" src="edit_icon.png" onclick="editItem()">
-			<img id="type2" class="type_img" src="veg_icon.png">
-			<h3 class="item_name">Carrot</h3>
-		  </div>
-		  <div class="user_item">
-			<img id="del3" class="del_img" src="delete_icon.png" onclick="deleteItem()">
-			<img id="edit3" class="edit_img" src="edit_icon.png" onclick="editItem()">
-			<img id="type3" class="type_img" src="veg_icon.png">
-			<h3 class="item_name">Onion</h3>
-		  </div>
+		<div id='user_item_list'>
+		
+		</div>
+		<div id='new_food_form'>
+			<input type='text' id='new_food_name' placeholder='Name of Item'><br>
+			<input type='text' id='new_food_quantity' placeholder='Quantity'><br>
+			<button onclick='addNewFood()'>Add Item</button>
 		</div>
 		<div></div>
-	  <img src="add_item.png" id="add_button" onclick="addItem()"/>
+	  <img src="add_item.png" id="add_button" onclick="showNewFoodForm()"/>
 	  <img src="messages.png" id="message_button"/>
-	  <img src="my_items.png" id="items_button"/>
+	  <img src="my_items.png" id="items_button" onclick="showUserFood()"/>
 	  <img src="log_out.png" id="exit_button" onclick="logOut()"/>
 		<div id="message_list">
 			<div id='contacts'>
@@ -82,42 +71,7 @@
 	<div id="item_menu" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeItemMenu()">&times;</a>
 	  <div id="community_item_list" style="overflow-y:scroll;">
-		<div class="community_item">
-			<img id="example1" class="item_img" src="example_tomato.jpg" onclick="viewInfo()"><!-- goes into popup window !-->
-			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-			<h3>Tomato</h3>
-			<p>0.3 miles</p>
-
-			<!-- maybe some coloured circle indicating type of produce (fish,veg,etc) !-->
-		</div>
-		<br>
-		<div class="community_item">
-			<img id="example2" class="item_img" src="example_cheese.jpg" onclick="viewInfo()">
-			<img id="message2" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-			<h3>Cheese</h3>
-			<p>0.5 miles</p>
-		</div>
-		<br>
-		<div class="community_item">
-			<img id="example3" class="item_img" src="example_broccoli.jpg" onclick="viewInfo()">
-			<img id="message3" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-			<h3>Broccoli</h3>
-			<p>0.2 miles</p>
-		</div>
-		<br>
-		<div class="community_item">
-			<img id="example4" class="item_img" src="example_bleach.jpg" onclick="viewInfo()">
-			<img id="message4" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-			<h3>Bleach</h3>
-			<p>0.7 miles</p>
-		</div>
-		<br>
-		<div class="community_item">
-			<img id="example5" class="item_img" src="example_bread.jpg" onclick="viewInfo()">
-			<img id="message5" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-			<h3>Bread</h3>
-			<p>0.1 miles</p>
-		</div>
+		
 	  </div>
 	  <button id="search_button">Search</button>
 	</div>
@@ -129,6 +83,7 @@
 	</div>!-->
 
 	<script>
+	$("#new_food_form").hide();
 
 	$("input[type='image']").click(function() {
 	    $("input[id='new_pic']").click();
