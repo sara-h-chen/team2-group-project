@@ -1,22 +1,31 @@
 html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5;}
+/*messages list css*/
+.message {
+	background-color: #222222;
+	height: 16%;
+	padding: 3%;
+}
+
+.sender_name {
+	line-height: 2%;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	color: white;
+}
+
+.sender_preview {
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	color: #9aaa57;
+}
+/*end of messages list css*/
 
 /*new food form css*/
 #new_food_form {
 	padding: 3%;
+	padding-top: 11.5%;
 }
 
-button {
-	font-family: 'Roboto', sans-serif;
-	font-size: 18px;
-    width: 40%;
-    background-color: #9aaa57;
-    color: white;
-    padding: 14px;
-    margin: 0 0 0 55%;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
 /*end of new food form css*/
 
 /*form and generic rules*/
@@ -39,6 +48,29 @@ h3 {
 p {
 	padding-left: 5%;
 	font-family: 'Roboto', sans-serif;
+}
+
+br {
+	display: block;
+    margin: 10px 0;
+}
+
+hr { 
+	height:2px;
+	visibility:hidden;
+	margin-bottom:-1px; 
+}
+button {
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+    width: 40%;
+    background-color: #9aaa57;
+    color: white;
+    padding: 14px;
+    margin: 0 0 0 55%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
 .headline {
@@ -175,6 +207,11 @@ input[type=submit]:hover {
 }
 
 #user_item_list {
+	height: 58%;
+	color: #aaaaaa;
+}
+
+#message_list {
 	height: 58%;
 	color: #aaaaaa;
 }

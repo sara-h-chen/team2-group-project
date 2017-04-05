@@ -52,6 +52,28 @@
 		<div id='user_item_list'>
 
 		</div>
+		<div id="message_list" style="overflow-y:scroll;">
+			<div class="message" id="message1">
+				<p class="sender_name">Bob Smith</p>
+				<p class="sender_preview">Message preview blah blah blah .........</p>
+			</div>
+			<hr style="height:0.2%; visibility:hidden;"/>
+			<div class="message" id="message2">
+				<p class="sender_name">Anna Brown</p>
+				<p class="sender_preview">Message preview blah blah blah .........</p>
+			</div>
+			<hr style="height:0.2%; visibility:hidden;"/>
+			<div class="message" id="message3">
+				<p class="sender_name">Sue White</p>
+				<p class="sender_preview">Message preview blah blah blah .........</p>
+			</div>
+			<hr style="height:0.2%; visibility:hidden;"/>
+			<div class="message" id="message4">
+				<p class="sender_name">John Jones</p>
+				<p class="sender_preview">Message preview blah blah blah .........</p>
+			</div>
+			<hr style="height:0.2%; visibility:hidden;"/>
+		</div>
 		<div id='new_food_form'>
 			<input type='text' id='new_food_name' placeholder='Name of Item'><br>
 			<input type='text' id='new_food_quantity' placeholder='Quantity'><br>
@@ -76,7 +98,7 @@
 				<option value='EGGS'>Eggs</option>
 				<option value='NONE'>None</option>
 			</select>
-			<button onclick='addNewFood()'>Add Item</button>
+			<button id="add_food_button" onclick='addNewFood()'>Add Item</button>
 		</div>
 		<div></div>
 	  <img src="add_item.png" id="add_button" onclick="showNewFoodForm()"/>
@@ -123,11 +145,18 @@
 	  $('#message_button').click(function(){
 	      $('#user_item_list').hide();
 	      $('#message_list').show();
+		  $('#new_food_form').hide();
 	  });
 
 	  $('#items_button').click(function(){
 	      $('#message_list').hide();
 	      $('#user_item_list').show();
+		  $('#new_food_form').hide();
+	  });
+	  
+	  $('#add_button').click(function(){
+		  $('#message_list').hide();
+		  $('#user_item_list').hide();
 	  });
 	});
 	</script>
