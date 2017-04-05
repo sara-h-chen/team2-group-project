@@ -54,6 +54,27 @@
 		<div id='new_food_form'>
 			<input type='text' id='new_food_name' placeholder='Name of Item'><br>
 			<input type='text' id='new_food_quantity' placeholder='Quantity'><br>
+			Type:
+			<select id='new_food_type'><br>
+				<option value='VEGE'>Vegetable(s)</option>
+				<option value='SEAFOOD'>Seafood</option>
+				<option value='MEAT'>Meat</option>
+				<option value='COOKED'>Cooked</option>
+				<option value='FRUIT'>Fruit</option>
+				<option value='BAKERY'>Bakery</option>
+				<option value='PASTA_RICE'>Pasta/Rice</option>
+				<option value='DRIED'>Dried</option>
+				<option value='OTHER'>Other</option>
+			</select>
+			Allergen:
+			<select id='new_food_allergens'><br>
+				<option value='NUTS'>Nuts</option>
+				<option value='GLUTEN'>Gluten</option>
+				<option value='NON_VEGAN'>Non-vegan</option>
+				<option value='SEAFOOD'>Seafood</option>
+				<option value='EGGS'>Eggs</option>
+				<option value='NONE'>None</option>
+			</select>
 			<button onclick='addNewFood()'>Add Item</button>
 		</div>
 		<div></div>
