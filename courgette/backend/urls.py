@@ -18,5 +18,5 @@ urlpatterns = [
     url(r'^function/messagesBetween/$', views.getMessagesBetween),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/$', views.getMessages),
     url(r'^user/(?P<username>[a-zA-Z0-9]+)/contacts/$', views.getContacts),
-    url(r'^user/(?P<username>[a-zA-Z0-9]+)/messages/add/$', views.addMessage),
+    url(r'^user/messages/add/$', views.addMessage),
 ]

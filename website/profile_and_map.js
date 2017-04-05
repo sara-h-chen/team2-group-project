@@ -1,4 +1,5 @@
 function getMessages(ID){
+	contact=ID;
   $("#messages").empty();
 	$("#message_header").empty();
   $("#message_view").toggle();
@@ -145,10 +146,16 @@ window.onresize = function(event) {
 	resize();
 };
 
-$("#message_form").submit(function(data){
-	console.log(data['msg_content']);
-	return false;
-});
+function sendMessage(sender_id,receiver_id,msg_content){
+	url = 'http://localhost:8000/backend/user/messages/add/';
+	$.post(url,{
+		'sender_id':sender_id,
+		'receiver_id':receiver_id,
+		'msg_content':msg_content
+	},function(data){
+		console.log(data);
+	});
+}
 
 /* ----- MAP ----- */
 var testMarkers = [{"id":1, "lat":54.7753, "long":-1.5849, "highlight":true}, {"id":2, "lat":54.7754, "long":-1.586, "highlight":false}]
@@ -186,7 +193,7 @@ function mapWithoutCoords(err) {
 function addListeners() {
 	google.maps.event.addListener(map, 'click', function(event) {
 		chosenLocation = {"lat": event.latLng.lat(), "long": event.latLng.lng()};
-		removeMarker(); 
+		removeMarker();
 		setCurrentLocationMarker();
 		loadCommunityFood();
 	});
@@ -219,7 +226,7 @@ function setMarkers(markers) {
 		currentMarkers.push(marker);
 		google.maps.event.addListener(marker, 'click', function() {
 			selectItem(this.id);
-		}); 
+		});
         marker.setMap(map);
     }
 }

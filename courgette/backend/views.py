@@ -460,7 +460,7 @@ def getContacts(request, username):
         return response
 
 @csrf_exempt
-def addMessage(request, username):
+def addMessage(request):
     try:
         if request.method == "POST":#TODO make robust i.e. deal with post request that don't contain thr right data
             data =request.POST
@@ -474,8 +474,8 @@ def addMessage(request, username):
             message= Message(sender_id=sender_id,receiver_id=receiver_id,msg_content=msg_content)
             response = JSONResponse("{'done:done'}")
             _acao_response(response)
+            message.save()
             return response
-        # message.save()
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
 
