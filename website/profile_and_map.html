@@ -45,6 +45,19 @@
 			<button id="submit">Get Item</button>
 		</div>
 	</div>
+	<div id="message_popup" class="popup">
+		<div class="skinny_popup_header">
+			<span class="close">&times;</span>
+			<h2>Bob Smith</h2>
+		</div>
+		<div class="skinny_popup_content">
+			<p>Message preview blah blah blah ......... this popup is just a tester for Bob Smith only so not applied to others yet. Also possibly adding clickable icon on message preview.</p>
+		</div>
+		<div class="skinny_popup_footer">
+			<button id="reply_to_message">Reply</button>
+			<button id="delete_message">Delete</button>
+		</div>
+	</div>
 	<div id="profile_menu" class="sidenav">
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
 	  <input type="image" id="user_profile_pic" src="profile_example.png">
@@ -54,7 +67,7 @@
 		</div>
 		<div id="message_list" style="overflow-y:scroll;">
 			<div class="message" id="message1">
-				<p class="sender_name">Bob Smith</p>
+				<p class="sender_name" id="name1">Bob Smith</p>
 				<p class="sender_preview">Message preview blah blah blah .........</p>
 			</div>
 			<hr style="height:0.2%; visibility:hidden;"/>
@@ -162,12 +175,11 @@
 	</script>
 	<script>
 
-
 	//POPUP CODE WHEN CLICKING ON ITEM IMAGE IN COMMUNITY SIDE BAR
-	var popup = document.getElementById('community_popup');
+	var popup = document.getElementById('message_popup');
 
 	// Get the button that opens the modal
-	var btn = document.getElementById("example1");
+	var btn = document.getElementById("name1");
 
 	// Get the <span> element that closes the modal
 	var span = document.getElementsByClassName("close")[0];
