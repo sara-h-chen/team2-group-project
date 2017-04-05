@@ -62,8 +62,10 @@ function openProfileMenu() {
 	}
 }
 
-function logOut() {
-	window.location.href = "index.html";
+function logOut()
+{
+	document.cookie="authToken=;";
+	window.location.replace("index.html");
 }
 
 /* Set the width of the side navigation to 0 */
