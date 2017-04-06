@@ -181,6 +181,7 @@ function mapWithCoords(pos) {
 	map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 	setCurrentLocationMarker();
 	addListeners();
+	loadCommunityFood();
 }
 
 function mapWithoutCoords(err) {
@@ -191,6 +192,7 @@ function mapWithoutCoords(err) {
 	map=new google.maps.Map(document.getElementById("googleMap"),mapProp);
 	setCurrentLocationMarker();
 	addListeners();
+	loadCommunityFood();
 }
 
 function addListeners() {
