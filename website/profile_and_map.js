@@ -1,8 +1,10 @@
-function getMessages(ID){
+function getMessages(ID, init){
 	contact=ID;
   $("#messages").empty();
 	$("#message_header").empty();
-  $("#message_view").toggle();
+	if (init){
+		$("#message_view").toggle();
+	}
 	url = 'http://localhost:8000/backend/function/'+ID+'/';
 	$.get(url, function(data){
 		username=data.username;
@@ -113,7 +115,7 @@ function getContacts(userID){
 					url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
 					$.get(url, function(data){
 						name= data.username;
-						$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+")>"+name+"</div>");
+						$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+",true)>"+name+"</div>");
 					});
 				});
 		});
@@ -153,6 +155,7 @@ function sendMessage(sender_id,receiver_id,msg_content){
 		'receiver_id':receiver_id,
 		'msg_content':msg_content
 	},function(data){
+		getMessages(receiver_id,false);
 		console.log(data);
 	});
 }

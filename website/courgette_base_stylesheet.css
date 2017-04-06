@@ -55,10 +55,10 @@ br {
     margin: 10px 0;
 }
 
-hr { 
+hr {
 	height:2px;
 	visibility:hidden;
-	margin-bottom:-1px; 
+	margin-bottom:-1px;
 }
 button {
 	font-family: 'Roboto', sans-serif;
@@ -142,8 +142,9 @@ input[type=submit]:hover {
 }
 
 #messages {
-    height: 99%;,
+    height: 90%;
     width:100%;
+		overflow-y: scroll;
 }
 
 #message_header {
