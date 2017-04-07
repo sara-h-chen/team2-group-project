@@ -37,6 +37,15 @@ function loadCommunityFood()
 				</div>\
 				<br>');
 			}
+			
+			var markers = [];
+			
+			for(var i=0; i<communityFood.length; ++i)
+			{
+				markers.push({"lat":communityFood[i]["lat"], "long":communityFood["long"], "highlight":false});
+			}
+			
+			setMarkers(markers);
 		},
 		error: function(){alert("Not logged in");}
 	});
