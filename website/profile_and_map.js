@@ -206,7 +206,7 @@ function addListeners() {
 
 function setCurrentLocationMarker() {
 	var markerIcon = "current_location_marker_icon.png";
-	var markerPosition = new google.maps.LatLng(chosenLocation.lat, chosenLocation.long);
+	var markerPosition = new google.maps.LatLng(chosenLocation["lat"], chosenLocation["long"]);
 	currentLocationMarker = new google.maps.Marker({position:markerPosition, icon:markerIcon});
 	currentLocationMarker.setMap(map);
 }
@@ -221,7 +221,7 @@ function setMarkers(markers) {
 	var highlightedMarkerIcon = "highlighted_marker_icon.png";
 	for (var i = 0; i < markers.length; i++) {
 		console.log(markers[i]);
-		var markerPosition = new google.maps.LatLng(markers[i].lat, markers[i].long);
+		var markerPosition = new google.maps.LatLng(markers[i]["lat"], markers[i]["long"]);
 		if (markers[i].highlight) {
 			var marker = new google.maps.Marker({position:markerPosition, icon:highlightedMarkerIcon, id:markers[i].id});
 		}
