@@ -50,6 +50,17 @@ function loadCommunityFood()
 		error: function(){alert("Not logged in");}
 	});
 }
+
+function selectItem(id)
+{
+	for(var i=0; i<communityFood.length; ++i)
+	{
+		$("#communityItem" + communityFood[i]["id"]).css('background-color', '#222222');
+	}
+	
+	$("#communityItem" + id).css('background-color', 'green');
+	$("#communityItem" + id).get(0).scrollIntoView();
+}
 		
 function showUserFood()
 {
