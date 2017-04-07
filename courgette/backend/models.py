@@ -57,8 +57,8 @@ class Food(models.Model):
         ('UNAVAILABLE', 'Unavailable')
     )
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
-    latitude = models.DecimalField(max_digits=3, decimal_places=2)
-    longitude = models.DecimalField(max_digits=3, decimal_places=2)
+    latitude = models.DecimalField(max_digits=6, decimal_places=3)
+    longitude = models.DecimalField(max_digits=6, decimal_places=3)
     # picture = models.CharField(default='https://s-media-cache-ak0.pinimg.com/236x/c8/ee/96/c8ee96eda85ae29a5cdaa809cefe779a.jpg',
     #                            max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')

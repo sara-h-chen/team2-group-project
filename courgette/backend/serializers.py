@@ -57,7 +57,7 @@ class FoodListSerializer(serializers.ModelSerializer):
                   'status', 'latitude', 'longitude', 'user')
 
 
-# TODO: Fix the relations
+# UNUSED SERIALIZER
 class MessageSerializer(serializers.ModelSerializer):
     created_at = serializers.DateField(format=None, input_formats=None)
     sender = PrimaryKeyRelatedField(queryset=User.objects.all())

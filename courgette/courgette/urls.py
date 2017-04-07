@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^backend/', include('backend.urls')),
     url(r'^admin/', admin.site.urls),
     # url('^', include(inbuilt_urls)),
-    # TODO: Link password reset URL to a HTML page
+    # Links to the password reset mechanism
     url(r'^password_reset/$', ResetPasswordRequestView.as_view(), name='password_reset'),
     url(r'^password_reset_done/', TemplateView.as_view(template_name='registration/password_reset_done.html')),
     url(r'^password_reset_confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', PasswordResetConfirmView.as_view(), name='password_reset_confirm'),

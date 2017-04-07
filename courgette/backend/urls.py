@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^user/profile/$', views.profileHandler),
     url(r'^user/preferences/$', views.preferenceHandler),
     url(r'^user/search/(?P<username>[a-zA-Z0-9]+)/$', views.findUser),
-    url(r'^food/(?P<latitude>\d+(?:\.\d+))/(?P<longitude>\d+(?:\.\d+))/$', views.foodListHandler),
+    url(r'^food/(?P<latitude>-?\d+(?:\.\d+))/(?P<longitude>-?\d+(?:\.\d+))/$', views.foodListHandler),
     url(r'^food/update/(?P<id>[0-9]+)/$', views.updateHandler),
     # url(r'^search/(?P<type>[0-4]{1})/$', views.search, name='search'),
     # url(r'^courgette/(?P<userID>[0-4]{5})/$', views.notifcation, name='notifcations')
