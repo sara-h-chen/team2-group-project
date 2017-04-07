@@ -22,7 +22,7 @@ function loadCommunityFood()
 	$("#community_item_list").empty();
 			
 	$.get({
-		url: "http://sarachen.pythonanywhere.com/backend/food/1.0/1.0/",
+		url: "http://sarachen.pythonanywhere.com/backend/food/"+chosenLocation["lat"]+"/"+chosenLocation["long"]+"/",
 		headers:{"Authorization":"Token " + getCookie("authToken")},
 		success:function(data)
 		{
@@ -92,7 +92,7 @@ function deleteFoodItem(id)
 
 function addNewFood()
 {
-	var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : "VEGE", "allergens" : "NUTS", "status" : "AVAILABLE", "latitude" : 1.0, "longitude" : 1.0};
+	var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : "VEGE", "allergens" : "NUTS", "status" : "AVAILABLE", "latitude" : chosenLocation["lat"], "longitude" : chosenLocation["long"]};
 			
 	$.post({
 		url: "http://sarachen.pythonanywhere.com/backend/food/1.0/1.0/",
