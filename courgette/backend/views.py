@@ -265,8 +265,8 @@ def foodList(request, latitude, longitude):
     longitude = float(longitude)
 
     if request.method == 'GET':
-        allFoods = Food.objects.filter(Q(latitude__range=(latitude - 10, latitude + 10)),
-                                       Q(longitude__range=(longitude - 10, longitude + 10)))
+        allFoods = Food.objects.filter(Q(latitude__range=(latitude - 0.1, latitude + 0.1)),
+                                       Q(longitude__range=(longitude - 0.1, longitude + 0.1)))
         serializer = FoodListSerializer(allFoods, many=True)
         response = JSONResponse(serializer.data)
         _acao_response(response)
