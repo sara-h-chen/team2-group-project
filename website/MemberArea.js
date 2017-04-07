@@ -42,7 +42,7 @@ function loadCommunityFood()
 			
 			for(var i=0; i<communityFood.length; ++i)
 			{
-				markers.push({"lat":communityFood[i]["lat"], "long":communityFood[i]["long"], "highlight":false, "id":communityFood[i]["id"]});
+				markers.push({"lat":communityFood[i]["latitude"], "long":communityFood[i]["longitude"], "highlight":false, "id":communityFood[i]["id"]});
 			}
 			
 			setMarkers(markers);
