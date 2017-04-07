@@ -95,13 +95,20 @@ function deleteFoodItem(id)
 	$.ajax({
 		url: "http://sarachen.pythonanywhere.com/backend/food/update/"+id+"/",
 		method:"DELETE",
-		headers:{"Authorization":"Token " + getCookie("authToken")}
+		headers:{"Authorization":"Token " + getCookie("authToken")},
+		success:function(data)
+		{
+			loadCommunityFood();
+		}
 	});
 }
 
 function addNewFood()
 {
-	var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : "VEGE", "allergens" : "NUTS", "status" : "AVAILABLE", "latitude" : chosenLocation["lat"], "longitude" : chosenLocation["long"]};
+	var latitude = chosenLocation["lat"].toFixed(6);
+	var longitude = chosenLocation["long"].toFixed(6);
+	
+	var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : "VEGE", "allergens" : "NUTS", "status" : "AVAILABLE", "latitude" : latitude, "longitude" : longitude};
 			
 	$.post({
 		url: "http://sarachen.pythonanywhere.com/backend/food/1.0/1.0/",
@@ -112,6 +119,7 @@ function addNewFood()
 		success:function(data)
 		{
 			showUserFood();
+			loadCommunityFood();
 		}
 	});
 }
