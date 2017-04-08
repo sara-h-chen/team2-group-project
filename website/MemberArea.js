@@ -1,4 +1,5 @@
 var communityFood = [];
+var userFood = [];
 
 function getCookie(cname)
 {
@@ -73,13 +74,15 @@ function showUserFood()
 		headers:{"Authorization":"Token " + getCookie("authToken")},
 		success:function(data)
 		{
+			userFood = data;
+			
 			$("#user_item_list").append("Your Items:<br>");
 			
 			for(var i=0; i<data.length; ++i)
 			{
 				$("#user_item_list").append('<div class="user_item" id="userFoodItem'+data[i]["id"]+'">\
 				<img id="del1" class="del_img" src="delete_icon.png" onclick="deleteFoodItem('+data[i]["id"]+')">\
-				<img id="edit1" class="edit_img" src="edit_icon.png">\
+				<img id="edit1" class="edit_img" src="edit_icon.png" onclick="showEditFoodForm('+data[i]["id"]+')">\
 				<img id="type1" class="type_img" src="veg_icon.png">\
 				<h3 class="item_name">' + data[i]["food_name"] +'</h3>\
 				</div>');
@@ -91,11 +94,40 @@ function showUserFood()
 			}
 		}
 	});
+	editing = -1;
 }
 showUserFood();
 
 function showNewFoodForm()
 {
+	$("#new_food_name").val("");
+	$("#new_food_quantity").val("");
+	$("#new_food_type").val("");
+	$("#new_food_allergens").val("");
+	$("#user_item_list").hide();
+	$("#new_food_form").show();
+}
+
+var editing = -1;
+
+function showEditFoodForm(id)
+{
+	editing = id;
+	$("#new_food_name").val("");
+	$("#new_food_quantity").val("");
+	$("#new_food_type").val("");
+	$("#new_food_allergens").val("");
+	for(var i=0; i<userFood.length; ++i)
+	{
+		if(userFood[i]["id"] == editing)
+		{
+			$("#new_food_name").val(userFood[i]["food_name"]);
+			$("#new_food_quantity").val(userFood[i]["quantity"]);
+			$("#new_food_type").val(userFood[i]["food_type"]);
+			$("#new_food_allergens").val(userFood[i]["allergens"]);
+			break;
+		}
+	}
 	$("#user_item_list").hide();
 	$("#new_food_form").show();
 }
@@ -116,21 +148,44 @@ function deleteFoodItem(id)
 
 function addNewFood()
 {
-	var latitude = chosenLocation["lat"].toFixed(6);
-	var longitude = chosenLocation["long"].toFixed(6);
+	if(editing == -1)
+	{
+		var latitude = chosenLocation["lat"].toFixed(6);
+		var longitude = chosenLocation["long"].toFixed(6);
 	
-	var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : "VEGE", "allergens" : "NUTS", "status" : "AVAILABLE", "latitude" : latitude, "longitude" : longitude};
+		var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : $("#new_food_type").val(), "allergens" : $("#new_food_allergens").val(), "status" : "AVAILABLE", "latitude" : latitude, "longitude" : longitude};
 			
-	$.post({
-		url: "http://sarachen.pythonanywhere.com/backend/food/1.0/1.0/",
-		data: JSON.stringify(food),
-		contentType: "application/json",
-		headers:{"Authorization":"Token " + getCookie("authToken")},
-		dataType: "json",
-		success:function(data)
-		{
-			showUserFood();
-			loadCommunityFood();
-		}
-	});
+		$.post({
+			url: "http://sarachen.pythonanywhere.com/backend/food/1.0/1.0/",
+			data: JSON.stringify(food),
+			contentType: "application/json",
+			headers:{"Authorization":"Token " + getCookie("authToken")},
+			dataType: "json",
+			success:function(data)
+			{
+				showUserFood();
+				loadCommunityFood();
+				editing = -1;
+			}
+		});
+	}
+	else
+	{
+		var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : $("#new_food_type").val(), "allergens" : $("#new_food_allergens").val(), "status" : "AVAILABLE"};
+		
+		$.ajax({
+			url: "http://sarachen.pythonanywhere.com/backend/food/update/"+editing+"/",
+			method:"PUT",
+			data: JSON.stringify(food),
+			contentType: "application/json",
+			headers:{"Authorization":"Token " + getCookie("authToken")},
+			dataType: "json",
+			success:function(data)
+			{
+				showUserFood();
+				loadCommunityFood();
+				editing = -1;
+			}
+		});
+	}
 }
