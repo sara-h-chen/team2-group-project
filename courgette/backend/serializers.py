@@ -54,7 +54,7 @@ class FoodListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
         fields = ('id', 'food_name', 'quantity', 'date_listed', 'food_type', 'allergens',
-                  'status', 'latitude', 'longitude', 'user')
+                  'status', 'latitude', 'longitude', 'picture', 'user')
 
 
 # UNUSED SERIALIZER

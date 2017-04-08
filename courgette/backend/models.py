@@ -59,8 +59,7 @@ class Food(models.Model):
     status = models.CharField(choices=STATUS,default='AVAILABLE',max_length=50)
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
-    # picture = models.CharField(default='https://s-media-cache-ak0.pinimg.com/236x/c8/ee/96/c8ee96eda85ae29a5cdaa809cefe779a.jpg',
-    #                            max_length=200)
+    picture = models.TextField(default='0')
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
 
     def __str__(self):
