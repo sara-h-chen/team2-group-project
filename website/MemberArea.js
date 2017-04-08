@@ -30,7 +30,7 @@ function loadCommunityFood()
 			
 			for(var i=0; i<communityFood.length; ++i)
 			{
-				$("#community_item_list").append('<div class="community_item">\
+				$("#community_item_list").append('<div class="community_item" id="communityItem'+communityFood[i]["id"]+'">\
 				<img class="item_img" src="example_tomato.jpg" onclick="viewInfo()">\
 				<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
 				<h3>' + communityFood[i]["food_name"] +'</h3>\
