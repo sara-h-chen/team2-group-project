@@ -7,18 +7,18 @@
 	<title>COURGETTE</title>
 </head>
 
-<div id="site_header">
-	<div class="header_container grey_container">
-		<a href=""><img src="logo.png" class="logo"/></a>
-		<ul class="nav">
-			<li><button id="log_in">Log In</button></li>
-			<li><button id="sign_up">Sign Up</button></li>
-		</ul>
+<div class="header_container grey_container">
+	<a href=""><img src="logo.png" id="header_logo"/></a>
+	<div class="wrapper">
+		<button class ="nav_button" id="log_in">Log In</button>
 	</div>
-	<div class="header_image_div">
-		<img src="index_header_image.jpg" class="header_image"/>
-		<h1 class="header_image_blurb">Help us reduce<br>food waste.</h1>
+	<div class="wrapper">
+		<button  class ="nav_button" id="sign_up">Sign Up</button>
 	</div>
+</div>
+<div class="header_image_div">
+<!-- 	<img src="index_header_image.jpg" class="header_image"/> -->
+	<h1 class="header_image_blurb">Help us reduce food waste.</h1>
 </div>
 
 <div id="log_in_popup" class="popup">
@@ -29,10 +29,10 @@
 	<div class="popup_content">
 		<form id="log_in_form">
 			Email: 
-			<input type="email" name="email">
+			<input class="index_input" type="email" name="email">
 			<br>
 			Password:
-			<input type="password" name="password">
+			<input class="index_input" type="password" name="password">
 		</form>
 	</div>
 	<div class="popup_footer">
@@ -48,16 +48,16 @@
 	<div class="popup_content">
 		<form id="sign_up_form">
 			Username:
-			<input type="name" name="username">
+			<input class="index_input" type="name" name="username">
 			<br>
 			Email: 
-			<input type="email" name="email">
+			<input class="index_input" type="email" name="email">
 			<br>
 			Password:
-			<input type="password" name="password">
+			<input class="index_input" type="password" name="password">
 			<br>
 			Postcode:
-			<input type="address" name="postcode"><!-- add more address fields later maybe !-->
+			<input class="index_input" type="address" name="postcode"><!-- add more address fields later maybe !-->
 		</form>
 	</div>
 	<div class="popup_footer">
@@ -67,49 +67,41 @@
 
 <div id="site_content">
 	<div class="content_container green_container">
-		<h2>In the UK, we throw away <em>7 million tonnes</em> of food and drink every year.
+		<h2 id="intro_header">In the UK, we throw away <em>7 million tonnes</em> of food and drink every year.
 		<br>Over <em>half</em> of that food and drink could have been eaten.</h2> 
 	</div>
 	<div class="content_container white_container">
-		<div class="centred_container">
+		<div class="centered_container">
 			<div class="left_column">
 				<img src="index_foodspot.png" class="index_foodspot">
 			</div>
 			<div class="right_column">
-				<p class="paragraph"><em class="logo_font">COURGETTE</em> proposes a practical solution to this problem. 
+				<p class="paragraph"><em class="logo_font"><br/>COURGETTE</em> proposes a practical solution to this problem. 
 				We want to enable the widespread practice of foodsharing using a simple online tool. 
 				<em class="logo_font">COURGETTE</em> allows you to share unwanted food and accept 
-				food sharing offers with those in your vicinity.</p>
-				<a href="">
-					<div class="padded_container green_container">
-						<h2>JOIN THE <em>FOODSHARING</em> REVOLUTION</h2>
-					</div>
-				</a>
+				food sharing offers with those in your vicinity.<br/></p><br/>
+				<div class="padded_container green_container">
+					<a href="">
+						<h2 id="link">JOIN THE <em>FOODSHARING</em> REVOLUTION</h2>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div>
-		<div class="tiled_image_container">
+	<div class="footer_images">
 			<img id="tile_1" class="index_tiled_image" src="index_tiled_image_1.jpg">
-		</div>
-		<div class="tiled_image_container">
 			<img id="tile_2" class="index_tiled_image" src="index_tiled_image_2.jpg">
-		</div>
-		<div class="tiled_image_container">
 			<img id="tile_3" class="index_tiled_image" src="index_tiled_image_3.jpg">
-		</div>
 	</div>
 </div>
 
 <div id="site_footer" class="header_container grey_container">
-	<div class="social_media_icons">
-		<a href=""><img class="social_media_icon" src="youtube_icon.png"></a>
-		<a href=""><img class="social_media_icon" src="facebook_icon.png"></a>
-		<a href=""><img class="social_media_icon" src="twitter_icon.png"></a>
-		<a href=""><img class="social_media_icon" src="instagram_icon.png"></a>
-	</div>
-	<img src="logo_white.png" class="logo right_align"/>
-	<h3 class="clear right_align">COURGETTE SOFTWARE SOLUTIONS 2016 ©</h3>
+	<a href=""><img class="social_media_icon" src="youtube_icon.png"></a>
+	<a href=""><img class="social_media_icon" src="facebook_icon.png"></a>
+	<a href=""><img class="social_media_icon" src="twitter_icon.png"></a>
+	<a href=""><img class="social_media_icon" src="instagram_icon.png"></a>
+	<img src="logo_white.png" class="logo_right_align"/>
+	<h3 class="clear right_align">COURGETTE SOFTWARE SOLUTIONS 2016</h3>
 </div>
 
 <script>
@@ -150,16 +142,16 @@
 	var btn2 = document.getElementById("sign_up");
 
 	// Get the <span> element that closes the modal
-	var span2 = document.getElementsByClassName("close")[0];
+	var span2 = document.getElementsByClassName("close")[1];
 
 	// When the user clicks on the button, open the modal 
 	btn2.onclick = function() {
-		popup.style.display = "block";
+		popup2.style.display = "block";
 	}
 
 	// When the user clicks on <span> (x), close the modal
 	span2.onclick = function() {
-		popup.style.display = "none";
+		popup2.style.display = "none";
 	}
 
 	// When the user clicks anywhere outside of the modal, close it
