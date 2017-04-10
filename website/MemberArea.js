@@ -36,7 +36,7 @@ function loadCommunityFood()
 				<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
 				<h3>' + communityFood[i]["food_name"] +'</h3>\
 				</div>\
-				<br>');
+				<br>');//look at these bits when hardcoding item examples
 			}
 			
 			var markers = [];
