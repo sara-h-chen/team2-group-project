@@ -433,21 +433,17 @@ def getContacts(request, username):
         user=User.objects.filter(username=username)
         uID=user[0].id
         messageList = Message.objects.filter(Q(receiver_id=uID) | Q(sender_id=uID))
-        contacts={}
         contactList=[]
-        counter=0
+        for x in messageList:
+            print x.receiver_id
         for x in messageList:
             if x.receiver_id==uID:
                 if not x.sender_id in contactList:
                     contactList.append(x.sender_id)
-                    contacts[counter] = (x.sender_id)
-                    counter=counter+1
             elif x.sender_id==uID:
                 if not x.receiver_id in contactList:
                     contactList.append(x.receiver_id)
-                    contacts[counter] = (x.receiver_id)
-                    counter=counter+1
-        response = JSONResponse(contacts)
+        response = JSONResponse(contactList)
         _acao_response(response)
         return response
     except Message.DoesNotExist:

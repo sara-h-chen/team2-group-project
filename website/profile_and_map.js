@@ -111,7 +111,9 @@ function getContacts(userID){
 		username = user.username;
 		url = 'http://localhost:8000/backend/user/'+username+'/contacts/';
 		$.get(url,function(contacts){
+				console.log(contacts);
 				$(contacts).each(function(item){
+					console.log(item);
 					url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
 					$.get(url, function(data){
 						name= data.username;

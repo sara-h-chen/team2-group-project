@@ -171,6 +171,10 @@ input[type=submit]:hover {
     width: 100%;
 }
 
+#contacts {
+	overflow-y: scroll;
+}
+
 #item_tab {
 	background-color:#9aaa57;
 	color:white;
@@ -482,12 +486,12 @@ img {
 	display: inline-block;
 	text-align: left;
 	color: #586d5f;
-	width: 70%; 
+	width: 70%;
 }
 .padded_container{
 	display: inline-block;
 	text-align: center;
-	width: 70%; 
+	width: 70%;
 }
 #link{
 	display: inline;
