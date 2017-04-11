@@ -190,11 +190,10 @@ input[type=submit]:hover {
 	font-size: 38px;
 	position: absolute;
 	left: 97%;
-	top:0%;
 }
 
 #user_profile_pic {
-	top: 50px;
+	top: 0px;
 	right: 0;
 	border-radius: 50%;
 	width: 50%;
@@ -347,10 +346,24 @@ img {
 /*formatting of individual user items*/
 .user_item {
 	background-color: #222222;
+	height: 32%;
 }
 
-.item_name {
-	padding: 3%;
+.user_item p {
+	line-height: 0.4em;
+	font-size: 80%;
+	padding-left: 3%;
+}
+
+.user_item h3 {
+	color: white;
+	line-height: 0.6em;
+	font-size: 93%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	padding: 4% 0 3% 0;
+	padding-left: 3%;
 }
 
 .type_img {
@@ -567,17 +580,17 @@ form{
 }*/
 
 /* The Close Button */
-.close {
-    color: #fff;
-	float: right;
-	top: 20%;
+.closebtn {
+    color: white;
+	position: absolute;
+	padding-top: 3%;
     font-size: 28px;
     font-weight: bold;
 	padding: 2px 16px;
 }
 
-.close:hover,
-.close:focus {
+.closebtn:hover,
+.closebtn:focus {
     color: #9aaa57;
     text-decoration: none;
     cursor: pointer;

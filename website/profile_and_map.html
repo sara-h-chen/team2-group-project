@@ -62,15 +62,25 @@
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
 	  <input type="image" id="user_profile_pic" src="profile_example.png">
 	  <input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
-		<div id='user_item_list'>
+		<div id='user_item_list' style="overflow-y:scroll;">
 		  <div class="user_item">
-			<img id="del1" class="del_img" src="delete_icon.png" onclick="deleteFoodItem()">
-			<img id="edit1" class="edit_img" src="edit_icon.png" onclick="showEditFoodForm()">
-			<img id="type1" class="type_img" src="veg_icon.png">
+			<img class="del_img" src="delete_icon.png" onclick="deleteFoodItem()">
+			<img class="edit_img" src="edit_icon.png" onclick="showEditFoodForm()">
+			<img class="type_img" src="veg_icon.png">
 			<h3>Baguette</h3>
 			<p>Amount: 1</p>
 			<p>Type: BAKERY</p>
 			<p>Allergens: GLUTEN</p>
+		  </div>
+		  <hr style="height:0.6%; visibility:hidden;"/><!--adds space between individual items!-->
+		  <div class="user_item">
+		    <img class="del_img" src="delete_icon.png" onclick="deleteFoodItem()">
+			<img class="edit_img" src="edit_icon.png" onclick="showEditFoodForm()">
+			<img class="type_img" src="veg_icon.png">
+			<h3>Potatoes</h3>
+			<p>Amount: 10</p>
+			<p>Type: OTHER</p>
+			<p>Allergens: NONE</p>
 		  </div>
 		</div>
 		<div id="message_list" style="overflow-y:scroll;">
@@ -145,7 +155,7 @@
 		  <p>Type: VEGE</p>
 		  <p>Allergens: NONE</p>
 		</div>
-		<hr style="height:0.6%; visibility:hidden;"/>
+		<hr style="height:0.6%; visibility:hidden;"/><!--adds space between individual items!-->
 		<div class="community_item">
 		  <img class="item_img" src="example_cheese.jpg" onclick="viewInfo()">
 		  <img id="message2" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
