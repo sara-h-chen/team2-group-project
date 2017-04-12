@@ -163,6 +163,47 @@
 	function goToProfile() {
 		window.location.href = "profile_and_map.html";
 	}
+	
+	function signup()
+	{
+		var data = {"username":$("#signup_username").val(), "password":$("#signup_password").val(), "email":$("#signup_email").val()};
+		$.post({
+			url: "http://sarachen.pythonanywhere.com/backend/newuser/",
+			data: JSON.stringify(data),
+			contentType: "application/json",
+			dataType: "json",
+			success:function()
+			{
+				alert("Account Created");
+				document.getElementById('sign_up_popup').style.display = "none";
+			},
+			error:function()
+			{
+				alert("Unable to create account");
+			}
+		});
+	}
+	
+	function login()
+	{
+		var login = {"username" : $("#login_username").val(), "password" : $("#login_password").val()};
+	
+		$.post({
+			url: "http://sarachen.pythonanywhere.com/backend/login/",
+			data: JSON.stringify(login),
+			contentType: "application/json",
+			dataType: "json",
+			success:function(data)
+			{
+				document.cookie = "authToken=" + data.token + "; path=/";
+				window.location.replace("http://community.dur.ac.uk/thomas.preston/website/profile_and_map.html");
+			},
+			error:function(data)
+			{
+				alert("Invalid login information");
+			}
+		});
+	}
 </script>
 
 <footer>
