@@ -22,8 +22,25 @@ html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5; 
 
 /*new food form css*/
 #new_food_form {
-	padding: 3%;
-	padding-top: 11.5%;
+	padding-left: 3%;
+	height: 58vh;
+}
+
+#add_food_button {
+	font-family: 'Roboto', sans-serif;
+	font-size: 85%;
+    width: 30%;
+    background-color: #9aaa57;
+    color: white;
+    padding: 2%;
+    margin: 0 0 0 66%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#add_food_button:hover {
+    background-color: #596b34;
 }
 
 /*end of new food form css*/
@@ -33,6 +50,12 @@ body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 20px;
 	color: #596b34;
+}
+
+img {
+	max-height: 100%;
+	width: auto;
+	height: auto\9;
 }
 
 h2 {
@@ -113,6 +136,19 @@ span {
 }
 
 input[type=submit] {
+	font-family: 'Roboto', sans-serif;
+	font-size: 20px;
+    width: 20%;
+    background-color: #9aaa57;
+    color: white;
+    padding: 14px;
+    margin: 0 0 0 75%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=select] {
 	font-family: 'Roboto', sans-serif;
 	font-size: 20px;
     width: 20%;
@@ -206,23 +242,28 @@ input[type=submit]:hover {
 	right: 0;
 	border-radius: 50%;
 	width: 50%;
-	z-index: 1
+	z-index: 1;
+	height: 20vh;
 }
 
 #community_item_list {
-	height: 80%;
+	height: 80vh;
 	color: #aaaaaa;
 }
 
 #user_item_list {
-	height: 58%;
+	height: 58vh;
 	color: #aaaaaa;
 }
 
 #message_list {
-	height: 58%;
+	height: 58vh;
 	color: #aaaaaa;
 	overflow-y: scroll;
+}
+
+#icons {
+	height: 22vh;
 }
 
 #view_items {
