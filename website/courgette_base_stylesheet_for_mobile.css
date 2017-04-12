@@ -215,7 +215,7 @@ input[type=submit]:hover {
 #item_tab {
 	background-color:#9aaa57;
 	color:white;
-	width:5%;
+	width:15%;
 	height:100%;
 	font-size: 38px;
 	position: absolute;
@@ -230,7 +230,7 @@ input[type=submit]:hover {
 	overflow-y: hidden;
 	overflow-x: hidden;
 	color:white;
-	width:5%;
+	width:15%;
 	height:100%;
 	font-size: 38px;
 	position: absolute;

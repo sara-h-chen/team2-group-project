@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
 	<link type="text/css" rel="stylesheet" href="courgette_base_stylesheet.css"/>
+	<link rel="stylesheet" media="screen and (min-device-width: 800px)" href="courgette_base_stylesheet_for_mobile.css" />
 	<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Roboto" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="profile_and_map.js"></script>
@@ -248,6 +249,22 @@
 			modal.style.display = "none";
 		}
 	}*/
+	
+	function adjustStyle(width) {
+	  width = parseInt(width);
+	  if (width < 900) {
+		$("#size-stylesheet").attr("href", "courgette_base_stylesheet_for_mobile.css");
+	  } else {
+		 $("#size-stylesheet").attr("href", "courgette_base_stylesheet.css"); 
+	  }
+	}
+
+	$(function() {
+	  adjustStyle($(this).width());
+	  $(window).resize(function() {
+		adjustStyle($(this).width());
+	  });
+	});
 
 	</script>
 </body>
