@@ -162,6 +162,13 @@ var image = "0";
 function readImage(event)
 {
 	var file = event.target.files[0];
+	if(file.size > 30000)
+	{
+		alert("Image too large (30kB limit)");
+		image = "0";
+		return;
+	}
+	
 	var reader = new FileReader();
 	
 	reader.onload = function(event)
