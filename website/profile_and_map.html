@@ -1,18 +1,45 @@
 <!DOCTYPE html>
 <head>
 	<link type="text/css" rel="stylesheet" href="courgette_base_stylesheet.css"/>
-	<link rel="stylesheet" media="screen and (min-device-width: 800px)" href="courgette_base_stylesheet_for_mobile.css" />
 	<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Roboto" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="profile_and_map.js"></script>
 	<script src="MemberArea.js"></script>
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<script>
 		userID=1;
 		var contact;
 	</script>
 	<title>COURGETTE</title>
+	<style>
+		@media screen and (max-width: 600px) {
+			#profile_tab {
+				background-color:#9aaa57;
+				overflow-y: hidden;
+				overflow-x: hidden;
+				color:white;
+				width:25%;
+				height:100%;
+				font-size: 12px;
+				position: absolute;
+				left: 95%;
+			}
+			#item_tab {
+				background-color:#9aaa57;
+				color:white;
+				width:25%;
+				height:100%;
+				font-size: 12px;
+				position: absolute;
+				left: 0%;
+				top:0%;
+				overflow-y: hidden;
+				overflow-x: hidden;
+			}
+		}
+	</style>
 </head>
 <body>
 	<div id ='backround'></div>
