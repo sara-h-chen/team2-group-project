@@ -198,22 +198,26 @@
 			return false;
 		});
 	  // Hide div 2 by default
+		$("#contacts").hide();
 	  $('#message_list').hide();
 		$("#message_view").hide();
 
 	  $('#message_button').click(function(){
 	      $('#user_item_list').hide();
-	      $('#message_list').show();
-		  $('#new_food_form').hide();
+	     	$('#message_list').show();
+		  	$('#new_food_form').hide();
+				$("#contacts").show();
 	  });
 
 	  $('#items_button').click(function(){
+				$("#contacts").hide();
 	      $('#message_list').hide();
 	      $('#user_item_list').show();
-		  $('#new_food_form').hide();
+		  	$('#new_food_form').hide();
 	  });
 
 	  $('#add_button').click(function(){
+			$("#contacts").hide();
 		  $('#message_list').hide();
 		  $('#user_item_list').hide();
 	  });

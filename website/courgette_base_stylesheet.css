@@ -173,6 +173,7 @@ input[type=submit]:hover {
 
 #contacts {
 	overflow-y: scroll;
+	height: 5%;
 }
 
 #item_tab {

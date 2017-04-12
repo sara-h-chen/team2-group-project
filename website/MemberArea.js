@@ -17,18 +17,18 @@ function getCookie(cname)
 	}
 	return "";
 }
-		
+
 function loadCommunityFood()
 {
 	$("#community_item_list").empty();
-			
+
 	$.get({
 		url: "http://sarachen.pythonanywhere.com/backend/food/"+chosenLocation["lat"]+"/"+chosenLocation["long"]+"/",
 		headers:{"Authorization":"Token " + getCookie("authToken")},
 		success:function(data)
 		{
 			communityFood = data;
-			
+
 			for(var i=0; i<communityFood.length; ++i)
 			{
 				var imageSource = ""
@@ -49,20 +49,20 @@ function loadCommunityFood()
 				</div>\
 				<br>');//look at these bits when hardcoding item examples
 			}
-			
+
 			var markers = [];
-			
+
 			for(var i=0; i<communityFood.length; ++i)
 			{
 				markers.push({"lat":communityFood[i]["latitude"], "long":communityFood[i]["longitude"], "highlight":false, "id":communityFood[i]["id"]});
 			}
-			
+
 			setMarkers(markers);
 		},
 		error: function()
 		{
 			alert("Not logged in");
-			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
 		}
 	});
 }
@@ -73,11 +73,11 @@ function selectItem(id)
 	{
 		$("#communityItem" + communityFood[i]["id"]).css('background-color', '#222222');
 	}
-	
+
 	$("#communityItem" + id).css('background-color', 'green');
 	$("#communityItem" + id).get(0).scrollIntoView();
 }
-		
+
 function showUserFood()
 {
 	$("#user_item_list").empty();
@@ -90,9 +90,9 @@ function showUserFood()
 		success:function(data)
 		{
 			userFood = data;
-			
+
 			$("#user_item_list").append("Your Items:<br>");
-			
+
 			for(var i=0; i<data.length; ++i)
 			{
 				$("#user_item_list").append('<div class="user_item" id="userFoodItem'+data[i]["id"]+'">\
@@ -104,7 +104,7 @@ function showUserFood()
 				Allergens: '+data[i]["allergens"]+'<br>\
 				</div>');
 			}
-			
+
 			if(data.length == 0)
 			{
 				$("#user_item_list").append("No items");
@@ -113,7 +113,7 @@ function showUserFood()
 		error: function()
 		{
 			alert("Not logged in");
-			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 		}
 	});
 	editing = -1;
@@ -168,16 +168,16 @@ function readImage(event)
 		image = "0";
 		return;
 	}
-	
+
 	var reader = new FileReader();
-	
+
 	reader.onload = function(event)
-	{   
+	{
 		image = event.target.result;
 	};
-	
+
 	reader.onerror = function()
-	{   
+	{
 		image = "0";
 	};
 
@@ -198,7 +198,7 @@ function deleteFoodItem(id)
 		error: function()
 		{
 			alert("Not logged in");
-			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 		}
 	});
 }
@@ -209,7 +209,7 @@ function addNewFood()
 	{
 		var latitude = chosenLocation["lat"].toFixed(6);
 		var longitude = chosenLocation["long"].toFixed(6);
-	
+
 		var food;
 		if(image == "0")
 		{
@@ -219,7 +219,7 @@ function addNewFood()
 		{
 			food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : $("#new_food_type").val(), "allergens" : $("#new_food_allergens").val(), "status" : "AVAILABLE", "latitude" : latitude, "longitude" : longitude, "picture":image};
 		}
-			
+
 		$.post({
 			url: "http://sarachen.pythonanywhere.com/backend/food/1.0/1.0/",
 			data: JSON.stringify(food),
@@ -235,14 +235,14 @@ function addNewFood()
 			error: function()
 			{
 				alert("Not logged in");
-				window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+				// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 			}
 		});
 	}
 	else
 	{
 		var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : $("#new_food_type").val(), "allergens" : $("#new_food_allergens").val(), "status" : "AVAILABLE"};
-		
+
 		$.ajax({
 			url: "http://sarachen.pythonanywhere.com/backend/food/update/"+editing+"/",
 			method:"PUT",
@@ -259,7 +259,7 @@ function addNewFood()
 			error: function()
 			{
 				alert("Not logged in");
-				window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+				// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 			}
 		});
 	}
