@@ -29,15 +29,15 @@
 	</div>
 	<div class="popup_content">
 		<form id="log_in_form">
-			Email: 
-			<input class="index_input" type="email" name="email">
+			Username:
+			<input class="index_input" type="name" id="login_username">
 			<br>
 			Password:
-			<input class="index_input" type="password" name="password">
+			<input class="index_input" type="password" id="login_password">
 		</form>
 	</div>
 	<div class="popup_footer">
-		<button id="submit" onclick="goToProfile()">Submit</button>
+		<button onclick="login()">Submit</button>
 	</div>
 </div>
 
@@ -49,17 +49,17 @@
 	<div class="popup_content">
 		<form id="sign_up_form">
 			Username:
-			<input class="index_input" type="name" name="username">
+			<input class="index_input" type="name" id="signup_username">
 			<br>
 			Email: 
-			<input class="index_input" type="email" name="email">
+			<input class="index_input" type="email" id="signup_email">
 			<br>
 			Password:
-			<input class="index_input" type="password" name="password">
+			<input class="index_input" type="password" id="signup_password">
 		</form>
 	</div>
 	<div class="popup_footer">
-		<button id="submit" onclick="goToProfile()">Submit</button>
+		<button onclick="signup()">Submit</button>
 	</div>
 </div>
 
