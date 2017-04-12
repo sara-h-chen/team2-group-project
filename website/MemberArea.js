@@ -34,7 +34,9 @@ function loadCommunityFood()
 				$("#community_item_list").append('<div class="community_item" id="communityItem'+communityFood[i]["id"]+'">\
 				<img class="item_img" src="example_tomato.jpg" onclick="viewInfo()">\
 				<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
-				<h3>' + communityFood[i]["food_name"] +'</h3>\
+				<h3>' + communityFood[i]["food_name"] +'('+communityFood[i]["quantity"]+')</h3>\
+				Type: '+communityFood[i]["food_type"]+'<br>\
+				Allergens: '+communityFood[i]["allergens"]+'<br>\
 				</div>\
 				<br>');//look at these bits when hardcoding item examples
 			}
@@ -48,7 +50,11 @@ function loadCommunityFood()
 			
 			setMarkers(markers);
 		},
-		error: function(){alert("Not logged in");}
+		error: function()
+		{
+			alert("Not logged in");
+			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+		}
 	});
 }
 
@@ -84,7 +90,9 @@ function showUserFood()
 				<img id="del1" class="del_img" src="delete_icon.png" onclick="deleteFoodItem('+data[i]["id"]+')">\
 				<img id="edit1" class="edit_img" src="edit_icon.png" onclick="showEditFoodForm('+data[i]["id"]+')">\
 				<img id="type1" class="type_img" src="veg_icon.png">\
-				<h3 class="item_name">' + data[i]["food_name"] +'</h3>\
+				<h3 class="item_name">' + data[i]["food_name"] +'('+data[i]["quantity"]+')</h3>\
+				Type: '+data[i]["food_type"]+'<br>\
+				Allergens: '+data[i]["allergens"]+'<br>\
 				</div>');
 			}
 			
@@ -92,6 +100,11 @@ function showUserFood()
 			{
 				$("#user_item_list").append("No items");
 			}
+		},
+		error: function()
+		{
+			alert("Not logged in");
+			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 		}
 	});
 	editing = -1;
@@ -142,6 +155,11 @@ function deleteFoodItem(id)
 		success:function(data)
 		{
 			loadCommunityFood();
+		},
+		error: function()
+		{
+			alert("Not logged in");
+			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 		}
 	});
 }
@@ -166,6 +184,11 @@ function addNewFood()
 				showUserFood();
 				loadCommunityFood();
 				editing = -1;
+			},
+			error: function()
+			{
+				alert("Not logged in");
+				window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 			}
 		});
 	}
@@ -185,6 +208,11 @@ function addNewFood()
 				showUserFood();
 				loadCommunityFood();
 				editing = -1;
+			},
+			error: function()
+			{
+				alert("Not logged in");
+				window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 			}
 		});
 	}
