@@ -105,24 +105,28 @@ function addItem() {
     /* Maybe go to pop-up? */
 }
 
-function getContacts(userID){
+function updateMessages(userID){
   url = 'http://localhost:8000/backend/function/'+userID+'/';
 	$.get(url, function(user){
 		username = user.username;
 		url = 'http://localhost:8000/backend/user/'+username+'/contacts/';
 		$.get(url,function(contacts){
-				console.log(contacts);
-				$(contacts).each(function(item){
-					console.log(item);
-					url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
-					$.get(url, function(data){
-						name= data.username;
-						$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+",true)>"+name+"</div>");
+			$(contacts).each(function(item){
+				url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
+				$.get(url, function(data){
+					name= data.username;
+					$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+",true)>"+name+"</div>");
+					url = 'http://localhost:8000/backend/function/latestMessageBetween/';
+					$.post(url,{'a':userID,'b':contacts[item]},function(message){
+						console.log(message);
 					});
 				});
+			});
 		});
 	});
 }
+
+
 
 function resize(){
 	windowWidth = $(window).width();

@@ -209,10 +209,6 @@ input[type=submit]:hover {
 	z-index: 1
 }
 
-#message_list {
-	color: #aaaaaa;
-}
-
 #community_item_list {
 	height: 80%;
 	color: #aaaaaa;
@@ -226,6 +222,7 @@ input[type=submit]:hover {
 #message_list {
 	height: 58%;
 	color: #aaaaaa;
+	overflow-y: scroll;
 }
 
 #view_items {

@@ -416,7 +416,6 @@ def getMessagesBetween(request):
             data= request.POST
             userA=data['userA']
             userB = data['userB']
-            print userA,userB
             messageList = Message.objects.filter((Q(receiver_id=userA) & Q(sender_id=userB)) | (Q(receiver_id=userB) & Q(sender_id=userA)))
             serializer = MessageSerializer(messageList, many=True)
             response = JSONResponse(serializer.data)
@@ -434,8 +433,6 @@ def getContacts(request, username):
         uID=user[0].id
         messageList = Message.objects.filter(Q(receiver_id=uID) | Q(sender_id=uID))
         contactList=[]
-        for x in messageList:
-            print x.receiver_id
         for x in messageList:
             if x.receiver_id==uID:
                 if not x.sender_id in contactList:
@@ -471,6 +468,24 @@ def addMessage(request):
             response = JSONResponse("{'done:done'}")
             _acao_response(response)
             message.save()
+            return response
+    except Message.DoesNotExist:
+        return HttpResponse(status=status.HTTP_404_NOT_FOUND)
+
+@csrf_exempt
+def mostRecentMessage(request):
+    try:
+        if request.method == "POST":
+            data = request.POST
+            userA=data['a']
+            userB=data['b']
+            message=Message.objects.filter(Q(receiver_id=userA) | Q(receiver_id=userB), Q(sender_id=userB) | Q(sender_id=userA));
+            message= message.latest('created_at')
+            message=[message]
+            print message[0].receiver_id
+            serializer = MessageSerializer(message, many=True)
+            response = JSONResponse(serializer.data)
+            response['Access-Control-Allow-Origin'] = '*'
             return response
     except Message.DoesNotExist:
         return HttpResponse(status=status.HTTP_404_NOT_FOUND)
