@@ -31,8 +31,17 @@ function loadCommunityFood()
 			
 			for(var i=0; i<communityFood.length; ++i)
 			{
+				var imageSource = ""
+				if(communityFood[i]["picture"] == 0)
+				{
+					imageSource = "http://community.dur.ac.uk/thomas.preston/website/defaultImage.jpg";
+				}
+				else
+				{
+					imageSource = communityFood[i]["picture"];
+				}
 				$("#community_item_list").append('<div class="community_item" id="communityItem'+communityFood[i]["id"]+'">\
-				<img class="item_img" src="example_tomato.jpg" onclick="viewInfo()">\
+				<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
 				<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
 				<h3>' + communityFood[i]["food_name"] +'('+communityFood[i]["quantity"]+')</h3>\
 				Type: '+communityFood[i]["food_type"]+'<br>\
@@ -113,12 +122,15 @@ showUserFood();
 
 function showNewFoodForm()
 {
+	image="0";
 	$("#new_food_name").val("");
 	$("#new_food_quantity").val("");
 	$("#new_food_type").val("");
 	$("#new_food_allergens").val("");
 	$("#user_item_list").hide();
 	$("#new_food_form").show();
+	$("#uploadImage").remove();
+	$("#add_food_button").before("<div id='uploadImage'>Image(optional): <input type='file' id='new_food_image' accept='image/*' onchange='readImage(event)'></div>");
 }
 
 var editing = -1;
@@ -130,6 +142,7 @@ function showEditFoodForm(id)
 	$("#new_food_quantity").val("");
 	$("#new_food_type").val("");
 	$("#new_food_allergens").val("");
+	$("#uploadImage").remove();
 	for(var i=0; i<userFood.length; ++i)
 	{
 		if(userFood[i]["id"] == editing)
@@ -143,6 +156,25 @@ function showEditFoodForm(id)
 	}
 	$("#user_item_list").hide();
 	$("#new_food_form").show();
+}
+
+var image = "0";
+function readImage(event)
+{
+	var file = event.target.files[0];
+	var reader = new FileReader();
+	
+	reader.onload = function(event)
+	{   
+		image = event.target.result;
+	};
+	
+	reader.onerror = function()
+	{   
+		image = "0";
+	};
+
+	reader.readAsDataURL(file);
 }
 
 function deleteFoodItem(id)
@@ -171,7 +203,15 @@ function addNewFood()
 		var latitude = chosenLocation["lat"].toFixed(6);
 		var longitude = chosenLocation["long"].toFixed(6);
 	
-		var food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : $("#new_food_type").val(), "allergens" : $("#new_food_allergens").val(), "status" : "AVAILABLE", "latitude" : latitude, "longitude" : longitude};
+		var food;
+		if(image == "0")
+		{
+			food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : $("#new_food_type").val(), "allergens" : $("#new_food_allergens").val(), "status" : "AVAILABLE", "latitude" : latitude, "longitude" : longitude};
+		}
+		else
+		{
+			food = {"food_name" : $("#new_food_name").val(), "quantity" : $("#new_food_quantity").val(), "food_type" : $("#new_food_type").val(), "allergens" : $("#new_food_allergens").val(), "status" : "AVAILABLE", "latitude" : latitude, "longitude" : longitude, "picture":image};
+		}
 			
 		$.post({
 			url: "http://sarachen.pythonanywhere.com/backend/food/1.0/1.0/",
