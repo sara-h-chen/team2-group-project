@@ -115,10 +115,14 @@ function updateMessages(userID){
 				url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
 				$.get(url, function(data){
 					name= data.username;
-					$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+",true)>"+name+"</div>");
+					$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+",true)>"+data.username+"</div>");
 					url = 'http://localhost:8000/backend/function/latestMessageBetween/';
 					$.post(url,{'a':userID,'b':contacts[item]},function(message){
 						console.log(message);
+						$("#message_list").append("<div class='message' id='message"+message[0]['id']+"'></div>");
+						$("#message"+message[0]['id']).append("<p class='sender_name' id='name"+contacts[item]+"'>"+data.username+"</p>");
+						$("#message"+message[0]['id']).append("<p class='sender_preview'>"+message[0]['msg_content']+"<p");
+						$("#message_list").append("<hr style='height:0.2%; visibility:hidden;'/>");
 					});
 				});
 			});
