@@ -1,5 +1,29 @@
 html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5; overflow-x: hidden; overflow-y: hidden;}
 
+@media screen and (max-width: 600px) {
+	#profile_tab {
+		background-color:#9aaa57;
+		overflow-y: hidden;
+		overflow-x: hidden;
+		color:white;
+		width:15%;
+		height:100%;
+		font-size: 12px;
+	}
+	#item_tab {
+		background-color:#9aaa57;
+		color:white;
+		width:15%;
+		height:100%;
+		font-size: 12px;
+		position: absolute;
+		overflow-y: hidden;
+		overflow-x: hidden;
+				
+	}
+			
+}
+		
 /*messages list css*/
 .message {
 	background-color: #222222;
@@ -216,12 +240,10 @@ input[type=submit]:hover {
 #item_tab {
 	background-color:#9aaa57;
 	color:white;
-	width:5%;
+	width:15%;
 	height:100%;
-	font-size: 38px;
-	position: absolute;
-	left: 0%;
-	top:0%;
+	font-size: 18px;
+	position: fixed;
 	overflow-y: hidden;
 	overflow-x: hidden;
 }
@@ -231,11 +253,17 @@ input[type=submit]:hover {
 	overflow-y: hidden;
 	overflow-x: hidden;
 	color:white;
-	width:5%;
+	width:15%;
 	height:100%;
-	font-size: 38px;
-	position: absolute;
-	left: 97%;
+	font-size: 18px;
+	position: fixed;
+}
+
+#user_profile_pic {
+	top: 0px;
+	right: 0;
+	z-index: 1;
+	width: 50%;
 }
 
 #community_item_list {
@@ -266,17 +294,6 @@ input[type=submit]:hover {
 	width: 100%;
 }
 
-/*All css for profile pic and info section of user tab*/
-#profile_section {
-	height: 20vh;
-	padding-left: 3%;
-	padding-right: 3%;
-}
-
-#user_info_panel {
-	height: 15vh;
-}
-
 #profile_menu_icon {
 	position: fixed;
 	right: 0;
@@ -284,55 +301,12 @@ input[type=submit]:hover {
 	z-index: 1;
 }
 
-#user_profile_pic {
+#profile_hover {
+	position: fixed;
+	right: 0;
 	top: 0;
-	z-index: 1;
-	height: 12vh;
-	width: 6vw;
-	float:right;
-
+	z-index: 2;
 }
-
-#user_name {
-	font-size: 90%;
-	padding-top: 15%;
-	line-height: 0.5em;
-	position: relative;
-	display: inline;
-	white-space: nowrap;
-	width: 60%;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-#received_items {
-	position: relative;
-	height:40%;
-	left: 25%;
-}
-
-#received_number {
-	font-size: 80%;
-	position: relative;
-	line-height: 0.5em;
-	left: 20%;
-	display: inline;
-}
-
-#sent_items {
-	position: relative;
-	height:40%;
-	left: 3%;
-}
-
-#sent_number {
-	position: relative;
-	display: inline;
-	line-height: 0.5em;
-	font-size: 80%;
-	left: 10%;
-}
-/*end of css for profile section*/
 
 #item_menu_icon {
 	position: fixed;
@@ -645,6 +619,7 @@ form{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
 @media screen and (max-height: 450px) {
 	#profile_menu {width: 100%;}
 	#item_menu {width: 100%;}
