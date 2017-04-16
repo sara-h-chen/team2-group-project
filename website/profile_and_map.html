@@ -70,17 +70,17 @@
 		<input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
 		<h3 id="user_name">Generic User Name</h3>
 		<div id="user_info_panel">
-			<img id="sent_items" src="sent_items_icon.png">
+			<img id="sent_items" alt="Sent Food Items" src="sent_items_icon.png">
 			<p id="sent_number">10</p>
 			<p id="received_number">8</p>
-			<img id="received_items" src="received_items_icon.png">
+			<img id="received_items" alt="Received Food Items" src="received_items_icon.png">
 		</div>
 	  </div>
 		<div id='user_item_list' style="overflow-y:scroll;">
 		  <div class="user_item"><!-- example hard code displaying how items should look in list !-->
-			<img class="del_img" src="delete_icon.png" onclick="deleteFoodItem()">
-			<img class="edit_img" src="edit_icon.png" onclick="showEditFoodForm()">
-			<img class="type_img" src="veg_icon.png">
+			<img class="del_img" alt="Delete Item" src="delete_icon.png" onclick="deleteFoodItem()">
+			<img class="edit_img" alt="Edit Item" src="edit_icon.png" onclick="showEditFoodForm()">
+			<img class="type_img" alt="Type of Item" src="veg_icon.png">
 			<h3>Baguette</h3>
 			<p>Amount: 1</p>
 			<p>Type: BAKERY</p>
@@ -88,9 +88,9 @@
 		  </div>
 		  <hr style="height:0.6%; visibility:hidden;"/><!--adds space between individual items!-->
 		  <div class="user_item">
-		    <img class="del_img" src="delete_icon.png" onclick="deleteFoodItem()">
-			<img class="edit_img" src="edit_icon.png" onclick="showEditFoodForm()">
-			<img class="type_img" src="veg_icon.png">
+		    <img class="del_img" alt="Delete Item" src="delete_icon.png" onclick="deleteFoodItem()">
+			<img class="edit_img" alt="Edit Item" src="edit_icon.png" onclick="showEditFoodForm()">
+			<img class="type_img" alt="Type of Item" src="veg_icon.png">
 			<h3>Potatoes</h3>
 			<p>Amount: 10</p>
 			<p>Type: OTHER</p>
@@ -142,10 +142,10 @@
 		</div>
 		<div></div>
 	  <div id="icons">
-		  <img src="add_item.png" id="add_button" onclick="showNewFoodForm()"/>
-		  <img src="messages.png" id="message_button"/>
-		  <img src="my_items.png" id="items_button" onclick="showUserFood()"/>
-		  <img src="log_out.png" id="exit_button" onclick="logOut()"/>
+		  <img src="add_item.png" alt="Add an Item" id="add_button" onclick="showNewFoodForm()"/>
+		  <img src="messages.png" alt="Messages" id="message_button"/>
+		  <img src="my_items.png" alt="View my Items" id="items_button" onclick="showUserFood()"/>
+		  <img src="log_out.png" alt="Log Out" id="exit_button" onclick="logOut()"/>
 	  </div>
 		<div id="message_list">
 			<div id='contacts'>
@@ -160,8 +160,8 @@
 	  <div id="community_item_list" style="overflow-y:scroll;">
 	    <!-- example hard code displaying how items should look in list !-->
 	    <div class="community_item">
-		  <img class="item_img" src="example_tomato.jpg" onclick="viewInfo()">
-		  <img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+		  <img class="item_img" alt="Item Image" src="example_tomato.jpg" onclick="viewInfo()">
+		  <img id="message1" alt="Send Message" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 		  <h3>Tomatoes</h3>
 		  <p>Amount: 2</p>
 		  <p>Type: VEGE</p>
@@ -169,8 +169,8 @@
 		</div>
 		<hr style="height:0.6%; visibility:hidden;"/><!--adds space between individual items!-->
 		<div class="community_item">
-		  <img class="item_img" src="example_cheese.jpg" onclick="viewInfo()">
-		  <img id="message2" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+		  <img class="item_img" alt="Item Image" src="example_cheese.jpg" onclick="viewInfo()">
+		  <img id="message2" alt="Send Message" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 		  <h3>Very Long Item Name</h3>
 		  <p>Amount: 1</p>
 		  <p>Type: OTHER</p>
@@ -178,8 +178,8 @@
 	    </div>
 		<hr style="height:0.6%; visibility:hidden;"/>
 	    <div class="community_item">
-		  <img class="item_img" src="example_broccoli.jpg" onclick="viewInfo()">
-		  <img id="message3" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
+		  <img class="item_img" alt="Item Image" src="example_broccoli.jpg" onclick="viewInfo()">
+		  <img id="message3" alt="Send Message" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
 		  <h3>dfghjk</h3>
 		  <p>Amount: 100</p>
 		  <p>Type: PASTA_RICE</p>
