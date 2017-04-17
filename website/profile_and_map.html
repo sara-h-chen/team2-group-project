@@ -222,6 +222,16 @@
 	<script>
 	$("#new_food_form").hide();
 	$("#edit_profile_form").hide();
+		
+	$.ajax({
+		url: "https://sarachen.pythonanywhere.com/backend/user/profile/",
+		method: "GET",
+		headers:{"Authorization":"Token " + getCookie("authToken")},
+		success:function(data)
+		{
+			$("#user_name").html(data["username"]);
+		}
+	});
 
 	$("input[type='image']").click(function() {
 	    $("input[id='new_pic']").click();
