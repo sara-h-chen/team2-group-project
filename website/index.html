@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <head>
 	<link type="text/css" rel="stylesheet" href="courgette_base_stylesheet.css"/>
+	<link rel="stylesheet" media="screen and (max-width: 800px)" href="courgette_base_stylesheet_mobile.css" />
 	<link href="https://fonts.googleapis.com/css?family=Fredoka+One|Roboto" rel="stylesheet">
 	<link rel="shortcut icon" type="image/png" href="favicon.png"/>
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<title>COURGETTE</title>
 	
-	<style>
-		html, body {overflow-x: hidden;)
-	</style>
 </head>
 
 <body style="overflow:scroll">
@@ -34,15 +32,15 @@
 	</div>
 	<div class="popup_content">
 		<form id="log_in_form">
-			Username:
-			<input class="index_input" type="name" id="login_username">
+			<p>Username:</p>
+			<input class="index_input" type="text" id="login_username">
 			<br>
-			Password:
-			<input class="index_input" type="password" id="login_password">
+			<p>Password:</p>
+			<input class="index_input" type="text" id="login_password">
 		</form>
 	</div>
-	<div class="popup_footer">
-		<button onclick="login()">Submit</button>
+	<div class="popup_footer" id="sign_up_footer">
+		<input type="submit" id="sign_up_button" onclick="login()"></input>
 	</div>
 </div>
 
@@ -51,20 +49,20 @@
 		<span class="close">&times;</span>
 		<h2>Sign Up</h2>
 	</div>
-	<div class="popup_content">
+	<div class="popup_content" id="sign_up_content">
 		<form id="sign_up_form">
-			Username:
-			<input class="index_input" type="name" id="signup_username">
+			<p>Username:</p>
+			<input class="index_input" type="text" id="signup_username">
 			<br>
-			Email: 
-			<input class="index_input" type="email" id="signup_email">
+			<p>Email: </p>
+			<input class="index_input" type="text" id="signup_email">
 			<br>
-			Password:
-			<input class="index_input" type="password" id="signup_password">
+			<p>Password:</p>
+			<input class="index_input" type="text" id="signup_password">
 		</form>
 	</div>
-	<div class="popup_footer">
-		<button onclick="signup()">Submit</button>
+	<div class="popup_footer" id="sign_up_footer">
+		<input type="submit" id="sign_up_button" onclick="signup()"></input>
 	</div>
 </div>
 

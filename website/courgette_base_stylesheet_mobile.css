@@ -1,54 +1,4 @@
 html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5; overflow-x: hidden; overflow-y: hidden;}
-		
-@media only screen 
-and (min-width : 768px) 
-and (max-width : 1024px) 
-and (orientation : portrait) {
-	
-	#profile_menu {
-		height: 100%;
-		width: 0;
-		position: fixed;
-		z-index: 1;
-		top: 0;
-		right: 0;
-		background-color: white;
-		overflow-x: hidden;
-		overflow-y: hidden;
-		padding-top: 30px;
-		transition: 0.5s;
-	}
-
-	#message_button {
-		position: absolute;
-		width: 26%;
-		left: 25%;
-		
-	}
-
-	#items_button {
-		position: absolute;
-		width: 20%;
-		right: 26%;
-		
-	}
-
-	#add_button {
-		position: absolute;
-		width: 20%;
-		left: 3%;
-		
-	}
-
-	#exit_button {
-		position: absolute;
-		width:20%;
-		right: 3%;
-		
-	}
-	
-	
-}
 
 /*messages list css*/
 .message {
@@ -196,11 +146,11 @@ span {
 
 input[type=submit] {
 	font-family: 'Roboto', sans-serif;
-	font-size: 20px;
+	font-size: 90%;
     width: 20%;
     background-color: #9aaa57;
     color: white;
-    padding: 14px;
+    padding: 3%;
     margin: 0 0 0 75%;
     border: none;
     border-radius: 4px;
@@ -582,10 +532,50 @@ img {
     padding: 20px;
 }
 
+#link a{
+	color: white;
+	text-decoration: none;
+	font-family: 'Roboto', sans-serif;
+}
+
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+	color: white;
+}
+
+#em1 {
+	font-family: 'Fredoka One', sans-serif;
+	color: #a4b369;
+	font-style: normal;
+}
+
+#em2 {
+	color: #dbeb9a;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+}
+
+#em3 {
+	font-family: 'Roboto', sans-serif;
+	color: #dbeb9a;
+	font-style: normal;
+}
+
 .green_container{
 	background-color: #9AA95C;
 	padding: 20px;
 }
+
+.green_container2 {
+	background-color: #9AA95C;
+	padding: 20px;
+}
+
+.green_container2:hover {
+	background-color: #596b34;
+}
+
 #intro_header{
 	color: #fff;
 	text-align: center;
@@ -652,20 +642,28 @@ img {
 	padding-top: 16px;
 	padding-right: 10px;
 }
+
 #header_logo{
-	width: 40%;
+	width: 80%;
 	padding: 16px;
 	padding-left: 10px;
 }
-/*.nav_button{
-	display: table-cell;
-	width: auto;
+
+#log_in {
+	font-size: 80%;
 	vertical-align: middle;
-}*/
+}
+
+#sign_up {
+	font-size: 80%;
+	vertical-align: middle;
+}
+
 .header_container{
 	display: table;
 	width: 100%;
 }
+
 .wrapper{
 	display: table-cell;
 	vertical-align: middle;
@@ -720,6 +718,23 @@ form{
 }*/
 
 /* The Close Button */
+.close {
+	position: absolute;
+	top: 3%;
+	right: 3%;
+	padding: 3%;
+	color: #a4b369;
+	font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #9aaa57;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .closebtn {
     color: white;
 	position: absolute;
@@ -741,11 +756,10 @@ form{
 	top: 20%;
     padding: 2px 16px;
 	position: relative;
-    background-color: #343434;
+    background-color: rgba(255, 255, 255, 0.93);
     color: white;
 	margin: auto;
-    border: 1px solid #888;
-    width: 40%;
+    width: 80%;
 
 }
 
@@ -763,14 +777,13 @@ form{
 
 /* Modal Footer */
 .popup_footer {
-	top: 20%;
+	top: 10%;
     padding: 2px 16px;
 	position: relative;
-    background-color: #343434;
+    background-color: rgba(255, 255, 255, 0.93);
     color: white;
 	margin: auto;
-    border: 1px solid #888;
-    width: 40%;
+    width: 80%;
     height: auto;
     text-align: center;
 }
@@ -786,18 +799,42 @@ form{
     width: 50%;
 }
 
+/* Modal Header */
+.popup_header {
+	top: 10%;
+	height: 14%;
+    padding: 2px 16px;
+	position: relative;
+    background-color: rgba(255, 255, 255, 0.93);
+    color: #a4b369;
+	margin: auto;
+    width: 80%;
+}
+
+.skinny_popup_header {
+	top: 20%;
+    padding: 2px 16px;
+	position: relative;
+    background-color: #9aaa57;
+    color: white;
+	margin: auto;
+    border: 1px solid #888;
+    width: 50%;
+}
+
 /* Modal Content */
 .popup_content {
-	top: 20%;
+	top: 10%;
+	height: 58%;
 	padding: 2px 16px;
     position: relative;
-    background-color: #9aaa57;
+    background-color: rgba(255, 255, 255, 0.93);
     margin: auto;
+	line-height: 0.5em;
     padding-top: 10px;
     padding-bottom: 10px;
-    border: 0px solid #fff;
-    width: 40%;
-
+    width: 80%;
+	color: #a4b369;
 }
 
 .skinny_popup_content {
@@ -808,8 +845,17 @@ form{
     margin: auto;
     border: 1px solid #888;
     width: 50%;
-
 }
+
+/*tailored popups css*/
+
+#sign_up_button {
+	width: 35%;
+	position: relative;
+	right: 10%;
+	bottom: 5%;
+}
+/*end of tailored popups*/
 
 .sentMessage {
 	text-align:right;
