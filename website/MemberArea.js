@@ -1,5 +1,6 @@
 var communityFood = [];
 var userFood = [];
+var preferences = [];
 
 function getCookie(cname)
 {
@@ -20,52 +21,175 @@ function getCookie(cname)
 
 function loadCommunityFood()
 {
-	$("#community_item_list").empty();
-
 	$.get({
 		url: "http://sarachen.pythonanywhere.com/backend/food/"+chosenLocation["lat"]+"/"+chosenLocation["long"]+"/",
 		headers:{"Authorization":"Token " + getCookie("authToken")},
-		success:function(data)
+		success:function(food)
 		{
-			communityFood = data;
-
-			for(var i=0; i<communityFood.length; ++i)
-			{
-				var imageSource = ""
-				if(communityFood[i]["picture"] == 0)
+			communityFood = food;
+			
+			$.get({
+				url: "http://sarachen.pythonanywhere.com/backend/user/preferences/",
+				headers:{"Authorization":"Token " + getCookie("authToken")},
+				success:function(prefs)
 				{
-					imageSource = "http://community.dur.ac.uk/thomas.preston/website/defaultImage.jpg";
-				}
-				else
+					preferences = prefs;
+					displayCommunityFood();
+				},
+				error: function()
 				{
-					imageSource = communityFood[i]["picture"];
+					alert("Not logged in");
+					window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
 				}
-				$("#community_item_list").append('<div class="community_item" id="communityItem'+communityFood[i]["id"]+'">\
-				<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
-				<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
-				<h3>' + communityFood[i]["food_name"] +'('+communityFood[i]["quantity"]+')</h3>\
-				Type: '+communityFood[i]["food_type"]+'<br>\
-				Allergens: '+communityFood[i]["allergens"]+'<br>\
-				</div>\
-				<br>');//look at these bits when hardcoding item examples
-			}
-
-			var markers = [];
-
-			for(var i=0; i<communityFood.length; ++i)
-			{
-				markers.push({"lat":communityFood[i]["latitude"], "long":communityFood[i]["longitude"], "highlight":false, "id":communityFood[i]["id"]});
-			}
-
-			setMarkers(markers);
+			});
 		},
 		error: function()
 		{
 			alert("Not logged in");
-			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
+			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
 		}
 	});
 }
+
+function displayCommunityFood()
+{
+	var data = communityFood.slice();
+	var markers = [];
+	$("#community_item_list").empty();
+	
+	if($("#community_food_search_box").val() == "")
+	{
+		for(var j=0; j<preferences.length; ++j)
+		{
+			for(var i=data.length-1; i>=0; --i)
+			{
+				if(data[i]["food_type"] == preferences[j]["preference"])
+				{
+					var imageSource = ""
+					if(data[i]["picture"] == 0)
+					{
+						imageSource = "http://community.dur.ac.uk/thomas.preston/website/defaultImage.jpg";
+					}
+					else
+					{
+						imageSource = data[i]["picture"];
+					}
+					$("#community_item_list").append('<div class="community_item" id="communityItem'+data[i]["id"]+'">\
+					<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
+					<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
+					<h3>' + data[i]["food_name"] +'('+data[i]["quantity"]+')</h3>\
+					Type: '+data[i]["food_type"]+'<br>\
+					Allergens: '+data[i]["allergens"]+'<br>\
+					</div>\
+					<br>');
+					
+					markers.push({"lat":data[i]["latitude"], "long":data[i]["longitude"], "highlight":true, "id":data[i]["id"]});
+					
+					data.splice(i,1);
+				}
+			}
+		}
+		
+		for(var i=0; i<data.length; ++i)
+		{
+			var imageSource = ""
+			if(data[i]["picture"] == 0)
+			{
+				imageSource = "http://community.dur.ac.uk/thomas.preston/website/defaultImage.jpg";
+			}
+			else
+			{
+				imageSource = data[i]["picture"];
+			}
+			$("#community_item_list").append('<div class="community_item" id="communityItem'+data[i]["id"]+'">\
+			<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
+			<h3>' + data[i]["food_name"] +'('+data[i]["quantity"]+')</h3>\
+			Type: '+data[i]["food_type"]+'<br>\
+			Allergens: '+data[i]["allergens"]+'<br>\
+			</div>\
+			<br>');
+			
+			markers.push({"lat":data[i]["latitude"], "long":data[i]["longitude"], "highlight":false, "id":data[i]["id"]});
+		}
+	}
+	else
+	{
+		var searchScores = [];
+		var searchTerm = $("#community_food_search_box").val();
+		
+		for(var i=0; i<data.length; ++i)
+		{
+			var score=0;
+			for(var j=0; j<=(data[i]["food_name"].length - searchTerm.length); j++)
+			{
+				if(data[i]["food_name"].substring(j, j+searchTerm.length).toLowerCase() == searchTerm.toLowerCase())
+				{
+					score++;
+				}
+			}
+			
+			searchScores.push(score);
+		}
+		
+		for(var i=data.length-1; i>=0; --i)
+		{
+			if(searchScores[i] == 0)
+			{
+				data.splice(i,1);
+				searchScores.splice(i,1);
+			}
+		}
+		
+		for(var i=0; i<data.length; ++i)
+		{
+			var imageSource = ""
+			if(data[i]["picture"] == 0)
+			{
+				imageSource = "http://community.dur.ac.uk/thomas.preston/website/defaultImage.jpg";
+			}
+			else
+			{
+				imageSource = data[i]["picture"];
+			}
+			$("#community_item_list").append('<div class="community_item" id="communityItem'+data[i]["id"]+'">\
+			<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
+			<h3>' + data[i]["food_name"] +'('+data[i]["quantity"]+')</h3>\
+			Type: '+data[i]["food_type"]+'<br>\
+			Allergens: '+data[i]["allergens"]+'<br>\
+			</div>\
+			<br>');
+			
+			var isPref = false;
+			
+			for(var j=0; j<preferences.length; ++j)
+			{
+				if(preferences[j]["preference"] == data[i]["food_type"])
+				{
+					isPref = true;
+				}
+			}
+			
+			markers.push({"lat":data[i]["latitude"], "long":data[i]["longitude"], "highlight":isPref, "id":data[i]["id"]});
+		}
+	}
+
+	setMarkers(markers);
+}
+
+var currentSearch = "";
+
+function checkSearch()
+{
+	if($("#community_food_search_box").val() != currentSearch)
+	{
+		currentSearch = $("#community_food_search_box").val();
+		displayCommunityFood();
+	}
+}
+
+setInterval(checkSearch, 500);
 
 function selectItem(id)
 {
