@@ -1,28 +1,4 @@
 html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5; overflow-x: hidden; overflow-y: hidden;}
-
-@media screen and (max-width: 600px) {
-	#profile_tab {
-		background-color:#9aaa57;
-		overflow-y: hidden;
-		overflow-x: hidden;
-		color:white;
-		width:15%;
-		height:100%;
-		font-size: 12px;
-	}
-	#item_tab {
-		background-color:#9aaa57;
-		color:white;
-		width:15%;
-		height:100%;
-		font-size: 12px;
-		position: absolute;
-		overflow-y: hidden;
-		overflow-x: hidden;
-				
-	}
-			
-}
 		
 /*messages list css*/
 .message {
@@ -48,16 +24,24 @@ html, body { height: 100%; width: 100%; margin: 0px; background-color: #e5e5e5; 
 /*new food form css*/
 #new_food_form {
 	padding-left: 3%;
-	height: 58vh;
+	height: 53vh;
+}
+
+#new_food_name {
+	height: 5vh;
+}
+
+#new_food_quantity {
+	height: 5vh;
 }
 
 #add_food_button {
 	font-family: 'Roboto', sans-serif;
-	font-size: 85%;
-    width: 30%;
+	font-size: 78%;
+    width: 28%;
     background-color: #9aaa57;
     color: white;
-    padding: 2%;
+    padding: 1%;
     margin: 0 0 0 66%;
     border: none;
     border-radius: 4px;
@@ -259,11 +243,22 @@ input[type=submit]:hover {
 	position: fixed;
 }
 
+#profile_section {
+	height: 20vh;
+	padding-left: 3%;
+	padding-right: 3%;
+}
+
+#user_info_panel {
+	height: 12vh;
+}
+
 #user_profile_pic {
-	top: 0px;
-	right: 0;
+	top: 0;
 	z-index: 1;
-	width: 50%;
+	height: 12vh;
+	width: 20vw;
+	float:right;
 }
 
 #community_item_list {
@@ -272,18 +267,19 @@ input[type=submit]:hover {
 }
 
 #user_item_list {
-	height: 58vh;
+	height: 53vh;
 	color: #aaaaaa;
 }
 
 #message_list {
-	height: 58vh;
+	height: 53vh;
 	color: #aaaaaa;
 	overflow-y: scroll;
 }
 
 #icons {
 	height: 22vh;
+	padding: 3%;
 }
 
 #view_items {
@@ -299,13 +295,6 @@ input[type=submit]:hover {
 	right: 0;
 	top: 0;
 	z-index: 1;
-}
-
-#profile_hover {
-	position: fixed;
-	right: 0;
-	top: 0;
-	z-index: 2;
 }
 
 #item_menu_icon {
@@ -353,7 +342,7 @@ input[type=submit]:hover {
     background-color: #111;
     overflow-x: hidden;
 	overflow-y: hidden;
-    padding-top: 60px;
+    padding-top: 30px;
     transition: 0.5s;
 }
 
@@ -367,7 +356,7 @@ input[type=submit]:hover {
     background-color: #111;
     overflow-x: hidden;
 	overflow-y: hidden;
-    padding-top: 60px;
+    padding-top: 30px;
     transition: 0.5s;
 }
 
@@ -420,14 +409,14 @@ img {
 
 .user_item p {
 	line-height: 0.4em;
-	font-size: 80%;
+	font-size: 70%;
 	padding-left: 3%;
 }
 
 .user_item h3 {
 	color: white;
 	line-height: 0.6em;
-	font-size: 93%;
+	font-size: 90%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -655,7 +644,7 @@ form{
 	padding-top: 3%;
     font-size: 28px;
     font-weight: bold;
-	padding: 2px 16px;
+	padding: 2px;
 }
 
 .closebtn:hover,
