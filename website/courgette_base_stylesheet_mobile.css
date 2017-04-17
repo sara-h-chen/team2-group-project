@@ -570,6 +570,9 @@ a:hover, a:visited, a:link, a:active
 .green_container2 {
 	background-color: #9AA95C;
 	padding: 20px;
+	text-align: center;
+	position: relative;
+	left: 10%;
 }
 
 .green_container2:hover {
@@ -581,32 +584,23 @@ a:hover, a:visited, a:link, a:active
 	text-align: center;
 }
 
-.index_foodspot{
-	width: 100%;
-	height: auto;
-}
 .left_column{
-	float:left;
-	display: inline-block;
-	width: 20%;
+	width: 30%;
 	height: auto;
-	padding: 20px;
+	padding-left: 35%;
+	padding-top: 10%;
 }
-.right_column{
-	display: inline;
-	height: auto;
-}
+
 .centered_container{
 	width: 100%;
 }
 .paragraph{
-	font-size: 30px;
-	padding-top: 10px;
+	font-size: 20px;
 	word-wrap: break-word;
-	display: inline-block;
-	text-align: left;
+	text-align: center;
 	color: #586d5f;
-	width: 70%;
+	padding-left: 5%;
+	width: 90%;
 }
 .padded_container{
 	display: inline-block;
@@ -616,8 +610,10 @@ a:hover, a:visited, a:link, a:active
 #link{
 	display: inline;
 	text-align: center;
+	
 }
 .footer_images{
+	padding-top: 5%;
 	display: table;
 	width:100%;
 	height: 90%;
