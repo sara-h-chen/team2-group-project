@@ -66,7 +66,7 @@
 	  <a href="javascript:void(0)" class="closebtn" onclick="closeProfileMenu()">&times;</a>
 	  <div id="profile_section">
 		<br>
-		<input type="image" id="user_profile_pic" src="profile_example.png">
+		<img id="user_profile_pic" src="profile_example.png" onclick="showEditProfileForm()">
 		<input type="file" id="new_pic" style="display: none;"/><!-- browse doesn't upload new img yet!-->
 		<h3 id="user_name">Generic User Name</h3>
 		<div id="user_info_panel">
@@ -149,6 +149,20 @@
 				<option value='NONE'>None</option>
 			</select>
 			<button id="add_food_button" onclick='addNewFood()'>Submit</button>
+		</div>
+		<div id="edit_profile_form">
+			Email:<br>
+			<input type="text" placeholder="Email address" id="edit_profile_email"><br>
+			Preferences:<br>
+			<input type="checkbox" id="preferenceCheckbox0">Vegetable(s)<br>
+			<input type="checkbox" id="preferenceCheckbox1">Seafood<br>
+			<input type="checkbox" id="preferenceCheckbox2">Meat<br>
+			<input type="checkbox" id="preferenceCheckbox3">Cooked<br>
+			<input type="checkbox" id="preferenceCheckbox4">Fruit<br>
+			<input type="checkbox" id="preferenceCheckbox5">Bakery<br>
+			<input type="checkbox" id="preferenceCheckbox6">Pasta/Rice<br>
+			<input type="checkbox" id="preferenceCheckbox7">Dried<br>
+			<button onclick="updateProfile()">Submit</button>
 		</div>
 		<div></div>
 	  <div id="icons">
