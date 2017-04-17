@@ -2,24 +2,20 @@
 
 ## Group Project
 
-
 ### Backend
 
-#### Installations
+#### Installation
 
-Before running the server, a few things need to be installed. Go into the project's root folder directory, and you should see a Makefile. I've included most of the commands needed for you to install the package dependencies that you need to run the server, so you just need to type:
+Most of the backend runs on Python 2.7, which was chosen due to the fact that it is available by default on both Linux and MacOS.
 
-`make getPythonPackages`
+With Python installed, the server can now run on the Django framework and its extension, Django Rest Framework. Both of this can be installed through `pip`, Python's package manager, on the command line by typing the following command:
+`pip install django djangorestframework`
 
-This installs pip (if you don't already have it installed), and the virtualenv tool. The virtual environment ensures that any installations you make are not carried across your system, and are isolated to just this project. You can enter the virtual environment by typing:
+These packages are installed into a virtual environment, which maintains the same Python configurations throughout the project. The virtual environment is stored within the django/ folder and can be entered by typing the following command:
+`source django/bin/activate`
 
-`make setVirtualEnv`
+This folder containing the virtual environment is uploaded to the server, where it is activated, and as such, the app does not require further installation on the server.
 
-The following packages are required to run the Django REST framework, and they can both be downloaded with:
+### Frontend
 
-`make djangointegration`
-
-The user credentials that can be used to access the Admin page:
-Username: admin
-Email address: cs-seg2@durham.ac.uk
-Password: courgette
+The static files for the website are hosted on the server, and is then served directly to the client upon request. As the frontend runs solely on JavaScript and jQuery, which is supported by most modern web browsers by default, no installation is required.
