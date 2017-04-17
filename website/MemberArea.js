@@ -204,6 +204,8 @@ function selectItem(id)
 
 function showUserFood()
 {
+	$("#message_list").hide();
+	$("#edit_profile_form").hide();
 	$("#user_item_list").empty();
 	$("#new_food_form").hide();
 	$("#user_item_list").show();
@@ -247,6 +249,8 @@ showUserFood();
 function showNewFoodForm()
 {
 	image="0";
+	$("#message_list").hide();
+	$("#edit_profile_form").hide();
 	$("#new_food_name").val("");
 	$("#new_food_quantity").val("");
 	$("#new_food_type").val("");
@@ -255,6 +259,70 @@ function showNewFoodForm()
 	$("#new_food_form").show();
 	$("#uploadImage").remove();
 	$("#add_food_button").before("<div id='uploadImage'>Image(optional): <input type='file' id='new_food_image' accept='image/*' onchange='readImage(event)'></div>");
+}
+
+function showEditProfileForm()
+{
+	$("#new_food_form").hide();
+	$("#user_item_list").hide();
+	$("#message_list").hide();
+	$("#edit_profile_form").show();
+	$.ajax({
+		url: "https://sarachen.pythonanywhere.com/backend/user/profile/",
+		method: "GET",
+		headers:{"Authorization":"Token " + getCookie("authToken")},
+		success:function(data)
+		{
+			$("#edit_profile_email").val(data["email"]);
+		}
+	});
+}
+
+function updateProfile()
+{
+	var profile = {"email":$("#edit_profile_email").val()};
+	
+	$.ajax({
+		url: "http://sarachen.pythonanywhere.com/backend/user/profile/",
+		method:"PUT",
+		headers:{"Authorization":"Token " + getCookie("authToken")},
+		dataType: "json",
+		contentType: "application/json",
+		data: JSON.stringify(profile)
+	});
+	
+	var prefEnum = ["VEGE", "SEAFOOD", "MEAT", "COOKED", "FRUIT", "BAKERY", "PASTA_RICE", "DRIED"];
+	
+	for(var i=0; i<prefEnum.length; ++i)
+	{
+		var pref = {"preference" : prefEnum[i]};
+		
+		if($("#preferenceCheckbox" + i).is(":checked"))
+		{
+			$.ajax({
+				url: "http://sarachen.pythonanywhere.com/backend/user/preferences/",
+				method:"POST",
+				headers:{"Authorization":"Token " + getCookie("authToken")},
+				data: JSON.stringify(pref),
+				contentType: "application/json",
+				dataType: "json"
+			});
+		}
+		else
+		{
+			$.ajax({
+				url: "http://sarachen.pythonanywhere.com/backend/user/preferences/",
+				method:"DELETE",
+				headers:{"Authorization":"Token " + getCookie("authToken")},
+				data: JSON.stringify(pref),
+				contentType: "application/json",
+				dataType: "json"
+			});
+		}
+	}
+	
+	showUserFood();
+	loadCommunityFood();
 }
 
 var editing = -1;
