@@ -1,6 +1,7 @@
 var communityFood = [];
 var userFood = [];
 var preferences = [];
+var userProfile;
 
 function getCookie(cname)
 {
@@ -27,6 +28,14 @@ function loadCommunityFood()
 		success:function(food)
 		{
 			communityFood = food;
+			
+			for(var i=communityFood.length-1; i>=0; --i)
+			{
+				if(communityFood[i]["user"] == userProfile["username"])
+				{
+					communityFood.splice(i, 1);
+				}
+			}
 			
 			$.get({
 				url: "http://sarachen.pythonanywhere.com/backend/user/preferences/",
@@ -267,15 +276,8 @@ function showEditProfileForm()
 	$("#user_item_list").hide();
 	$("#message_list").hide();
 	$("#edit_profile_form").show();
-	$.ajax({
-		url: "https://sarachen.pythonanywhere.com/backend/user/profile/",
-		method: "GET",
-		headers:{"Authorization":"Token " + getCookie("authToken")},
-		success:function(data)
-		{
-			$("#edit_profile_email").val(data["email"]);
-		}
-	});
+	
+	$("#edit_profile_email").val(userProfile["email"]);
 }
 
 function updateProfile()
