@@ -33,33 +33,33 @@
 				</form>
 			</div>
 		</div>
-	</div>
-	<div id="community_popup" class="popup">
-		<div class="skinny_popup_header">
-			<span class="close">&times;</span>
-			<h2>Item Details</h2>
+		<div id="message_popup" class="popup">
+			<div class="skinny_popup_header">
+				<span class="close">&times;</span>
+				<h2>Bob Smith</h2>
+			</div>
+			<div class="skinny_popup_content">
+				<p>Message preview blah blah blah ......... this popup is just a tester for Bob Smith only so not applied to others yet. Also possibly adding clickable icon on message preview.</p>
+			</div>
+			<div class="skinny_popup_footer">
+				<button id="reply_to_message">Reply</button>
+				<button id="delete_message">Delete</button>
+			</div>
 		</div>
-		<div class="skinny_popup_content">
-			<h3>Item Name - Distance</h3>
-			<p>Item description here djsklkadj sdfjkidslkj hdsijodjkuj</p>
-			<p>Also include same image used in side menu or maybe slideshow</p>
-			<p>Of other images uploaded by the community member.</p>
-		</div>
-		<div class="skinny_popup_footer">
-			<button id="submit">Get Item</button>
-		</div>
-	</div>
-	<div id="message_popup" class="popup">
-		<div class="skinny_popup_header">
-			<span class="close">&times;</span>
-			<h2>Bob Smith</h2>
-		</div>
-		<div class="skinny_popup_content">
-			<p>Message preview blah blah blah ......... this popup is just a tester for Bob Smith only so not applied to others yet. Also possibly adding clickable icon on message preview.</p>
-		</div>
-		<div class="skinny_popup_footer">
-			<button id="reply_to_message">Reply</button>
-			<button id="delete_message">Delete</button>
+		<div id="community_popup" class="popup">
+			<div class="skinny_popup_header">
+				<span class="close">&times;</span>
+				<h2>Item Details</h2>
+			</div>
+			<div class="skinny_popup_content">
+				<h3>Item Name - Distance</h3>
+				<p>Item description here djsklkadj sdfjkidslkj hdsijodjkuj</p>
+				<p>Also include same image used in side menu or maybe slideshow</p>
+				<p>Of other images uploaded by the community member.</p>
+			</div>
+			<div class="skinny_popup_footer">
+				<button id="submit">Get Item</button>
+			</div>
 		</div>
 	</div>
 	<div id="profile_menu" class="sidenav">
@@ -164,17 +164,17 @@
 			<input type="checkbox" id="preferenceCheckbox7">Dried<br>
 			<button onclick="updateProfile()">Submit</button>
 		</div>
+		<div id="message_list">
+			<div id='contacts'>
+
+			</div>
+	  </div>
 		<div></div>
 	  <div id="icons">
 		  <img src="add_item.png" alt="Add an Item" id="add_button" onclick="showNewFoodForm()"/>
 		  <img src="messages.png" alt="Messages" id="message_button"/>
 		  <img src="my_items.png" alt="View my Items" id="items_button" onclick="showUserFood()"/>
 		  <img src="log_out.png" alt="Log Out" id="exit_button" onclick="logOut()"/>
-	  </div>
-		<div id="message_list">
-			<div id='contacts'>
-
-			</div>
 	  </div>
 	</div>
 
@@ -222,7 +222,7 @@
 	<script>
 	$("#new_food_form").hide();
 	$("#edit_profile_form").hide();
-		
+
 	$.ajax({
 		url: "https://sarachen.pythonanywhere.com/backend/user/profile/",
 		method: "GET",
@@ -299,13 +299,13 @@
 			modal.style.display = "none";
 		}
 	}*/
-	
+
 	function adjustStyle(width) {
 	  width = parseInt(width);
 	  if (width < 900) {
 		$("#size-stylesheet").attr("href", "courgette_base_stylesheet_for_mobile.css");
 	  } else {
-		 $("#size-stylesheet").attr("href", "courgette_base_stylesheet.css"); 
+		 $("#size-stylesheet").attr("href", "courgette_base_stylesheet.css");
 	  }
 	}
 

@@ -698,7 +698,7 @@ form{
 /* The Modal (background) */
 .popup {
     display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
+    position: absolute; /* Stay in place */
     z-index: 1; /* Sit on top */
     left: 0;
     top: 0;
@@ -742,7 +742,7 @@ form{
 	padding: 3%;
     font-size: 24px;
     font-weight: bold;
-	
+
 }
 
 .closebtn:hover,
