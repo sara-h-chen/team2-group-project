@@ -189,7 +189,7 @@ input[type=submit]:hover {
 }
 
 #message_header {
-    text-align: center;
+    text-align: left;
     font-size: 33px;
     width:100%;
 }
@@ -765,7 +765,7 @@ form{
 }
 
 .skinny_popup_header {
-	top: 20%;
+	top: 10%;
     padding: 2px 16px;
 	position: relative;
     background-color: #9aaa57;
@@ -773,6 +773,18 @@ form{
 	margin: auto;
     border: 1px solid #888;
     width: 50%;
+		height: 11%;
+}
+
+.skinny_popup_content {
+	top: 10%;
+	padding: 2px 16px;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 50%;
+		height: 40%;
 }
 
 /* Modal Footer */
@@ -790,7 +802,7 @@ form{
 }
 
 .skinny_popup_footer {
-	top: 20%;
+	top: 10%;
     padding: 2px 16px;
 	position: relative;
     background-color: #343434;
@@ -812,16 +824,6 @@ form{
     padding-bottom: 10px;
     width: 50%;
 	color: #a4b369;
-}
-
-.skinny_popup_content {
-	top: 20%;
-	padding: 2px 16px;
-    position: relative;
-    background-color: #fefefe;
-    margin: auto;
-    border: 1px solid #888;
-    width: 50%;
 }
 
 /*tailored popups css*/

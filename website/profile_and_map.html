@@ -24,26 +24,25 @@
 	<div id="middle">
 		<div id="googleMap" style="position: relative; height:100%;"></div>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKCyGx-fEDia97mNH929xTKG2Ysgc7HtU&callback=createMap"></script>
-		<div id='message_view'>
-			<div id='message_header'></div>
-			<div id='messages'></div>
-			<div id='message_send'>
-				<form id='message_form'>
-					<input type="text" id = 'msg_content' name= 'msg_content'>
-				</form>
-			</div>
-		</div>
+
 		<div id="message_popup" class="popup">
 			<div class="skinny_popup_header">
+				<h2 id=message_header></h2>
 				<span class="close">&times;</span>
-				<h2>Bob Smith</h2>
 			</div>
 			<div class="skinny_popup_content">
-				<p>Message preview blah blah blah ......... this popup is just a tester for Bob Smith only so not applied to others yet. Also possibly adding clickable icon on message preview.</p>
+				<div id='message_view'>
+					<div id='messages'></div>
+				</div>
 			</div>
 			<div class="skinny_popup_footer">
-				<button id="reply_to_message">Reply</button>
-				<button id="delete_message">Delete</button>
+				<div id='message_send'>
+					<form id='message_form'>
+						<input type="text" id = 'msg_content' name= 'msg_content'>
+					</form>
+				</div>
+				<!-- <button id="reply_to_message">Reply</button>
+				<button id="delete_message">Delete</button> -->
 			</div>
 		</div>
 		<div id="community_popup" class="popup">
