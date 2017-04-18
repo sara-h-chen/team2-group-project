@@ -171,7 +171,7 @@ function sendMessage(sender_id,receiver_id,msg_content){
 }
 
 /* ----- MAP ----- */
-var testMarkers = [{"id":1, "lat":54.7753, "long":-1.5849, "highlight":true}, {"id":2, "lat":54.7754, "long":-1.586, "highlight":false}]
+var testMarkers = [{"id":1, "lat":54.7753, "long":-1.5849, "highlight":true}, {"id":2, "lat":54.7754, "long":-1.586, "highlight":false}];
 
 var map;
 var currentLocationMarker;

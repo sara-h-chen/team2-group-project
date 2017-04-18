@@ -205,7 +205,7 @@ input[type=submit]:hover {
 #message_view {
     background: white;
     height:100%;
-    width: 94%;
+    width: 100%;
 }
 
 #contacts {

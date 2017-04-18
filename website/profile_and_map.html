@@ -24,11 +24,10 @@
 	<div id="middle">
 		<div id="googleMap" style="position: relative; height:100%;"></div>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKCyGx-fEDia97mNH929xTKG2Ysgc7HtU&callback=createMap"></script>
-
 		<div id="message_popup" class="popup">
 			<div class="skinny_popup_header">
 				<h2 id=message_header></h2>
-				<span class="close">&times;</span>
+				<span id='message_close' class="close">&times;</span>
 			</div>
 			<div class="skinny_popup_content">
 				<div id='message_view'>
@@ -268,6 +267,11 @@
 		  $('#message_list').hide();
 		  $('#user_item_list').hide();
 	  });
+
+		$("#message_close").click(function(data){
+			$("#message_popup").hide();
+		});
+
 	});
 	</script>
 	<script>
