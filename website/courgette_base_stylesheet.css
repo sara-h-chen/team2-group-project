@@ -202,11 +202,9 @@ input[type=submit]:hover {
 }
 
 #message_view {
-    position: absolute;
     background: white;
-    top: 0px;
     height:100%;
-    width: 100%;
+    width: 94%;
 }
 
 #contacts {
@@ -782,9 +780,19 @@ form{
     position: relative;
     background-color: #fefefe;
     margin: auto;
-    border: 1px solid #888;
     width: 50%;
 		height: 40%;
+}
+
+.skinny_popup_footer {
+	top: 10%;
+    padding: 2px 16px;
+	position: relative;
+    background-color: #343434;
+    color: white;
+	margin: auto;
+    border: 1px solid #888;
+    width: 50%;
 }
 
 /* Modal Footer */
@@ -801,16 +809,7 @@ form{
 	height: 12%;
 }
 
-.skinny_popup_footer {
-	top: 10%;
-    padding: 2px 16px;
-	position: relative;
-    background-color: #343434;
-    color: white;
-	margin: auto;
-    border: 1px solid #888;
-    width: 50%;
-}
+
 
 /* Modal Content */
 .popup_content {
