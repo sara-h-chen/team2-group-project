@@ -3,7 +3,7 @@ function getMessages(ID, init){
   $("#messages").empty();
 	$("#message_header").empty();
 	if (init){
-		$("#message_view").toggle();
+		$("#message_popup").toggle();
 	}
 	url = 'http://localhost:8000/backend/function/'+ID+'/';
 	$.get(url, function(data){
@@ -29,8 +29,17 @@ function getMessages(ID, init){
 function prepareMessage(receiver_username){
 	url = 'http://localhost:8000/backend/user/search/'+receiver_username+'/';
 	$.get(url, function(data){
-		console.log(data);
+		contact=data.id;
 	});
+	var init;
+	if ($("#message_popup").is(":visible")){
+		init = false;
+	}
+	else {
+		init = true;
+	}
+	console.log(contact);
+	getMessages(contact,init);
 }
 
 
