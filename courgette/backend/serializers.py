@@ -31,7 +31,7 @@ class UserCreationSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('username', 'email', 'first_name', 'last_name', 'id')
 
 
 class PreferenceSerializer(serializers.ModelSerializer):
@@ -65,5 +65,3 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ('sender', 'receiver', 'msg_content', 'created_at', 'read', 'id')
-
-

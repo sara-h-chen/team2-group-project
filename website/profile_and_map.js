@@ -26,6 +26,14 @@ function getMessages(ID, init){
   });
 }
 
+function prepareMessage(receiver_username){
+	url = 'http://localhost:8000/backend/user/search/'+receiver_username+'/';
+	$.get(url, function(data){
+		console.log(data);
+	});
+}
+
+
 var mq = window.matchMedia("(min-width: 500px)");
 
 /* Set the width of the side navigation to 300px */

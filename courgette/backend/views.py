@@ -239,7 +239,6 @@ def identify(request, user_id):
         _acao_response(response)
         return response
 
-
 #########################################################
 #                FOOD-RELATED QUERIES                   #
 #########################################################
