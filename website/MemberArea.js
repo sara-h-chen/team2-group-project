@@ -28,7 +28,7 @@ function loadCommunityFood()
 		success:function(food)
 		{
 			communityFood = food;
-			
+
 			for(var i=communityFood.length-1; i>=0; --i)
 			{
 				if(communityFood[i]["user"] == userProfile["username"])
@@ -36,7 +36,7 @@ function loadCommunityFood()
 					communityFood.splice(i, 1);
 				}
 			}
-			
+
 			$.get({
 				url: "http://sarachen.pythonanywhere.com/backend/user/preferences/",
 				headers:{"Authorization":"Token " + getCookie("authToken")},
@@ -48,14 +48,14 @@ function loadCommunityFood()
 				error: function()
 				{
 					alert("Not logged in");
-					window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
+					// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
 				}
 			});
 		},
 		error: function()
 		{
 			alert("Not logged in");
-			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
+			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
 		}
 	});
 }
@@ -65,7 +65,7 @@ function displayCommunityFood()
 	var data = communityFood.slice();
 	var markers = [];
 	$("#community_item_list").empty();
-	
+
 	if($("#community_food_search_box").val() == "")
 	{
 		for(var j=0; j<preferences.length; ++j)
@@ -91,14 +91,14 @@ function displayCommunityFood()
 					Allergens: '+data[i]["allergens"]+'<br>\
 					</div>\
 					<br>');
-					
+
 					markers.push({"lat":data[i]["latitude"], "long":data[i]["longitude"], "highlight":true, "id":data[i]["id"]});
-					
+
 					data.splice(i,1);
 				}
 			}
 		}
-		
+
 		for(var i=0; i<data.length; ++i)
 		{
 			var imageSource = ""
@@ -118,7 +118,7 @@ function displayCommunityFood()
 			Allergens: '+data[i]["allergens"]+'<br>\
 			</div>\
 			<br>');
-			
+
 			markers.push({"lat":data[i]["latitude"], "long":data[i]["longitude"], "highlight":false, "id":data[i]["id"]});
 		}
 	}
@@ -126,7 +126,7 @@ function displayCommunityFood()
 	{
 		var searchScores = [];
 		var searchTerm = $("#community_food_search_box").val();
-		
+
 		for(var i=0; i<data.length; ++i)
 		{
 			var score=0;
@@ -137,10 +137,10 @@ function displayCommunityFood()
 					score++;
 				}
 			}
-			
+
 			searchScores.push(score);
 		}
-		
+
 		for(var i=data.length-1; i>=0; --i)
 		{
 			if(searchScores[i] == 0)
@@ -149,7 +149,7 @@ function displayCommunityFood()
 				searchScores.splice(i,1);
 			}
 		}
-		
+
 		for(var i=0; i<data.length; ++i)
 		{
 			var imageSource = ""
@@ -169,9 +169,9 @@ function displayCommunityFood()
 			Allergens: '+data[i]["allergens"]+'<br>\
 			</div>\
 			<br>');
-			
+
 			var isPref = false;
-			
+
 			for(var j=0; j<preferences.length; ++j)
 			{
 				if(preferences[j]["preference"] == data[i]["food_type"])
@@ -179,7 +179,7 @@ function displayCommunityFood()
 					isPref = true;
 				}
 			}
-			
+
 			markers.push({"lat":data[i]["latitude"], "long":data[i]["longitude"], "highlight":isPref, "id":data[i]["id"]});
 		}
 	}
@@ -276,14 +276,14 @@ function showEditProfileForm()
 	$("#user_item_list").hide();
 	$("#message_list").hide();
 	$("#edit_profile_form").show();
-	
+
 	$("#edit_profile_email").val(userProfile["email"]);
 }
 
 function updateProfile()
 {
 	var profile = {"email":$("#edit_profile_email").val()};
-	
+
 	$.ajax({
 		url: "http://sarachen.pythonanywhere.com/backend/user/profile/",
 		method:"PUT",
@@ -292,13 +292,13 @@ function updateProfile()
 		contentType: "application/json",
 		data: JSON.stringify(profile)
 	});
-	
+
 	var prefEnum = ["VEGE", "SEAFOOD", "MEAT", "COOKED", "FRUIT", "BAKERY", "PASTA_RICE", "DRIED"];
-	
+
 	for(var i=0; i<prefEnum.length; ++i)
 	{
 		var pref = {"preference" : prefEnum[i]};
-		
+
 		if($("#preferenceCheckbox" + i).is(":checked"))
 		{
 			$.ajax({
@@ -322,7 +322,7 @@ function updateProfile()
 			});
 		}
 	}
-	
+
 	showUserFood();
 	loadCommunityFood();
 }
