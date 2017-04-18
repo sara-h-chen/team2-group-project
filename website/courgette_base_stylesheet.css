@@ -196,9 +196,10 @@ input[type=submit]:hover {
 
 #message_send {
     position: absolute;
-    top:90%;
-    height: 3%;
+    height: 100%;
     width:100%;
+		top:10%;
+		left:0%;
 }
 
 #message_view {
@@ -793,6 +794,7 @@ form{
 	margin: auto;
     border: 1px solid #888;
     width: 50%;
+		height: 11%;
 }
 
 /* Modal Footer */
