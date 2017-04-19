@@ -290,7 +290,8 @@ function updateProfile()
 		headers:{"Authorization":"Token " + getCookie("authToken")},
 		dataType: "json",
 		contentType: "application/json",
-		data: JSON.stringify(profile)
+		data: JSON.stringify(profile),
+		error:function(){alert("Invalid email address provided\nEmail address was not changed");}
 	});
 
 	var prefEnum = ["VEGE", "SEAFOOD", "MEAT", "COOKED", "FRUIT", "BAKERY", "PASTA_RICE", "DRIED"];
@@ -428,8 +429,7 @@ function addNewFood()
 			},
 			error: function()
 			{
-				alert("Not logged in");
-				// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+				alert("Unable to edit food\nEnsure all fields were provided and valid");
 			}
 		});
 	}
@@ -452,8 +452,7 @@ function addNewFood()
 			},
 			error: function()
 			{
-				alert("Not logged in");
-				// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+				alert("Unable to edit food\nEnsure all fields were provided and valid");
 			}
 		});
 	}
