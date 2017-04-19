@@ -85,7 +85,7 @@ function displayCommunityFood()
 					}
 					$("#community_item_list").append('<div class="community_item" id="communityItem'+data[i]["id"]+'">\
 					<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
-					<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
+					<img id="message1" class="message_img" src="message_no_notification.png" onclick="prepareMessage(\''+data[i]["user"]+'\')">\
 					<h3>' + data[i]["food_name"] +'('+data[i]["quantity"]+')</h3>\
 					Type: '+data[i]["food_type"]+'<br>\
 					Allergens: '+data[i]["allergens"]+'<br>\
@@ -112,7 +112,7 @@ function displayCommunityFood()
 			}
 			$("#community_item_list").append('<div class="community_item" id="communityItem'+data[i]["id"]+'">\
 			<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
-			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="prepareMessage(\''+data[i]["user"]+'\')">\
 			<h3>' + data[i]["food_name"] +'('+data[i]["quantity"]+')</h3>\
 			Type: '+data[i]["food_type"]+'<br>\
 			Allergens: '+data[i]["allergens"]+'<br>\
@@ -163,7 +163,7 @@ function displayCommunityFood()
 			}
 			$("#community_item_list").append('<div class="community_item" id="communityItem'+data[i]["id"]+'">\
 			<img class="item_img" src="'+imageSource+'" onclick="viewInfo()">\
-			<img id="message1" class="message_img" src="message_no_notification.png" onclick="sendMessage()">\
+			<img id="message1" class="message_img" src="message_no_notification.png" onclick="prepareMessage(\''+data[i]["user"]+'\')">\
 			<h3>' + data[i]["food_name"] +'('+data[i]["quantity"]+')</h3>\
 			Type: '+data[i]["food_type"]+'<br>\
 			Allergens: '+data[i]["allergens"]+'<br>\
