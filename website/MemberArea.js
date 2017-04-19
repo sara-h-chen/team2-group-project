@@ -291,6 +291,10 @@ function updateProfile()
 		dataType: "json",
 		contentType: "application/json",
 		data: JSON.stringify(profile),
+		success:function()
+		{
+			userProfile["email"] = $("#edit_profile_email").val();
+		},
 		error:function(){alert("Invalid email address provided\nEmail address was not changed");}
 	});
 
