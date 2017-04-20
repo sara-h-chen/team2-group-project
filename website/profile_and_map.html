@@ -164,9 +164,6 @@
 			<button onclick="updateProfile()">Submit</button>
 		</div>
 		<div id="message_list">
-			<div id='contacts'>
-
-			</div>
 	  </div>
 		<div></div>
 	  <div id="icons">
@@ -247,7 +244,6 @@
 			return false;
 		});
 	  // Hide div 2 by default
-		$("#contacts").hide();
 	  $('#message_list').hide();
 		$("#message_popup").hide();
 
@@ -255,18 +251,15 @@
 	      $('#user_item_list').hide();
 	     	$('#message_list').show();
 		  	$('#new_food_form').hide();
-				$("#contacts").show();
 	  });
 
 	  $('#items_button').click(function(){
-				$("#contacts").hide();
 	      $('#message_list').hide();
 	      $('#user_item_list').show();
 		  	$('#new_food_form').hide();
 	  });
 
 	  $('#add_button').click(function(){
-			$("#contacts").hide();
 		  $('#message_list').hide();
 		  $('#user_item_list').hide();
 	  });

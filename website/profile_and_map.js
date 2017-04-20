@@ -1,8 +1,9 @@
-function getMessages(ID, init){
+function getMessages(ID){
 	contact=ID;
   $("#messages").empty();
 	$("#message_header").empty();
-	if (init){
+	var init;
+	if (!($("#message_popup").is(":visible"))){
 		$("#message_popup").toggle();
 	}
 	url = 'http://localhost:8000/backend/function/'+ID+'/';
@@ -29,17 +30,9 @@ function getMessages(ID, init){
 function prepareMessage(receiver_username){
 	url = 'http://localhost:8000/backend/user/search/'+receiver_username+'/';
 	$.get(url, function(data){
-		contact=data.id;
+		messageContact=data.id;
+		getMessages(messageContact);
 	});
-	var init;
-	if ($("#message_popup").is(":visible")){
-		init = false;
-	}
-	else {
-		init = true;
-	}
-	console.log(contact);
-	getMessages(contact,init);
 }
 
 
@@ -132,11 +125,9 @@ function updateMessages(userID){
 				url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
 				$.get(url, function(data){
 					name= data.username;
-					$('#contacts').append("<div id='"+contacts[item]+"' onclick=getMessages("+contacts[item]+",true)>"+data.username+"</div>");
 					url = 'http://localhost:8000/backend/function/latestMessageBetween/';
 					$.post(url,{'a':userID,'b':contacts[item]},function(message){
-						console.log(message);
-						$("#message_list").append("<div class='message' id='message"+message[0]['id']+"'></div>");
+						$("#message_list").append("<div onclick='getMessages("+contacts[item]+")' class='message' id='message"+message[0]['id']+"'></div>");
 						$("#message"+message[0]['id']).append("<p class='sender_name' id='name"+contacts[item]+"'>"+data.username+"</p>");
 						$("#message"+message[0]['id']).append("<p class='sender_preview'>"+message[0]['msg_content']+"<p");
 						$("#message_list").append("<hr style='height:0.2%; visibility:hidden;'/>");
@@ -182,8 +173,7 @@ function sendMessage(sender_id,receiver_id,msg_content){
 		'receiver_id':receiver_id,
 		'msg_content':msg_content
 	},function(data){
-		getMessages(receiver_id,false);
-		console.log(data);
+		getMessages(receiver_id);
 	});
 }
 
@@ -247,7 +237,6 @@ function setMarkers(markers) {
 	var markerIcon = "marker_icon.png";
 	var highlightedMarkerIcon = "highlighted_marker_icon.png";
 	for (var i = 0; i < markers.length; i++) {
-		console.log(markers[i]);
 		var markerPosition = new google.maps.LatLng(markers[i]["lat"], markers[i]["long"]);
 		if (markers[i].highlight) {
 			var marker = new google.maps.Marker({position:markerPosition, icon:highlightedMarkerIcon, id:markers[i].id});
