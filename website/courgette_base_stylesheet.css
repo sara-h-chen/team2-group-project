@@ -248,6 +248,11 @@ input[type=submit]:hover {
 	color: #aaaaaa;
 }
 
+#edit_profile_form {
+	height: 58vh;
+	color: #aaaaaa;
+}
+
 #message_list {
 	height: 58vh;
 	color: #aaaaaa;
