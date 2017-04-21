@@ -6,12 +6,12 @@ function getMessages(ID){
 	if (!($("#message_popup").is(":visible"))){
 		$("#message_popup").toggle();
 	}
-	url = 'http://localhost:8000/backend/function/'+ID+'/';
+	url = 'http://sarachen.pythonanywhere.com/backend/function/'+ID+'/';
 	$.get(url, function(data){
 		username=data.username;
 		$("#message_header").append(username);
 	});
-  url = 'http://localhost:8000/backend/function/messagesBetween/';
+  url = 'http://sarachen.pythonanywhere.com/backend/function/messagesBetween/';
   $.post(url,{
     'userA':userID,
     'userB':ID
@@ -33,7 +33,7 @@ function getMessages(ID){
 }
 
 function prepareMessage(receiver_username){
-	url = 'http://localhost:8000/backend/user/search/'+receiver_username+'/';
+	url = 'http://sarachen.pythonanywhere.com/backend/user/search/'+receiver_username+'/';
 	$.get(url, function(data){
 		messageContact=data.id;
 		getMessages(messageContact);
@@ -161,20 +161,20 @@ function addItem() {
 
 function updateMessages(userID){
 	$("#message_list").empty();
-  url = 'http://localhost:8000/backend/function/'+userID+'/';
+  url = 'http://sarachen.pythonanywhere.com/backend/function/'+userID+'/';
 	$.get(url, function(user){
 		username = user.username;
-		url = 'http://localhost:8000/backend/user/'+username+'/contacts/';
+		url = 'http://sarachen.pythonanywhere.com/backend/user/'+username+'/contacts/';
 		$.get(url,function(contacts){
 			console.log(contacts);
 			contacts.sort(function(a,b){
 				return
 			})
 			$(contacts).each(function(item){
-				url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
+				url = 'http://sarachen.pythonanywhere.com/backend/function/'+contacts[item]+'/';
 				$.get(url, function(data){
 					name= data.username;
-					url = 'http://localhost:8000/backend/function/latestMessageBetween/';
+					url = 'http://sarachen.pythonanywhere.com/backend/function/latestMessageBetween/';
 					$.post(url,{'a':userID,'b':contacts[item]},function(message){
 						$("#message_list").append("<div onclick='getMessages("+contacts[item]+")' class='message' id='message"+message[0]['id']+"'></div>");
 						$("#message"+message[0]['id']).append("<p class='sender_name' id='name"+contacts[item]+"'>"+data.username+"</p>");
@@ -216,7 +216,7 @@ window.onresize = function(event) {
 };
 
 function sendMessage(sender_id,receiver_id,msg_content){
-	url = 'http://localhost:8000/backend/user/messages/add/';
+	url = 'http://sarachen.pythonanywhere.com/backend/user/messages/add/';
 	$.post(url,{
 		'sender_id':sender_id,
 		'receiver_id':receiver_id,
