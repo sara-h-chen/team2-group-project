@@ -86,16 +86,20 @@ function logOut()
 function closeProfileMenu() {
 	windowWidth = $(window).width();
 	document.getElementById("profile_menu").style.width = "0";
-	if (mobile.match) {
+	if (mobile.matches) {
 		if (document.getElementById("item_menu").style.width == "300px"){
+			/*
 			document.getElementById("middle").style.left=String(300)+'px';
 			document.getElementById("middle").style.width=String(windowWidth*0.94-300+windowWidth*0.03)+'px';
+			*/
 			document.getElementById("middle").style.width='86%';/*for mobile tabs*/
 			document.getElementById("middle").style.left='7%';
 		}
 		else{
+			/*
 			document.getElementById("middle").style.left=String(windowWidth*0.03)+'px';
 			document.getElementById("middle").style.width=String(windowWidth*0.94)+'px';
+			*/
 			document.getElementById("middle").style.width='86%';/*for mobile tabs*/
 			document.getElementById("middle").style.left='7%';
 		}
@@ -116,7 +120,7 @@ function closeProfileMenu() {
 function closeItemMenu() {
 	windowWidth = $(window).width();
     document.getElementById("item_menu").style.width = "0";
-	if (mobile.match) {
+	if (mobile.matches) {
 		if (document.getElementById("profile_menu").style.width == "300px"){
 			document.getElementById("middle").style.left=String(windowWidth*0.03)+'px';
 			document.getElementById("middle").style.width=String(windowWidth*0.94-300+windowWidth*0.03)+'px';
