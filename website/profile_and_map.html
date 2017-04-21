@@ -76,35 +76,7 @@
 		</div>
 	  </div>
 		<div id='user_item_list' style="overflow-y:scroll;">
-		  <div class="user_item"><!-- example hard code displaying how items should look in list !-->
-			<img class="del_img" alt="Delete Item" src="delete_icon.png" onclick="deleteFoodItem()">
-			<img class="edit_img" alt="Edit Item" src="edit_icon.png" onclick="showEditFoodForm()">
-			<img class="type_img" alt="Type of Item" src="veg_icon.png">
-			<h3>Baguette</h3>
-			<p>Amount: 1</p>
-			<p>Type: BAKERY</p>
-			<p>Allergens: GLUTEN</p>
-		  </div>
-		  <hr style="height:0.6%; visibility:hidden;"/><!--adds space between individual items!-->
-		  <div class="user_item">
-		    <img class="del_img" alt="Delete Item" src="delete_icon.png" onclick="deleteFoodItem()">
-			<img class="edit_img" alt="Edit Item" src="edit_icon.png" onclick="showEditFoodForm()">
-			<img class="type_img" alt="Type of Item" src="veg_icon.png">
-			<h3>Potatoes</h3>
-			<p>Amount: 10</p>
-			<p>Type: OTHER</p>
-			<p>Allergens: NONE</p>
-		  </div>
-		  <hr style="height:0.6%; visibility:hidden;"/><!--adds space between individual items!-->
-		  <div class="user_item">
-		    <img class="del_img" alt="Delete Item" src="delete_icon.png" onclick="deleteFoodItem()">
-			<img class="edit_img" alt="Edit Item" src="edit_icon.png" onclick="showEditFoodForm()">
-			<img class="type_img" alt="Type of Item" src="veg_icon.png">
-			<h3>Cherries</h3>
-			<p>Amount: 12</p>
-			<p>Type: FRUIT</p>
-			<p>Allergens: NONE</p>
-		  </div>
+		  
 		</div>
 		<div id="message_list" style="overflow-y:scroll;">
 			<!-- <div class="message" id="message1">
@@ -162,6 +134,7 @@
 			<input type="checkbox" id="preferenceCheckbox6">Pasta/Rice<br>
 			<input type="checkbox" id="preferenceCheckbox7">Dried<br>
 			<button onclick="updateProfile()">Submit</button>
+			<a href="http://sarachen.pythonanywhere.com/password_reset"><button>Reset Password</button></a>
 		</div>
 		<div id="message_list">
 	  </div>
@@ -179,34 +152,6 @@
 		Nearby Food Items:<br>
 		<input type="text" id="community_food_search_box" placeholder="Search"><br>
 	  <div id="community_item_list" style="overflow-y:scroll;">
-	    <!-- example hard code displaying how items should look in list !-->
-	    <div class="community_item">
-		  <img class="item_img" alt="Item Image" src="example_tomato.jpg" onclick="viewInfo()">
-		  <img id="message1" alt="Send Message" class="message_img" src="message_no_notification.png" onclick="prepareMessage('Eve')">
-		  <h3>Tomatoes</h3>
-		  <p>Amount: 2</p>
-		  <p>Type: VEGE</p>
-		  <p>Allergens: NONE</p>
-		</div>
-		<hr style="height:0.6%; visibility:hidden;"/><!--adds space between individual items!-->
-		<div class="community_item">
-		  <img class="item_img" alt="Item Image" src="example_cheese.jpg" onclick="viewInfo()">
-		  <img id="message2" alt="Send Message" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-		  <h3>Very Long Item Name</h3>
-		  <p>Amount: 1</p>
-		  <p>Type: OTHER</p>
-		  <p>Allergens: NON_VEGAN</p>
-	    </div>
-		<hr style="height:0.6%; visibility:hidden;"/>
-	    <div class="community_item">
-		  <img class="item_img" alt="Item Image" src="example_broccoli.jpg" onclick="viewInfo()">
-		  <img id="message3" alt="Send Message" class="message_img" src="message_no_notification.png" onclick="sendMessage()">
-		  <h3>dfghjk</h3>
-		  <p>Amount: 100</p>
-		  <p>Type: PASTA_RICE</p>
-		  <p>Allergens: GLUTEN</p>
-		</div>
-		<!--MUST FIX HOW THIS TRANSLATES TO MOBILE!-->
 	</div>
 	</div>
 
@@ -249,19 +194,9 @@
 
 	  $('#message_button').click(function(){
 	      $('#user_item_list').hide();
+		  $("#edit_profile_form").hide();
 	     	$('#message_list').show();
 		  	$('#new_food_form').hide();
-	  });
-
-	  $('#items_button').click(function(){
-	      $('#message_list').hide();
-	      $('#user_item_list').show();
-		  	$('#new_food_form').hide();
-	  });
-
-	  $('#add_button').click(function(){
-		  $('#message_list').hide();
-		  $('#user_item_list').hide();
 	  });
 
 		$("#message_close").click(function(data){

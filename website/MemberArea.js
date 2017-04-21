@@ -187,6 +187,8 @@ function displayCommunityFood()
 	setMarkers(markers);
 }
 
+setInterval(loadCommunityFood, 5000);
+
 var currentSearch = "";
 
 function checkSearch()
