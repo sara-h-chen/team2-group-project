@@ -37,6 +37,7 @@ function prepareMessage(receiver_username){
 
 
 var mq = window.matchMedia("(min-width: 500px)");
+var mobile = window.matchMedia("(max-width: 800px)");
 
 /* Set the width of the side navigation to 300px */
 function openItemMenu() {
@@ -85,7 +86,21 @@ function logOut()
 function closeProfileMenu() {
 	windowWidth = $(window).width();
 	document.getElementById("profile_menu").style.width = "0";
-	if (document.getElementById("item_menu").style.width == "300px"){
+	if (mobile.match) {
+		if (document.getElementById("item_menu").style.width == "300px"){
+			document.getElementById("middle").style.left=String(300)+'px';
+			document.getElementById("middle").style.width=String(windowWidth*0.94-300+windowWidth*0.03)+'px';
+			document.getElementById("middle").style.width='86%';/*for mobile tabs*/
+			document.getElementById("middle").style.left='7%';
+		}
+		else{
+			document.getElementById("middle").style.left=String(windowWidth*0.03)+'px';
+			document.getElementById("middle").style.width=String(windowWidth*0.94)+'px';
+			document.getElementById("middle").style.width='86%';/*for mobile tabs*/
+			document.getElementById("middle").style.left='7%';
+		}
+	}
+	else if (document.getElementById("item_menu").style.width == "300px"){
 		document.getElementById("middle").style.left=String(300)+'px';
 		document.getElementById("middle").style.width=String(windowWidth*0.94-300+windowWidth*0.03)+'px';
 	}
@@ -99,16 +114,30 @@ function closeProfileMenu() {
 
 /* Set the width of the side navigation to 0 */
 function closeItemMenu() {
-		windowWidth = $(window).width();
+	windowWidth = $(window).width();
     document.getElementById("item_menu").style.width = "0";
+	if (mobile.match) {
 		if (document.getElementById("profile_menu").style.width == "300px"){
 			document.getElementById("middle").style.left=String(windowWidth*0.03)+'px';
 			document.getElementById("middle").style.width=String(windowWidth*0.94-300+windowWidth*0.03)+'px';
+			document.getElementById("middle").style.width='86%';/*for mobile tabs*/
+			document.getElementById("middle").style.left='7%';
 		}
 		else{
 			document.getElementById("middle").style.left=String(windowWidth*0.03)+'px';
 			document.getElementById("middle").style.width=String(windowWidth*0.94)+'px';
+			document.getElementById("middle").style.width='86%';/*for mobile tabs*/
+			document.getElementById("middle").style.left='7%';
 		}
+	}
+	else if (document.getElementById("profile_menu").style.width == "300px"){
+		document.getElementById("middle").style.left=String(windowWidth*0.03)+'px';
+		document.getElementById("middle").style.width=String(windowWidth*0.94-300+windowWidth*0.03)+'px';
+	}
+	else{
+		document.getElementById("middle").style.left=String(windowWidth*0.03)+'px';
+		document.getElementById("middle").style.width=String(windowWidth*0.94)+'px';
+	}
 }
 
 function addItem() {
