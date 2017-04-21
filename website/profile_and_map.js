@@ -35,6 +35,10 @@ function prepareMessage(receiver_username){
 	});
 }
 
+function setUserID(ID){
+		userID=ID;
+		updateMessages(ID)
+}
 
 var mq = window.matchMedia("(min-width: 500px)");
 var mobile = window.matchMedia("(max-width: 800px)");
@@ -149,6 +153,7 @@ function addItem() {
 }
 
 function updateMessages(userID){
+	$("#message_list").empty();
   url = 'http://localhost:8000/backend/function/'+userID+'/';
 	$.get(url, function(user){
 		username = user.username;
