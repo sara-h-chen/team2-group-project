@@ -16,6 +16,10 @@ function getMessages(ID){
     'userA':userID,
     'userB':ID
   },function(messages){
+		messages.sort(function(a,b){
+			console.log('loop');
+			return a['id']-b['id'];
+		})
     $(messages).each(function(message){
       if (messages[message]['sender']==userID){
         $("#messages").append("<div id='"+messages[message]['id']+"' class=sentMessage><p class='sentText'>"+messages[message]['msg_content']+"</p></div>");
