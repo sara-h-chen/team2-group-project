@@ -380,7 +380,8 @@ img {
 /*formatting of individual community items*/
 .community_item {
 	background-color: #222222;
-	height: 22%;
+	height: 23%;
+	padding-bottom: 6%;
 }
 
 .community_item img {
@@ -406,7 +407,7 @@ img {
 .community_item h3 {
 	color: white;
 	line-height: 0.8em;
-	font-size: 93%;
+	font-size: 90%;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
