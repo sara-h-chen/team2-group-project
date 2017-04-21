@@ -29,6 +29,7 @@
 			<div class="skinny_popup_header">
 				<h2 id=message_header></h2>
 				<span id='message_close' class="close">&times;</span>
+				<span id='message_reload' class="close" style="top:-23%;right:93%;">R</span>
 			</div>
 			<div class="skinny_popup_content">
 				<div id='message_view'>
@@ -76,7 +77,7 @@
 		</div>
 	  </div>
 		<div id='user_item_list' style="overflow-y:scroll;">
-		  
+
 		</div>
 		<div id="message_list" style="overflow-y:scroll;">
 			<!-- <div class="message" id="message1">
@@ -201,6 +202,12 @@
 
 		$("#message_close").click(function(data){
 			$("#message_popup").hide();
+			updateMessages(userID);
+		});
+
+		$("#message_reload").click(function(data){
+			getMessages(contact);
+			updateMessages(userID);
 		});
 
 	});

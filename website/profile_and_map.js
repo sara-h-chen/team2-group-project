@@ -17,7 +17,6 @@ function getMessages(ID){
     'userB':ID
   },function(messages){
 		messages.sort(function(a,b){
-			console.log('loop');
 			return a['id']-b['id'];
 		})
     $(messages).each(function(message){
@@ -29,6 +28,8 @@ function getMessages(ID){
       }
     });
   });
+	var element = document.getElementById("messages");
+	element.scrollTop = element.offsetHeight;
 }
 
 function prepareMessage(receiver_username){
@@ -63,6 +64,7 @@ function openItemMenu() {
 	} else {
 		document.getElementById("item_menu").style.width = "100%";
 	}
+	updateMessages(userID);
 }
 
 
@@ -82,6 +84,7 @@ function openProfileMenu() {
 	} else {
 		document.getElementById("profile_menu").style.width = "100%";
 	}
+	updateMessages(userID);
 }
 
 function logOut()
@@ -163,6 +166,10 @@ function updateMessages(userID){
 		username = user.username;
 		url = 'http://localhost:8000/backend/user/'+username+'/contacts/';
 		$.get(url,function(contacts){
+			console.log(contacts);
+			contacts.sort(function(a,b){
+				return
+			})
 			$(contacts).each(function(item){
 				url = 'http://localhost:8000/backend/function/'+contacts[item]+'/';
 				$.get(url, function(data){
@@ -216,6 +223,7 @@ function sendMessage(sender_id,receiver_id,msg_content){
 		'msg_content':msg_content
 	},function(data){
 		getMessages(receiver_id);
+		updateMessages(userID);
 	});
 }
 
