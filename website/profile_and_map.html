@@ -184,6 +184,8 @@
 
 	$(document).ready(function(){
 		updateMessages(userID)
+		openProfileMenu();
+		closeProfileMenu();
 		$("#message_form").submit(function(event){
 			sendMessage(userID,contact,$("#msg_content").val())
 			document.getElementById('message_form').reset();
