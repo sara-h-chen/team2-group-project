@@ -4,8 +4,10 @@ function getMessages(ID){
 	if (windowWidth<800){
 		closeItemMenu();
 		closeProfileMenu();
+		document.getElementById("message_reload").style.left = '0%';
+		document.getElementById("message_reload").style.top = '1%';
 	}
-  $("#messages").empty();
+  	$("#messages").empty();
 	$("#message_header").empty();
 	var init;
 	if (!($("#message_popup").is(":visible"))){

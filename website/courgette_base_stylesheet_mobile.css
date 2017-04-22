@@ -854,7 +854,8 @@ form{
     background-color: #fefefe;
     margin: auto;
     border: 1px solid #888;
-    width: 50%;
+    width: 47%;
+    left: -2%;
 }
 
 /*tailored popups css*/
