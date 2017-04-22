@@ -1,5 +1,10 @@
 function getMessages(ID){
 	contact=ID;
+	windowWidth = $(window).width();
+	if (windowWidth<800){
+		closeItemMenu();
+		closeProfileMenu();
+	}
   $("#messages").empty();
 	$("#message_header").empty();
 	var init;
