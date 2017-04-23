@@ -48,14 +48,14 @@ function loadCommunityFood()
 				error: function()
 				{
 					alert("Not logged in");
-					// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
+					window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
 				}
 			});
 		},
 		error: function()
 		{
 			alert("Not logged in");
-			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
+			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html"); //TODO remove for final online version necesary to comment out for offline testing
 		}
 	});
 }
@@ -250,7 +250,7 @@ function showUserFood()
 		error: function()
 		{
 			alert("Not logged in");
-			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 		}
 	});
 	editing = -1;
@@ -399,7 +399,7 @@ function deleteFoodItem(id)
 		error: function()
 		{
 			alert("Not logged in");
-			// window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
+			window.location.replace("http://community.dur.ac.uk/thomas.preston/website/index.html");
 		}
 	});
 }
