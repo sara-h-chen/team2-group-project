@@ -1,3 +1,9 @@
+function sortList(){
+	setTimeout(function () {
+        tinysort('#message_list > div',{attr: 'id', order:'desc'});
+    }, 500);
+}
+
 function getMessages(ID){
 	contact=ID;
 	windowWidth = $(window).width();
