@@ -31,7 +31,7 @@ function getMessages(ID){
   },function(messages){
 		messages.sort(function(a,b){
 			return a['id']-b['id'];
-		})
+		});
     $(messages).each(function(message){
       if (messages[message]['sender']==userID){
         $("#messages").append("<div id='"+messages[message]['id']+"' class=sentMessage><p class='sentText'>"+messages[message]['msg_content']+"</p></div>");
@@ -56,6 +56,7 @@ function prepareMessage(receiver_username){
 function setUserID(ID){
 		userID=ID;
 		updateMessages(ID)
+		sortList();
 }
 
 var mq = window.matchMedia("(min-width: 500px)");
@@ -78,6 +79,7 @@ function openItemMenu() {
 		document.getElementById("item_menu").style.width = "100%";
 	}
 	updateMessages(userID);
+	sortList();
 }
 
 
@@ -98,6 +100,7 @@ function openProfileMenu() {
 		document.getElementById("profile_menu").style.width = "100%";
 	}
 	updateMessages(userID);
+	sortList();
 }
 
 function logOut()
@@ -250,6 +253,7 @@ function sendMessage(sender_id,receiver_id,msg_content){
 	},function(data){
 		getMessages(receiver_id);
 		updateMessages(userID);
+		sortList();
 	});
 }
 
