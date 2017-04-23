@@ -195,6 +195,7 @@
 		  $("#edit_profile_form").hide();
 	     	$('#message_list').show();
 		  	$('#new_food_form').hide();
+				sortList();
 	  });
 
 		$("#message_close").click(function(data){
@@ -205,6 +206,7 @@
 		$("#message_reload").click(function(data){
 			getMessages(contact);
 			updateMessages(userID);
+			sortList();
 		});
 
 	});
