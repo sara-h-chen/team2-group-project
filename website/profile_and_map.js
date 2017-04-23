@@ -187,12 +187,25 @@ function updateMessages(userID){
 				url = 'http://sarachen.pythonanywhere.com/backend/function/'+contacts[item]+'/';
 				$.get(url, function(data){
 					name= data.username;
-					url = 'http://sarachen.pythonanywhere.com/backend/function/latestMessageBetween/';
-					$.post(url,{'a':userID,'b':contacts[item]},function(message){
-						$("#message_list").append("<div onclick='getMessages("+contacts[item]+")' class='message' id='message"+message[0]['id']+"'></div>");
-						$("#message"+message[0]['id']).append("<p class='sender_name' id='name"+contacts[item]+"'>"+data.username+"</p>");
-						$("#message"+message[0]['id']).append("<p class='sender_preview'>"+message[0]['msg_content']+"<p");
-						$("#message_list").append("<hr style='height:0.2%; visibility:hidden;'/>");
+					url = 'http://localhost:8000/backend/function/messagesBetween/';
+				  $.post(url,{
+				    'userA':userID,
+				    'userB':contacts[item]
+				  },function(messages){
+						var mostRecentMessage;
+						var mID =-1;
+						var l = messages.length;
+						var i;
+						for (i=0;i<l;i++){
+							if (mID<messages[i]['id']){
+								mID= messages[i]['id'];
+								mostRecentMessage=messages[i];
+							}
+						}
+						$("#message_list").append("<div onclick='getMessages("+contacts[item]+")' class='message' id='message"+mostRecentMessage['id']+'n'+"'></div>");
+						$("#message"+mostRecentMessage['id']+'n').append("<p class='sender_name' id='name"+contacts[item]+"'>"+data.username+"</p>");
+						$("#message"+mostRecentMessage['id']+'n').append("<p class='sender_preview'>"+mostRecentMessage['msg_content']+"<p");
+						$("#message_list").append("<div style='height:2%; visibility:hidden;' id='"+'message'+mostRecentMessage['id']+"'></div>");
 					});
 				});
 			});
